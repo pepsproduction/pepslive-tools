@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PEPS LIVE PRODUCTION ศูนย์รวม OBS Dock UI, Sport Scoreboard, อุปกรณ์ไลฟ์ และคู่มือสำหรับทีมโปรดักชันกีฬา" />
+  <meta name="keywords" content="PEPS LIVE, Pepsproduction, OBS Dock UI, Sport Scoreboard, Live Streaming, Football Scoreboard, Basketball Scoreboard, OBS WebSocket" />
+  <meta name="author" content="Pepsproduction" />
+  <meta property="og:title" content="PEPS LIVE PRODUCTION | OBS Dock UI Sport Scoreboard" />
+  <meta property="og:description" content="Dock UI และเครื่องมือไลฟ์กีฬาสำหรับทีมโปรดักชันยุคใหม่ ใช้งานฟรี และร่วมสนับสนุนได้ตามกำลัง" />
+  <meta property="og:type" content="website" />
+  <title>PEPS LIVE PRODUCTION | OBS Dock UI Sport Scoreboard</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#070707;
+      --bg2:#101010;
+      --panel:#141414;
+      --panel2:#1b1b1b;
+      --text:#ffffff;
+      --muted:#b8b8b8;
+      --muted2:#838383;
+      --orange:#ff4d00;
+      --orange2:#ff7a18;
+      --cream:#fff3ea;
+      --line:rgba(255,255,255,.12);
+      --oline:rgba(255,77,0,.48);
+      --shadow:0 26px 80px rgba(0,0,0,.42);
+      --max:1180px;
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"IBM Plex Sans Thai", system-ui, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 86% -8%, rgba(255,77,0,.34), transparent 34%),
+        radial-gradient(circle at 0% 70%, rgba(255,77,0,.16), transparent 30%),
+        linear-gradient(180deg,#050505,#0b0b0b 42%,#060606);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(120deg,transparent 0 9%,rgba(255,77,0,.7) 9% 10%,transparent 10% 100%),
+        linear-gradient(305deg,transparent 0 83%,rgba(255,77,0,.55) 83% 84.2%,transparent 84.2% 100%);
+      opacity:.6;
+      z-index:-2;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 78%);
+      z-index:-1;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(var(--max),calc(100% - 36px));margin:0 auto}
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(7,7,7,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:22px;
+    }
+    .brand{display:flex;align-items:center;gap:14px;min-width:230px}
+    .brand img{width:164px;max-height:54px;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(0,0,0,.55))}
+    .menu{display:flex;align-items:center;gap:22px;font-size:14px;color:#d7d7d7}
+    .menu a{opacity:.85;transition:.2s}
+    .menu a:hover{color:#ffb089;opacity:1}
+
+    .btn{
+      min-height:46px;
+      padding:0 20px;
+      border-radius:999px;
+      border:1px solid transparent;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"Prompt",sans-serif;
+      font-weight:700;
+      cursor:pointer;
+      transition:.22s;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg,var(--orange),var(--orange2));
+      box-shadow:0 16px 42px rgba(255,77,0,.28);
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 24px 58px rgba(255,77,0,.42)}
+    .btn-ghost{color:#ffb089;border-color:var(--oline);background:rgba(255,77,0,.055)}
+    .btn-ghost:hover{background:rgba(255,77,0,.13);transform:translateY(-2px)}
+    .hamburger{
+      display:none;width:46px;height:46px;border-radius:16px;border:1px solid var(--oline);
+      color:var(--orange);background:rgba(255,77,0,.065);font-size:26px
+    }
+    .mobile-menu{display:none;border-top:1px solid var(--line);padding:10px 0 18px}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:12px 0;color:#ddd}
+
+    .hero{padding:78px 0 42px}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:11px;padding:9px 14px;border:1px solid var(--oline);
+      background:rgba(255,77,0,.075);color:#ffe1d1;border-radius:999px;font-family:"Chakra Petch","Prompt",sans-serif;
+      font-weight:700;margin-bottom:22px
+    }
+    .dot{width:9px;height:9px;border-radius:99px;background:var(--orange);box-shadow:0 0 22px rgba(255,77,0,1)}
+    h1{
+      font-family:"Prompt",sans-serif;
+      font-size:clamp(40px,6vw,76px);
+      line-height:1;
+      letter-spacing:-2.2px;
+      font-weight:900;
+      margin-bottom:20px;
+    }
+    .orange{color:var(--orange)}
+    .hero-lead{max-width:700px;color:#e8e8e8;font-size:clamp(18px,2vw,22px);line-height:1.72;margin-bottom:14px}
+    .hero-sub{max-width:680px;color:var(--muted);font-size:16px;line-height:1.82;margin-bottom:28px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+    .trust-row{display:flex;flex-wrap:wrap;gap:10px;color:#d5d5d5}
+    .trust-pill{
+      min-height:36px;display:inline-flex;align-items:center;gap:8px;padding:0 13px;border-radius:999px;
+      background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:13px
+    }
+    .trust-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange)}
+
+    .dashboard{
+      border:1px solid var(--oline);
+      border-radius:32px;
+      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035)),#101010;
+      box-shadow:var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .dashboard::before{
+      content:"";
+      position:absolute;inset:-40%;
+      background:repeating-linear-gradient(120deg,transparent 0 28px,rgba(255,77,0,.13) 28px 31px);
+      opacity:.55;z-index:-1;animation:slideLines 18s linear infinite
+    }
+    @keyframes slideLines{from{transform:translateX(-40px) rotate(-2deg)}to{transform:translateX(40px) rotate(-2deg)}}
+
+    .screen{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:rgba(0,0,0,.44);
+      padding:20px;
+      backdrop-filter:blur(16px)
+    }
+    .screen-top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}
+    .live-badge{
+      background:rgba(255,77,0,.14);border:1px solid var(--oline);color:#ffb089;border-radius:999px;
+      min-height:32px;padding:0 11px;display:inline-flex;align-items:center;font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:13px
+    }
+    .screen-logo{width:220px;max-height:76px;object-fit:contain}
+    .scoreboard{
+      display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:16px 0
+    }
+    .team,.score{
+      min-height:58px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid var(--line);
+      display:flex;align-items:center;font-family:"Chakra Petch",sans-serif;font-weight:700
+    }
+    .team{padding:0 16px}.team.right{justify-content:flex-end}
+    .score{justify-content:center;min-width:126px;font-size:34px;color:#fff;background:rgba(255,77,0,.12);border-color:var(--oline)}
+    .control-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+    .control{
+      border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:16px;padding:14px
+    }
+    .control span{display:block;color:var(--muted2);font-size:12px;margin-bottom:4px}
+    .control strong{font-family:"Chakra Petch",sans-serif;font-size:20px}
+    .strip{
+      margin-top:16px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--orange2));
+      padding:16px 18px;font-family:"Chakra Petch",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px
+    }
+
+    section{padding:66px 0}
+    .section-head{
+      display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:28px
+    }
+    .kicker{
+      font-family:"Chakra Petch",sans-serif;color:var(--orange);font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+      font-size:13px;margin-bottom:9px
+    }
+    .section-title{
+      font-family:"Prompt",sans-serif;font-weight:900;letter-spacing:-1.5px;line-height:1.05;
+      font-size:clamp(30px,4.5vw,54px)
+    }
+    .section-desc{max-width:540px;color:var(--muted);line-height:1.78}
+
+    .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .step-card{
+      border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:var(--radius);padding:22px;
+      display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start
+    }
+    .step-num{
+      width:44px;height:44px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--orange),var(--orange2));font-family:"Chakra Petch",sans-serif;font-weight:700
+    }
+    .step-card h3{font-family:"Prompt",sans-serif;font-size:21px;margin-bottom:4px}
+    .step-card p{color:var(--muted);line-height:1.65;font-size:14px}
+
+    .featured-tool{
+      border:1px solid var(--oline);border-radius:32px;background:
+        radial-gradient(circle at 90% 10%,rgba(255,77,0,.22),transparent 32%),
+        linear-gradient(135deg,rgba(255,77,0,.12),rgba(255,255,255,.055)),
+        #111;
+      padding:30px;
+      display:grid;grid-template-columns:1.1fr .9fr;gap:24px;box-shadow:var(--shadow)
+    }
+    .tool-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .pill{
+      min-height:30px;padding:0 11px;border-radius:999px;border:1px solid var(--oline);
+      color:#ffb089;background:rgba(255,77,0,.08);display:inline-flex;align-items:center;
+      font-family:"Chakra Petch",sans-serif;font-size:13px;font-weight:700
+    }
+    .pill.soon{border-color:var(--line);color:#aaa;background:rgba(255,255,255,.055)}
+    .featured-tool h3{font-family:"Prompt",sans-serif;font-size:clamp(28px,4vw,44px);line-height:1.08;margin-bottom:14px}
+    .featured-tool p{color:#d7d7d7;line-height:1.82;margin-bottom:18px}
+    .tool-actions{display:flex;flex-wrap:wrap;gap:10px}
+    .preview-panel{
+      border:1px solid var(--line);border-radius:24px;background:rgba(0,0,0,.3);padding:18px
+    }
+    .preview-row{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .preview-box{height:52px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.06);flex:1}
+    .preview-score{height:96px;border:1px solid var(--oline);border-radius:18px;background:rgba(255,77,0,.12);display:grid;place-items:center;font-family:"Chakra Petch";font-size:38px;font-weight:700}
+
+    .tool-library{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .tool-card,.gear-card,.support-card{
+      border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.055);padding:22px;
+      transition:.22s;position:relative;overflow:hidden
+    }
+    .tool-card:hover,.gear-card:hover{transform:translateY(-5px);border-color:var(--oline);background:rgba(255,255,255,.075)}
+    .tool-card h3,.gear-card h3{font-family:"Prompt",sans-serif;font-size:22px;line-height:1.2;margin:12px 0 8px}
+    .tool-card p,.gear-card p{color:var(--muted);line-height:1.72;font-size:14px}
+    .mini-link{
+      min-height:38px;border-radius:999px;border:1px solid var(--oline);background:rgba(255,77,0,.055);
+      color:#ffb089;padding:0 13px;display:inline-flex;align-items:center;font-family:"Prompt";font-weight:700;font-size:13px
+    }
+    .mini-link.disabled{border-color:var(--line);color:#888;background:rgba(255,255,255,.04);pointer-events:none}
+
+    .gear-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .gear-icon{
+      height:92px;border-radius:20px;border:1px solid var(--line);background:
+        radial-gradient(circle at 50% 30%,rgba(255,255,255,.16),transparent 30%),
+        linear-gradient(135deg,rgba(255,77,0,.3),rgba(255,255,255,.04));
+      display:grid;place-items:center;font-family:"Chakra Petch";font-size:34px;font-weight:700;color:rgba(255,255,255,.45);margin-bottom:14px;
+      overflow:hidden
+    }
+    .gear-icon img{width:100%;height:100%;object-fit:cover}
+
+    .support-wrap{
+      display:grid;grid-template-columns:1fr .82fr;gap:20px;align-items:stretch
+    }
+    .support-card{padding:30px;background:
+      radial-gradient(circle at 88% 12%,rgba(255,77,0,.24),transparent 32%),
+      rgba(255,255,255,.06);border-color:var(--oline)}
+    .support-card h3{font-family:"Prompt";font-size:clamp(28px,4vw,44px);line-height:1.08;margin-bottom:14px}
+    .support-card p{color:#d4d4d4;line-height:1.85}
+    .support-note{margin-top:14px;color:#ffbd97!important;font-weight:600}
+    .detail-list{display:grid;gap:10px}
+    .detail-row{border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.25);padding:13px 15px;display:flex;justify-content:space-between;gap:16px}
+    .detail-row span{color:var(--muted)}.detail-row strong{text-align:right}
+
+    .guide-list{display:grid;gap:14px;counter-reset:guide}
+    .guide{
+      border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.055);padding:20px;display:grid;grid-template-columns:auto 1fr;gap:16px
+    }
+    .guide::before{
+      counter-increment:guide;content:counter(guide);width:44px;height:44px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange2));
+      display:grid;place-items:center;font-family:"Chakra Petch";font-weight:700
+    }
+    .guide h3{font-family:"Prompt";font-size:20px;margin-bottom:4px}.guide p{color:var(--muted);line-height:1.72}
+
+    .social-grid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+    .social-item{text-align:center}
+    .social-icon{
+      width:58px;height:58px;border-radius:20px;border:1px solid var(--oline);background:rgba(255,77,0,.06);
+      display:grid;place-items:center;transition:.22s
+    }
+    .social-icon:hover{transform:translateY(-4px);background:rgba(255,77,0,.14);box-shadow:0 16px 40px rgba(255,77,0,.18)}
+    .social-icon svg{width:28px;height:28px;fill:#ff7a18}
+    .social-label{margin-top:9px;color:var(--muted);font-family:"Chakra Petch";font-size:13px;font-weight:700}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:.62s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    .footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted)}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;font-size:14px}
+
+    @media(max-width:1020px){
+      .hero-grid,.featured-tool,.support-wrap{grid-template-columns:1fr}
+      .menu{display:none}.hamburger{display:grid;place-items:center}
+      .quick-grid,.tool-library{grid-template-columns:1fr}
+      .gear-grid{grid-template-columns:repeat(2,1fr)}
+      .section-head{display:block}.section-desc{margin-top:12px}
+      .brand{min-width:auto}.brand img{width:142px}
+    }
+    @media(max-width:640px){
+      .container{width:min(100% - 26px,var(--max))}
+      .nav-inner{min-height:68px}.brand img{width:124px}
+      .hero{padding-top:52px}
+      .hero-actions .btn{width:100%}
+      .dashboard{padding:16px;border-radius:24px}
+      .scoreboard,.control-grid,.gear-grid{grid-template-columns:1fr}
+      .team.right{justify-content:flex-start}.score{min-width:0}
+      section{padding:52px 0}
+      .featured-tool,.support-card{padding:22px;border-radius:24px}
+      .detail-row{display:block}.detail-row strong{display:block;text-align:left;margin-top:4px}
+      .footer-inner{display:block}.footer-inner div+div{margin-top:8px}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="PEPS LIVE Home">
+        <img id="navLogo" src="assets/pepslive-logo.png" alt="PEPS LIVE PRODUCTION">
+      </a>
+      <nav class="menu" aria-label="Main menu">
+        <a href="#start">เริ่มใช้งาน</a>
+        <a href="#dock">Dock UI</a>
+        <a href="#equipment">อุปกรณ์</a>
+        <a href="#support">ซัพพอร์ต</a>
+        <a href="#follow">ติดตาม</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px">
+        <a class="btn btn-primary" href="#dock" id="navPrimary">เปิด Dock UI</a>
+        <button class="hamburger" id="hamburger" aria-label="เปิดเมนู">≡</button>
+      </div>
+    </div>
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="#start">เริ่มใช้งาน</a>
+      <a href="#dock">Dock UI</a>
+      <a href="#equipment">อุปกรณ์</a>
+      <a href="#support">ซัพพอร์ต</a>
+      <a href="#follow">ติดตาม</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="dot"></span><span id="siteTagline">Control Every Moment • Produce The Win</span></div>
+          <h1>Sport Scoreboard<br><span class="orange">for OBS Dock UI</span></h1>
+          <p class="hero-lead" id="siteHeadline"></p>
+          <p class="hero-sub" id="siteSubheadline"></p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" id="primaryButton" href="#dock">เปิด Dock UI</a>
+            <a class="btn btn-ghost" id="secondaryButton" href="#guide">ดูวิธีใช้งาน</a>
+          </div>
+          <div class="trust-row">
+            <div class="trust-pill">ใช้ฟรี</div>
+            <div class="trust-pill">เหมาะกับ OBS</div>
+            <div class="trust-pill">รองรับงานกีฬา</div>
+            <div class="trust-pill">เพิ่มระบบต่อได้</div>
+          </div>
+        </div>
+
+        <div class="dashboard reveal">
+          <div class="screen">
+            <div class="screen-top">
+              <img class="screen-logo" id="heroLogo" src="assets/pepslive-logo.png" alt="PEPS LIVE">
+              <div class="live-badge">LIVE CONTROL</div>
+            </div>
+            <div class="scoreboard">
+              <div class="team">TEAM A</div>
+              <div class="score">2 : 1</div>
+              <div class="team right">TEAM B</div>
+            </div>
+            <div class="control-grid">
+              <div class="control"><span>MODE</span><strong>SPORT</strong></div>
+              <div class="control"><span>TIMER</span><strong>45:00</strong></div>
+              <div class="control"><span>OBS</span><strong>READY</strong></div>
+            </div>
+            <div class="strip">Control Every Moment • Produce The Win</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="start">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Quick Start</div>
+            <h2 class="section-title">เริ่มใช้งานแบบไม่หลงทาง</h2>
+          </div>
+          <p class="section-desc">จัดหน้าใหม่ให้คนเข้ามาแล้วเข้าใจลำดับทันทีว่าเว็บนี้ใช้ทำอะไร และต้องเริ่มจากตรงไหนก่อน</p>
+        </div>
+        <div class="quick-grid reveal" id="quickGrid"></div>
+      </div>
+    </section>
+
+    <section id="dock">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Main Dock UI</div>
+            <h2 class="section-title">เครื่องมือหลัก</h2>
+          </div>
+          <p class="section-desc">ดันของที่ใช้งานจริงขึ้นมาเป็น Hero Card แยกจากรายการ Coming Soon เพื่อไม่ให้ข้อมูลมั่วรวมกัน</p>
+        </div>
+        <div id="featuredDock" class="reveal"></div>
+
+        <div style="height:34px"></div>
+
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Coming Next</div>
+            <h2 class="section-title">ระบบที่จะเพิ่มต่อ</h2>
+          </div>
+          <p class="section-desc">ส่วนนี้ให้แอดมินเพิ่ม ลบ เรียงลำดับ และเปลี่ยนสถานะได้ภายหลัง</p>
+        </div>
+        <div class="tool-library reveal" id="toolLibrary"></div>
+      </div>
+    </section>
+
+    <section id="equipment">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Live Gear</div>
+            <h2 class="section-title">อุปกรณ์ที่ใช้ในการไลฟ์</h2>
+          </div>
+          <p class="section-desc">จัดเป็นการ์ดสั้น อ่านง่าย เห็นประเภทสินค้าและเหตุผลที่ใช้ เหมาะสำหรับใส่ลิงก์แนะนำอุปกรณ์ทีหลัง</p>
+        </div>
+        <div class="gear-grid reveal" id="equipmentGrid"></div>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="container">
+        <div class="support-wrap reveal">
+          <div class="support-card">
+            <div class="kicker">Free + Support</div>
+            <h3 id="supportTitle"></h3>
+            <p id="supportDescription"></p>
+            <p class="support-note" id="supportNote"></p>
+            <div class="tool-actions" id="supportLinks" style="margin-top:18px"></div>
+          </div>
+          <div class="support-card">
+            <div class="kicker">Support Detail</div>
+            <div class="detail-list" id="supportDetails"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Setup Guide</div>
+            <h2 class="section-title">คู่มือเริ่มต้น</h2>
+          </div>
+          <p class="section-desc">ลดภาระการอธิบายซ้ำ ทำให้คนใช้งานรู้ว่าต้องตั้งค่า OBS ยังไง</p>
+        </div>
+        <div class="guide-list reveal" id="guideList"></div>
+      </div>
+    </section>
+
+    <section id="follow">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Follow Us</div>
+            <h2 class="section-title">ช่องทางการติดตาม</h2>
+          </div>
+          <p class="section-desc">ลิงก์ฝังไว้ที่โลโก้โซเชียลโดยตรง เพิ่ม/ลบ/เปลี่ยนได้จากหน้าแอดมิน</p>
+        </div>
+        <div class="social-grid reveal" id="socialGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div id="copyright"></div>
+      <div>Free Tools • OBS Dock UI • Sport Production</div>
+    </div>
+  </footer>
+
+  <script>
+    const fallbackData = {"site": {"brand": "PEPS LIVE PRODUCTION", "tagline": "Control Every Moment • Produce The Win", "headline": "OBS Dock UI สำหรับงานไลฟ์กีฬา ที่คุมง่ายและดูโปรขึ้นทันที", "subheadline": "รวม Sport Scoreboard, คู่มือ OBS, อุปกรณ์แนะนำ และเครื่องมือสำหรับทีมไลฟ์กีฬา ใช้งานฟรี พร้อมเปิดรับการสนับสนุนเพื่อพัฒนาต่อ", "primaryButton": "เปิด Dock UI", "secondaryButton": "ดูวิธีใช้งาน", "logo": "assets/pepslive-logo.png", "copyright": "© 2026 PEPS LIVE PRODUCTION. ALL RIGHTS RESERVED."}, "quickSteps": [{"title": "เปิด OBS", "description": "เตรียม Scene และ Source ที่ต้องใช้กับงานถ่ายทอดสด"}, {"title": "เพิ่ม Dock UI", "description": "นำลิงก์ Dock ไปใส่ใน Custom Browser Docks"}, {"title": "คุมคะแนน", "description": "ปรับชื่อทีม คะแนน เวลา และข้อมูลเกมผ่านหน้า Control"}], "dockTools": [{"title": "OBS Dock UI Sport Scoreboard", "version": "V1.0", "category": "Main Tool", "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ", "status": "ใช้ฟรี", "featured": true, "links": [{"label": "เปิด Dock UI", "url": "https://pepsproduction.github.io/obs-dock-ui/"}, {"label": "GitHub", "url": "https://github.com/pepsproduction/obs-dock-ui"}, {"label": "คู่มือใช้งาน", "url": "#guide"}]}, {"title": "Replay Control Dock", "version": "Coming Soon", "category": "Replay", "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ", "status": "Coming Soon...", "featured": false, "links": []}, {"title": "Graphic Trigger Dock", "version": "Coming Soon", "category": "Graphic", "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ", "status": "Coming Soon...", "featured": false, "links": []}, {"title": "Tournament Manager Dock", "version": "Coming Soon", "category": "Tournament", "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์", "status": "Coming Soon...", "featured": false, "links": []}], "equipment": [{"name": "Wireless HDMI", "type": "Video Transmission", "description": "ส่งสัญญาณภาพจากกล้องไปยังจุดควบคุม ลดสายยาวและทำให้สนามดูคล่องตัวขึ้น", "image": "", "url": "#", "note": "เน้นระบายความร้อนดี เหมาะกับอากาศร้อน"}, {"name": "Capture Card", "type": "Input Device", "description": "แปลงสัญญาณ HDMI จากกล้องเข้าสู่ OBS สำหรับไลฟ์สดและบันทึกภาพ", "image": "", "url": "#", "note": "แนะนำรุ่นที่รองรับ 1080p60"}, {"name": "V-Mount Battery", "type": "Power System", "description": "แบตหลักสำหรับกล้อง จอ มอนิเตอร์ หรืออุปกรณ์ส่งภาพ เหมาะกับงานภาคสนาม", "image": "", "url": "#", "note": "เช็กแรงดันและหัวจ่ายไฟให้ตรง"}, {"name": "OBS WebSocket", "type": "Software", "description": "เชื่อม Dock UI เข้ากับ OBS เพื่อควบคุม Text, Image, Scene และ Source", "image": "", "url": "#", "note": "ค่า Port ยอดนิยมคือ 4455"}], "support": {"title": "ใช้ฟรี และร่วมสนับสนุนได้ตามความสะดวก", "description": "PepsLive พัฒนาเครื่องมือเพื่อให้ทีมไลฟ์ ทีมกีฬา โรงเรียน สนามแข่งขัน และผู้จัดงาน สามารถยกระดับงานถ่ายทอดสดได้ง่ายขึ้น หากเครื่องมือนี้ช่วยให้งานของคุณดีขึ้น การสนับสนุนของคุณจะช่วยต่อยอดฟีเจอร์ใหม่ ดูแลไฟล์ คู่มือ และระบบให้พร้อมใช้งานต่อไป", "note": "การสนับสนุนเป็นทางเลือก ไม่บังคับใช้งาน เครื่องมือหลักยังคงเปิดให้ใช้งานฟรี", "details": [{"label": "ชื่อบัญชี", "value": "PEPSPRODUCTION"}, {"label": "PromptPay", "value": "096-419-9389"}, {"label": "สนับสนุนเพื่อ", "value": "พัฒนา Dock UI / คู่มือ / ระบบใหม่"}], "links": [{"label": "สนับสนุนโปรเจกต์", "url": "#"}, {"label": "ติดต่อร่วมพัฒนา", "url": "mailto:bank_natade_88@hotmail.com"}]}, "socialLinks": [{"platform": "facebook", "label": "Facebook", "url": "https://www.facebook.com/pepsproduction", "visible": true}, {"platform": "youtube", "label": "YouTube", "url": "#", "visible": true}, {"platform": "tiktok", "label": "TikTok", "url": "#", "visible": true}, {"platform": "line", "label": "LINE", "url": "#", "visible": true}, {"platform": "github", "label": "GitHub", "url": "https://github.com/pepsproduction/obs-dock-ui", "visible": true}], "guides": [{"title": "เพิ่ม Dock UI เข้า OBS", "description": "เปิด OBS > Docks > Custom Browser Docks จากนั้นตั้งชื่อ Dock และใส่ลิงก์หน้า Dock UI ที่ต้องการใช้งาน"}, {"title": "เตรียม Source ให้ตรงกับระบบ", "description": "ตั้งชื่อ Text/Image Source ใน OBS ให้ตรงกับ Tag ที่ Dock UI ใช้ เช่น TeamA, TeamB, ScoreA, ScoreB และ Time"}, {"title": "เชื่อม OBS WebSocket", "description": "เปิด OBS > Tools > WebSocket Server Settings > Enable WebSocket Server แล้วใช้ Port ที่ระบบกำหนด เช่น 4455"}]};
+
+    const iconSvg = {
+      facebook:'<svg viewBox="0 0 24 24"><path d="M14 8.5h3V5h-3.4C10.8 5 9 6.8 9 9.6V12H6v3.7h3V23h4.1v-7.3h3.2l.6-3.7h-3.8V10c0-.9.4-1.5.9-1.5Z"/></svg>',
+      youtube:'<svg viewBox="0 0 24 24"><path d="M23 7.1a3 3 0 0 0-2.1-2.1C19 4.5 12 4.5 12 4.5s-7 0-8.9.5A3 3 0 0 0 1 7.1 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.9a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.9.5-4.9s0-3-.5-4.9ZM9.8 15.2V8.8l5.8 3.2-5.8 3.2Z"/></svg>',
+      tiktok:'<svg viewBox="0 0 24 24"><path d="M16.6 5.2c.9 1.1 2 1.8 3.4 2v3.7a8.3 8.3 0 0 1-3.7-1.1v6.3a6.1 6.1 0 1 1-6.1-6.1c.4 0 .8 0 1.2.1v3.9a2.3 2.3 0 1 0 1.6 2.2V2h3.6v3.2Z"/></svg>',
+      line:'<svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.1 8.1 7.8.3.1.7.2.8.5.1.2.1.6 0 .8l-.1.8c0 .2-.1.8.7.4.8-.3 4.2-2.5 5.8-4.3A7.5 7.5 0 0 0 22 11c0-4.4-4.5-8-10-8Zm-3.3 10.5H6.6V8.8h1v3.8h1.1v.9Zm1.8 0h-1V8.8h1v4.7Zm4.4 0h-1l-1.9-2.6v2.6h-1V8.8h1l1.9 2.6V8.8h1v4.7Zm3.4-3.8h-2v.9h1.8v.9h-1.8v1h2v1h-3V8.8h3v.9Z"/></svg>',
+      github:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 2.9.8.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-4.9 0-1.1.4-2 1.1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.8 1A9.4 9.4 0 0 1 12 6.8c.9 0 1.7.1 2.5.3 1.9-1.3 2.8-1 2.8-1 .6 1.4.2 2.4.1 2.7.7.7 1.1 1.6 1.1 2.7 0 3.8-2.3 4.6-4.6 4.9.4.3.8 1 .8 2v2.9c0 .3.2.6.8.5A10 10 0 0 0 12 2Z"/></svg>',
+      website:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 6h-3a15.4 15.4 0 0 0-1.3-3 8.1 8.1 0 0 1 4.3 3ZM12 4.1A12.6 12.6 0 0 1 13.8 8h-3.6A12.6 12.6 0 0 1 12 4.1ZM4.3 14a8.5 8.5 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4H4.3Zm.8 2h3a15.4 15.4 0 0 0 1.3 3 8.1 8.1 0 0 1-4.3-3Zm3-8h-3a8.1 8.1 0 0 1 4.3-3A15.4 15.4 0 0 0 8.1 8ZM12 19.9a12.6 12.6 0 0 1-1.8-3.9h3.6a12.6 12.6 0 0 1-1.8 3.9ZM14.2 14H9.8a14.1 14.1 0 0 1 0-4h4.4a14.1 14.1 0 0 1 0 4Zm.4 5a15.4 15.4 0 0 0 1.3-3h3a8.1 8.1 0 0 1-4.3 3Zm1.7-5a16.5 16.5 0 0 0 0-4h3.4a8.5 8.5 0 0 1 0 4h-3.4Z"/></svg>',
+      email:'<svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.4L4.8 7H4v.8l8 6 8-6V7h-.8L12 12.4Z"/></svg>',
+      instagram:'<svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3.5A4.5 4.5 0 1 1 12 16a4.5 4.5 0 0 1 0-9Zm0 2A2.5 2.5 0 1 0 12 14a2.5 2.5 0 0 0 0-5Zm5.2-2.1a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1Z"/></svg>'
+    };
+
+    async function loadData(){
+      try{
+        const res=await fetch('data.json?ts='+Date.now(),{cache:'no-store'});
+        if(!res.ok) throw new Error('no data');
+        return await res.json();
+      }catch(e){return fallbackData}
+    }
+    const t=(v,f='')=>v||f;
+    const external=url=>url&&(url.startsWith('http')||url.startsWith('mailto:')||url.startsWith('tel:'));
+    function makeLink(link,cls='mini-link'){
+      const a=document.createElement('a');
+      a.className=cls;
+      a.href=link.url||'#';
+      a.target=external(link.url)&&!link.url.startsWith('mailto:')&&!link.url.startsWith('tel:')?'_blank':'_self';
+      a.rel='noopener';
+      a.textContent=link.label||'เปิดลิงก์';
+      return a;
+    }
+
+    function renderQuick(items=[]){
+      const grid=document.getElementById('quickGrid');
+      grid.innerHTML='';
+      items.forEach((item,i)=>{
+        const card=document.createElement('article');
+        card.className='step-card';
+        card.innerHTML=`<div class="step-num">${i+1}</div><div><h3>${t(item.title)}</h3><p>${t(item.description)}</p></div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderDock(items=[]){
+      const featured=items.find(x=>x.featured)||items[0];
+      const rest=items.filter(x=>x!==featured);
+      const f=document.getElementById('featuredDock');
+      f.innerHTML='';
+      if(featured){
+        const box=document.createElement('article');
+        box.className='featured-tool';
+        const soon=String(featured.status||'').toLowerCase().includes('coming');
+        box.innerHTML=`
+          <div>
+            <div class="tool-meta">
+              <span class="pill">${t(featured.category,'Main Tool')}</span>
+              <span class="pill">${t(featured.version,'V1.0')}</span>
+              <span class="pill ${soon?'soon':''}">${t(featured.status,'ใช้ฟรี')}</span>
+            </div>
+            <h3>${t(featured.title)}</h3>
+            <p>${t(featured.description)}</p>
+            <div class="tool-actions"></div>
+          </div>
+          <div class="preview-panel">
+            <div class="preview-row"><div class="preview-box"></div><div class="preview-box"></div></div>
+            <div class="preview-score">2 : 1</div>
+            <div class="preview-row" style="margin-top:10px"><div class="preview-box"></div><div class="preview-box"></div><div class="preview-box"></div></div>
+          </div>
+        `;
+        const actions=box.querySelector('.tool-actions');
+        (featured.links||[]).forEach((l,i)=>actions.appendChild(makeLink(l,i===0?'btn btn-primary':'btn btn-ghost')));
+        f.appendChild(box);
+      }
+      const lib=document.getElementById('toolLibrary');
+      lib.innerHTML='';
+      rest.forEach(item=>{
+        const card=document.createElement('article');
+        card.className='tool-card';
+        const soon=String(item.status||'').toLowerCase().includes('coming');
+        card.innerHTML=`
+          <div class="tool-meta"><span class="pill">${t(item.category)}</span><span class="pill ${soon?'soon':''}">${t(item.status)}</span></div>
+          <h3>${t(item.title)}</h3><p>${t(item.description)}</p><div class="tool-actions"></div>
+        `;
+        const actions=card.querySelector('.tool-actions');
+        if(item.links&&item.links.length){item.links.forEach(l=>actions.appendChild(makeLink(l)))}
+        else {const s=document.createElement('span');s.className='mini-link disabled';s.textContent='Coming Soon...';actions.appendChild(s)}
+        lib.appendChild(card);
+      });
+    }
+
+    function renderEquipment(items=[]){
+      const grid=document.getElementById('equipmentGrid');
+      grid.innerHTML='';
+      items.forEach(item=>{
+        const card=document.createElement('article');
+        card.className='gear-card';
+        const image=item.image?`<img src="${item.image}" alt="${t(item.name)}">`:`<span>${t(item.name,'GE').slice(0,2).toUpperCase()}</span>`;
+        card.innerHTML=`
+          <div class="gear-icon">${image}</div>
+          <div class="tool-meta"><span class="pill">${t(item.type,'Gear')}</span></div>
+          <h3>${t(item.name)}</h3>
+          <p>${t(item.description)}</p>
+          <p style="color:#ffb089;margin-top:10px;font-size:13px">${t(item.note)}</p>
+          <div class="tool-actions" style="margin-top:14px"></div>
+        `;
+        card.querySelector('.tool-actions').appendChild(makeLink({label:'ดูรายละเอียด',url:item.url||'#'}));
+        grid.appendChild(card);
+      });
+    }
+
+    function renderSupport(support={}){
+      document.getElementById('supportTitle').textContent=t(support.title);
+      document.getElementById('supportDescription').textContent=t(support.description);
+      document.getElementById('supportNote').textContent=t(support.note);
+      const details=document.getElementById('supportDetails');
+      details.innerHTML='';
+      (support.details||[]).forEach(d=>{
+        const row=document.createElement('div');
+        row.className='detail-row';
+        row.innerHTML=`<span>${t(d.label)}</span><strong>${t(d.value)}</strong>`;
+        details.appendChild(row);
+      });
+      const links=document.getElementById('supportLinks');
+      links.innerHTML='';
+      (support.links||[]).forEach((l,i)=>links.appendChild(makeLink(l,i===0?'btn btn-primary':'btn btn-ghost')));
+    }
+
+    function renderGuides(items=[]){
+      const list=document.getElementById('guideList');
+      list.innerHTML='';
+      items.forEach(item=>{
+        const g=document.createElement('article');
+        g.className='guide';
+        g.innerHTML=`<div><h3>${t(item.title)}</h3><p>${t(item.description)}</p></div>`;
+        list.appendChild(g);
+      });
+    }
+
+    function renderSocial(items=[]){
+      const grid=document.getElementById('socialGrid');
+      grid.innerHTML='';
+      items.filter(x=>x.visible!==false).forEach(item=>{
+        const wrap=document.createElement('div');
+        wrap.className='social-item';
+        const a=document.createElement('a');
+        a.className='social-icon';
+        a.href=item.url||'#';
+        a.target=external(item.url)&&!item.url.startsWith('mailto:')&&!item.url.startsWith('tel:')?'_blank':'_self';
+        a.rel='noopener';
+        a.innerHTML=iconSvg[item.platform]||iconSvg.website;
+        const label=document.createElement('div');
+        label.className='social-label';
+        label.textContent=item.label||item.platform;
+        wrap.appendChild(a);wrap.appendChild(label);grid.appendChild(wrap);
+      });
+    }
+
+    function revealInit(){
+      const els=document.querySelectorAll('.reveal');
+      const obs=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})
+      },{threshold:.12});
+      els.forEach(el=>obs.observe(el));
+    }
+
+    async function init(){
+      const data=await loadData();
+      document.getElementById('siteTagline').textContent=t(data.site?.tagline);
+      document.getElementById('siteHeadline').textContent=t(data.site?.headline);
+      document.getElementById('siteSubheadline').textContent=t(data.site?.subheadline);
+      document.getElementById('primaryButton').textContent=t(data.site?.primaryButton,'เปิด Dock UI');
+      document.getElementById('secondaryButton').textContent=t(data.site?.secondaryButton,'ดูวิธีใช้งาน');
+      document.getElementById('navPrimary').textContent=t(data.site?.primaryButton,'เปิด Dock UI');
+      document.getElementById('copyright').textContent=t(data.site?.copyright);
+      if(data.site?.logo){document.getElementById('navLogo').src=data.site.logo;document.getElementById('heroLogo').src=data.site.logo}
+      renderQuick(data.quickSteps||[]);
+      renderDock(data.dockTools||[]);
+      renderEquipment(data.equipment||[]);
+      renderSupport(data.support||{});
+      renderGuides(data.guides||[]);
+      renderSocial(data.socialLinks||[]);
+      revealInit();
+    }
+
+    document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('open'));
+    document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobileMenu').classList.remove('open')));
+    init();
+  </script>
+</body>
+</html>

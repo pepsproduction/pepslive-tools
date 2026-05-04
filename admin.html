@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PEPS LIVE Admin</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--panel:rgba(18,19,21,.94);--soft:rgba(255,255,255,.06);--text:#fff;--muted:#aaa;--orange:#ff4d00;--orange2:#ff7a18;--line:rgba(255,255,255,.13);--oline:rgba(255,77,0,.55);--radius:22px;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Kanit",system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at 92% 8%,rgba(255,77,0,.35),transparent 30%),radial-gradient(circle at 5% 92%,rgba(255,77,0,.22),transparent 28%),#050505;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1180px,calc(100% - 34px));margin:0 auto}
+    .login-shell{min-height:100vh;display:grid;place-items:center;padding:30px 0}
+    .login-card{width:min(560px,100%);border:1px solid var(--oline);border-radius:32px;background:var(--panel);padding:34px;box-shadow:0 30px 90px rgba(0,0,0,.55)}
+    .login-logo{width:300px;max-width:100%;margin:0 auto 24px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.55))}
+    h1{font-size:clamp(34px,6vw,58px);line-height:1;margin-bottom:12px;transform:skew(-5deg)}
+    .slashes{color:var(--orange);letter-spacing:8px}
+    p{color:var(--muted);line-height:1.7}
+    label{display:block;color:#eee;font-weight:700;margin:16px 0 7px}
+    input,textarea,select{width:100%;min-height:48px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.055);color:#fff;padding:10px 13px;font:inherit;outline:none}
+    textarea{min-height:94px;resize:vertical}
+    select option{background:#151515;color:#fff}
+    input:focus,textarea:focus,select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,77,0,.14)}
+    .btn{border:1px solid transparent;border-radius:13px;min-height:46px;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;cursor:pointer;font:inherit}
+    .btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff}
+    .btn-ghost{background:rgba(255,77,0,.05);color:#ffb087;border-color:var(--oline)}
+    .btn-danger{background:rgba(255,0,0,.08);color:#ff9a9a;border-color:rgba(255,0,0,.35)}
+    .btn-small{min-height:36px;padding:0 12px;font-size:13px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .hidden{display:none!important}
+    header{position:sticky;top:0;z-index:20;background:rgba(5,5,5,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .topbar{min-height:72px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{font-weight:900;font-size:22px}.brand span{color:var(--orange)}
+    .admin{padding:36px 0 80px}
+    .notice{border:1px solid var(--oline);border-radius:20px;background:rgba(255,77,0,.08);padding:16px;margin-bottom:20px;color:#ffd3bd}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+    .tab-btn{min-height:42px}.tab-btn.active{background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;border-color:transparent}
+    .panel{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.055);padding:22px;margin-top:16px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .item{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.22);margin-top:12px}
+    .item-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+    .item h3{font-size:18px}.muted{color:var(--muted);font-size:13px}
+    .links-editor{display:grid;gap:8px;margin-top:10px}
+    .link-row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:8px}
+    .preview-json{min-height:260px;font-family:Consolas,monospace;font-size:13px}
+    .move-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    @media(max-width:760px){.grid-2,.grid-3,.link-row{grid-template-columns:1fr}.topbar{display:block;padding:16px 0}}
+  </style>
+</head>
+<body>
+  <section class="login-shell" id="loginScreen">
+    <div class="login-card">
+      <img class="login-logo" src="assets/pepslive-logo.png" alt="PEPS LIVE">
+      <h1>เข้าสู่ระบบ <span class="slashes">////</span></h1>
+      <p>หน้าแอดมินนี้ซ่อนจากเมนูหน้าเว็บหลัก ใช้สำหรับแก้ข้อมูลแล้ว Export เป็นไฟล์ <b>data.json</b> เพื่อนำไปอัปโหลดทับใน GitHub Pages</p>
+      <label>ชื่อผู้ใช้</label><input id="loginUser" placeholder="admin">
+      <label>รหัสผ่าน</label><input id="loginPass" type="password" placeholder="pepslive2026">
+      <div class="row">
+        <button class="btn btn-primary" onclick="login()">เข้าสู่ระบบ</button>
+        <a class="btn btn-ghost" href="./index.html">กลับหน้าเว็บ</a>
+      </div>
+      <p class="muted" style="margin-top:14px;">ค่าเริ่มต้น: admin / pepslive2026</p>
+    </div>
+  </section>
+
+  <section class="hidden" id="adminScreen">
+    <header>
+      <div class="wrap topbar">
+        <div class="brand">PEPS <span>LIVE</span> ADMIN</div>
+        <div class="row" style="margin-top:0">
+          <a class="btn btn-ghost" href="./index.html" target="_blank">ดูหน้าเว็บ</a>
+          <button class="btn btn-primary" onclick="downloadJson()">Export data.json</button>
+          <button class="btn btn-danger" onclick="logout()">ออกจากระบบ</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap admin">
+      <div class="notice">GitHub Pages เป็นเว็บ static การแก้ในหน้านี้จะอยู่ในเครื่องก่อน ต้องกด Export แล้วอัปโหลดไฟล์ data.json ทับใน GitHub เพื่อให้หน้าเว็บจริงอัปเดต</div>
+
+      <div class="tabs">
+        <button class="btn btn-ghost tab-btn active" onclick="showTab(event,'site')">หน้าแรก</button>
+        <button class="btn btn-ghost tab-btn" onclick="showTab(event,'dock')">Dock UI</button>
+        <button class="btn btn-ghost tab-btn" onclick="showTab(event,'equipment')">อุปกรณ์</button>
+        <button class="btn btn-ghost tab-btn" onclick="showTab(event,'support')">โดเนท</button>
+        <button class="btn btn-ghost tab-btn" onclick="showTab(event,'social')">Social</button>
+        <button class="btn btn-ghost tab-btn" onclick="showTab(event,'json')">Import/Export</button>
+      </div>
+
+      <section class="panel tab" id="tab-site">
+        <h2>ข้อมูลหน้าแรก</h2>
+        <div class="grid-2">
+          <div><label>Brand</label><input id="siteBrand"></div>
+          <div><label>Tagline</label><input id="siteTagline"></div>
+        </div>
+        <label>Headline</label><textarea id="siteHeadline"></textarea>
+        <label>Subheadline</label><textarea id="siteSubheadline"></textarea>
+        <div class="grid-2">
+          <div><label>ปุ่มหลัก</label><input id="primaryButton"></div>
+          <div><label>ปุ่มรอง</label><input id="secondaryButton"></div>
+        </div>
+        <label>Logo URL</label><input id="siteLogo">
+        <label>Copyright</label><input id="copyright">
+        <div class="row"><button class="btn btn-primary" onclick="saveSite()">บันทึกหน้าแรก</button></div>
+      </section>
+
+      <section class="panel tab hidden" id="tab-dock">
+        <h2>จัดการ Dock UI</h2>
+        <p>อันแรกตั้งไว้เป็น OBS Dock UI Sport Scoreboard แล้ว อันอื่นสามารถแก้/เพิ่มเป็น Coming Soon ได้</p>
+        <div id="dockList"></div>
+        <div class="row"><button class="btn btn-primary" onclick="addDock()">เพิ่ม Dock UI</button></div>
+      </section>
+
+      <section class="panel tab hidden" id="tab-equipment">
+        <h2>จัดการอุปกรณ์ไลฟ์</h2>
+        <div id="equipmentList"></div>
+        <div class="row"><button class="btn btn-primary" onclick="addEquipment()">เพิ่มอุปกรณ์</button></div>
+      </section>
+
+      <section class="panel tab hidden" id="tab-support">
+        <h2>จัดการข้อมูลโดเนท</h2>
+        <label>หัวข้อ</label><input id="supportTitle">
+        <label>คำอธิบายแบบสุภาพ</label><textarea id="supportDescription"></textarea>
+        <label>หมายเหตุ</label><textarea id="supportNote"></textarea>
+        <h3 style="margin-top:18px;">รายละเอียดโดเนท</h3>
+        <div id="supportDetails"></div>
+        <div class="row"><button class="btn btn-ghost" onclick="addSupportDetail()">เพิ่มรายละเอียด</button></div>
+        <h3 style="margin-top:18px;">ปุ่มลิงก์โดเนท</h3>
+        <div id="supportLinks"></div>
+        <div class="row">
+          <button class="btn btn-ghost" onclick="addSupportLink()">เพิ่มลิงก์</button>
+          <button class="btn btn-primary" onclick="saveSupport()">บันทึกโดเนท</button>
+        </div>
+      </section>
+
+      <section class="panel tab hidden" id="tab-social">
+        <h2>ช่องทางติดตาม</h2>
+        <p>เลือกโลโก้โซเชียล ใส่ชื่อ และใส่ลิงก์ ลิงก์จะฝังอยู่ในไอคอนบนหน้าเว็บ</p>
+        <div id="socialList"></div>
+        <div class="row"><button class="btn btn-primary" onclick="addSocial()">เพิ่ม Social</button></div>
+      </section>
+
+      <section class="panel tab hidden" id="tab-json">
+        <h2>Import / Export JSON</h2>
+        <label>JSON Data</label>
+        <textarea id="jsonBox" class="preview-json"></textarea>
+        <div class="row">
+          <button class="btn btn-primary" onclick="refreshJsonBox()">Refresh JSON</button>
+          <button class="btn btn-ghost" onclick="importJson()">Import จากช่องนี้</button>
+          <button class="btn btn-primary" onclick="downloadJson()">Download data.json</button>
+          <button class="btn btn-danger" onclick="resetLocal()">ล้างข้อมูล local</button>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <script>
+    const ADMIN_USER='admin';
+    const ADMIN_PASS='pepslive2026';
+    const STORAGE_KEY='pepslive_site_data_v4';
+    let siteData={"site": {"brand": "PEPS LIVE PRODUCTION", "tagline": "Control Every Moment • Produce The Win", "headline": "OBS Dock UI สำหรับงานไลฟ์กีฬา ที่คุมง่ายและดูโปรขึ้นทันที", "subheadline": "รวม Sport Scoreboard, คู่มือ OBS, อุปกรณ์แนะนำ และเครื่องมือสำหรับทีมไลฟ์กีฬา ใช้งานฟรี พร้อมเปิดรับการสนับสนุนเพื่อพัฒนาต่อ", "primaryButton": "เปิด Dock UI", "secondaryButton": "ดูวิธีใช้งาน", "logo": "assets/pepslive-logo.png", "copyright": "© 2026 PEPS LIVE PRODUCTION. ALL RIGHTS RESERVED."}, "quickSteps": [{"title": "เปิด OBS", "description": "เตรียม Scene และ Source ที่ต้องใช้กับงานถ่ายทอดสด"}, {"title": "เพิ่ม Dock UI", "description": "นำลิงก์ Dock ไปใส่ใน Custom Browser Docks"}, {"title": "คุมคะแนน", "description": "ปรับชื่อทีม คะแนน เวลา และข้อมูลเกมผ่านหน้า Control"}], "dockTools": [{"title": "OBS Dock UI Sport Scoreboard", "version": "V1.0", "category": "Main Tool", "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ", "status": "ใช้ฟรี", "featured": true, "links": [{"label": "เปิด Dock UI", "url": "https://pepsproduction.github.io/obs-dock-ui/"}, {"label": "GitHub", "url": "https://github.com/pepsproduction/obs-dock-ui"}, {"label": "คู่มือใช้งาน", "url": "#guide"}]}, {"title": "Replay Control Dock", "version": "Coming Soon", "category": "Replay", "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ", "status": "Coming Soon...", "featured": false, "links": []}, {"title": "Graphic Trigger Dock", "version": "Coming Soon", "category": "Graphic", "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ", "status": "Coming Soon...", "featured": false, "links": []}, {"title": "Tournament Manager Dock", "version": "Coming Soon", "category": "Tournament", "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์", "status": "Coming Soon...", "featured": false, "links": []}], "equipment": [{"name": "Wireless HDMI", "type": "Video Transmission", "description": "ส่งสัญญาณภาพจากกล้องไปยังจุดควบคุม ลดสายยาวและทำให้สนามดูคล่องตัวขึ้น", "image": "", "url": "#", "note": "เน้นระบายความร้อนดี เหมาะกับอากาศร้อน"}, {"name": "Capture Card", "type": "Input Device", "description": "แปลงสัญญาณ HDMI จากกล้องเข้าสู่ OBS สำหรับไลฟ์สดและบันทึกภาพ", "image": "", "url": "#", "note": "แนะนำรุ่นที่รองรับ 1080p60"}, {"name": "V-Mount Battery", "type": "Power System", "description": "แบตหลักสำหรับกล้อง จอ มอนิเตอร์ หรืออุปกรณ์ส่งภาพ เหมาะกับงานภาคสนาม", "image": "", "url": "#", "note": "เช็กแรงดันและหัวจ่ายไฟให้ตรง"}, {"name": "OBS WebSocket", "type": "Software", "description": "เชื่อม Dock UI เข้ากับ OBS เพื่อควบคุม Text, Image, Scene และ Source", "image": "", "url": "#", "note": "ค่า Port ยอดนิยมคือ 4455"}], "support": {"title": "ใช้ฟรี และร่วมสนับสนุนได้ตามความสะดวก", "description": "PepsLive พัฒนาเครื่องมือเพื่อให้ทีมไลฟ์ ทีมกีฬา โรงเรียน สนามแข่งขัน และผู้จัดงาน สามารถยกระดับงานถ่ายทอดสดได้ง่ายขึ้น หากเครื่องมือนี้ช่วยให้งานของคุณดีขึ้น การสนับสนุนของคุณจะช่วยต่อยอดฟีเจอร์ใหม่ ดูแลไฟล์ คู่มือ และระบบให้พร้อมใช้งานต่อไป", "note": "การสนับสนุนเป็นทางเลือก ไม่บังคับใช้งาน เครื่องมือหลักยังคงเปิดให้ใช้งานฟรี", "details": [{"label": "ชื่อบัญชี", "value": "PEPSPRODUCTION"}, {"label": "PromptPay", "value": "096-419-9389"}, {"label": "สนับสนุนเพื่อ", "value": "พัฒนา Dock UI / คู่มือ / ระบบใหม่"}], "links": [{"label": "สนับสนุนโปรเจกต์", "url": "#"}, {"label": "ติดต่อร่วมพัฒนา", "url": "mailto:bank_natade_88@hotmail.com"}]}, "socialLinks": [{"platform": "facebook", "label": "Facebook", "url": "https://www.facebook.com/pepsproduction", "visible": true}, {"platform": "youtube", "label": "YouTube", "url": "#", "visible": true}, {"platform": "tiktok", "label": "TikTok", "url": "#", "visible": true}, {"platform": "line", "label": "LINE", "url": "#", "visible": true}, {"platform": "github", "label": "GitHub", "url": "https://github.com/pepsproduction/obs-dock-ui", "visible": true}], "guides": [{"title": "เพิ่ม Dock UI เข้า OBS", "description": "เปิด OBS > Docks > Custom Browser Docks จากนั้นตั้งชื่อ Dock และใส่ลิงก์หน้า Dock UI ที่ต้องการใช้งาน"}, {"title": "เตรียม Source ให้ตรงกับระบบ", "description": "ตั้งชื่อ Text/Image Source ใน OBS ให้ตรงกับ Tag ที่ Dock UI ใช้ เช่น TeamA, TeamB, ScoreA, ScoreB และ Time"}, {"title": "เชื่อม OBS WebSocket", "description": "เปิด OBS > Tools > WebSocket Server Settings > Enable WebSocket Server แล้วใช้ Port ที่ระบบกำหนด เช่น 4455"}]};
+    const platforms=['facebook','youtube','tiktok','line','github','instagram','website','email'];
+
+    function $(id){return document.getElementById(id)}
+    function esc(v){return String(v??'').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
+    function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(siteData,null,2));refreshJsonBox()}
+    async function fetchData(){const local=localStorage.getItem(STORAGE_KEY);if(local){try{siteData=JSON.parse(local);return}catch(e){}}try{const res=await fetch('data.json?ts='+Date.now(),{cache:'no-store'});if(res.ok)siteData=await res.json()}catch(e){}}
+    function login(){if($('loginUser').value===ADMIN_USER&&$('loginPass').value===ADMIN_PASS){sessionStorage.setItem('pepslive_admin_logged_in','1');showAdmin()}else alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')}
+    function logout(){sessionStorage.removeItem('pepslive_admin_logged_in');location.reload()}
+    function showAdmin(){$('loginScreen').classList.add('hidden');$('adminScreen').classList.remove('hidden');renderAll()}
+    function showTab(ev,name){document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));$('tab-'+name).classList.remove('hidden');ev.target.classList.add('active');refreshJsonBox()}
+    function renderAll(){renderSite();renderDockList();renderEquipmentList();renderSupport();renderSocialList();refreshJsonBox()}
+
+    function renderSite(){const s=siteData.site||{};$('siteBrand').value=s.brand||'';$('siteTagline').value=s.tagline||'';$('siteHeadline').value=s.headline||'';$('siteSubheadline').value=s.subheadline||'';$('primaryButton').value=s.primaryButton||'';$('secondaryButton').value=s.secondaryButton||'';$('siteLogo').value=s.logo||'';$('copyright').value=s.copyright||''}
+    function saveSite(){siteData.site={brand:$('siteBrand').value,tagline:$('siteTagline').value,headline:$('siteHeadline').value,subheadline:$('siteSubheadline').value,primaryButton:$('primaryButton').value,secondaryButton:$('secondaryButton').value,logo:$('siteLogo').value,copyright:$('copyright').value};persist();alert('บันทึกหน้าแรกแล้ว')}
+
+    function linkEditor(links,baseId){return `<div class="links-editor" id="${baseId}">${(links||[]).map((l,i)=>`<div class="link-row"><input placeholder="ชื่อปุ่ม" value="${esc(l.label)}" data-field="label"><input placeholder="URL" value="${esc(l.url)}" data-field="url"><button class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button></div>`).join('')}</div>`}
+    function collectLinks(baseId){return [...$(baseId).querySelectorAll('.link-row')].map(row=>({label:row.querySelector('[data-field="label"]').value,url:row.querySelector('[data-field="url"]').value}))}
+    function addLink(baseId){const box=$(baseId);const div=document.createElement('div');div.className='link-row';div.innerHTML='<input placeholder="ชื่อปุ่ม" data-field="label"><input placeholder="URL" data-field="url"><button class="btn btn-danger btn-small" onclick="this.closest(\\'.link-row\\').remove()">ลบ</button>';box.appendChild(div)}
+
+    function moveItem(arr,index,dir){const ni=index+dir;if(ni<0||ni>=arr.length)return;[arr[index],arr[ni]]=[arr[ni],arr[index]];persist();renderAll()}
+    function renderDockList(){const wrap=$('dockList');wrap.innerHTML='';siteData.dockTools.forEach((item,index)=>{const div=document.createElement('div');div.className='item';div.innerHTML=`<div class="item-head"><h3>${esc(item.title||'Dock UI')}</h3><button class="btn btn-danger btn-small" onclick="deleteDock(${index})">ลบ</button></div><div class="grid-3"><div><label>ชื่อ Dock</label><input id="dock-title-${index}" value="${esc(item.title)}"></div><div><label>Version</label><input id="dock-version-${index}" value="${esc(item.version)}"></div><div><label>Status</label><input id="dock-status-${index}" value="${esc(item.status)}"></div></div><div class="grid-2"><div><label>หมวดหมู่</label><input id="dock-category-${index}" value="${esc(item.category)}"></div><div><label>Featured</label><select id="dock-featured-${index}"><option value="false">ไม่เด่น</option><option value="true" ${item.featured?'selected':''}>การ์ดเด่น</option></select></div></div><label>คำอธิบาย</label><textarea id="dock-description-${index}">${esc(item.description)}</textarea><label>ลิงก์</label>${linkEditor(item.links||[],`dock-links-${index}`)}<div class="move-row"><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.dockTools,${index},-1)">ขึ้น</button><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.dockTools,${index},1)">ลง</button><button class="btn btn-ghost btn-small" onclick="addLink('dock-links-${index}')">เพิ่มลิงก์</button><button class="btn btn-primary btn-small" onclick="saveDock(${index})">บันทึกอันนี้</button></div>`;wrap.appendChild(div)})}
+    function saveDock(index){siteData.dockTools[index]={title:$(`dock-title-${index}`).value,version:$(`dock-version-${index}`).value,status:$(`dock-status-${index}`).value,category:$(`dock-category-${index}`).value,featured:$(`dock-featured-${index}`).value==='true',description:$(`dock-description-${index}`).value,links:collectLinks(`dock-links-${index}`)};persist();renderDockList()}
+    function addDock(){siteData.dockTools.push({title:'Dock UI ใหม่',version:'Coming Soon',category:'OBS Dock UI',description:'ใส่คำอธิบาย',status:'Coming Soon...',featured:false,links:[]});persist();renderDockList()}
+    function deleteDock(i){if(!confirm('ลบ Dock UI นี้?'))return;siteData.dockTools.splice(i,1);persist();renderDockList()}
+
+    function renderEquipmentList(){const wrap=$('equipmentList');wrap.innerHTML='';siteData.equipment.forEach((item,index)=>{const div=document.createElement('div');div.className='item';div.innerHTML=`<div class="item-head"><h3>${esc(item.name||'Equipment')}</h3><button class="btn btn-danger btn-small" onclick="deleteEquipment(${index})">ลบ</button></div><div class="grid-2"><div><label>ชื่ออุปกรณ์</label><input id="eq-name-${index}" value="${esc(item.name)}"></div><div><label>ประเภท</label><input id="eq-type-${index}" value="${esc(item.type)}"></div></div><label>คำอธิบาย</label><textarea id="eq-description-${index}">${esc(item.description)}</textarea><div class="grid-2"><div><label>ลิงก์รูปภาพ</label><input id="eq-image-${index}" value="${esc(item.image)}"></div><div><label>ลิงก์รายละเอียด/ร้านค้า</label><input id="eq-url-${index}" value="${esc(item.url)}"></div></div><label>หมายเหตุ</label><input id="eq-note-${index}" value="${esc(item.note)}"><div class="move-row"><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.equipment,${index},-1)">ขึ้น</button><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.equipment,${index},1)">ลง</button><button class="btn btn-primary btn-small" onclick="saveEquipment(${index})">บันทึกอันนี้</button></div>`;wrap.appendChild(div)})}
+    function saveEquipment(i){siteData.equipment[i]={name:$(`eq-name-${i}`).value,type:$(`eq-type-${i}`).value,description:$(`eq-description-${i}`).value,image:$(`eq-image-${i}`).value,url:$(`eq-url-${i}`).value,note:$(`eq-note-${i}`).value};persist();renderEquipmentList()}
+    function addEquipment(){siteData.equipment.push({name:'อุปกรณ์ใหม่',type:'Live Gear',description:'ใส่คำอธิบาย',image:'',url:'#',note:''});persist();renderEquipmentList()}
+    function deleteEquipment(i){if(!confirm('ลบอุปกรณ์นี้?'))return;siteData.equipment.splice(i,1);persist();renderEquipmentList()}
+
+    function detailEditor(details,baseId){return `<div class="links-editor" id="${baseId}">${(details||[]).map(d=>`<div class="link-row"><input placeholder="หัวข้อ" value="${esc(d.label)}" data-field="label"><input placeholder="รายละเอียด" value="${esc(d.value)}" data-field="value"><button class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button></div>`).join('')}</div>`}
+    function collectDetails(baseId){return [...$(baseId).querySelectorAll('.link-row')].map(row=>({label:row.querySelector('[data-field="label"]').value,value:row.querySelector('[data-field="value"]').value}))}
+    function renderSupport(){const s=siteData.support||{};$('supportTitle').value=s.title||'';$('supportDescription').value=s.description||'';$('supportNote').value=s.note||'';$('supportDetails').innerHTML=detailEditor(s.details||[],'support-details-editor');$('supportLinks').innerHTML=linkEditor(s.links||[],'support-links-editor')}
+    function addSupportDetail(){const box=$('support-details-editor');const div=document.createElement('div');div.className='link-row';div.innerHTML='<input placeholder="หัวข้อ" data-field="label"><input placeholder="รายละเอียด" data-field="value"><button class="btn btn-danger btn-small" onclick="this.closest(\\'.link-row\\').remove()">ลบ</button>';box.appendChild(div)}
+    function addSupportLink(){addLink('support-links-editor')}
+    function saveSupport(){siteData.support={title:$('supportTitle').value,description:$('supportDescription').value,note:$('supportNote').value,details:collectDetails('support-details-editor'),links:collectLinks('support-links-editor')};persist();alert('บันทึกโดเนทแล้ว')}
+
+    function renderSocialList(){const wrap=$('socialList');wrap.innerHTML='';siteData.socialLinks.forEach((item,index)=>{const options=platforms.map(p=>`<option value="${p}" ${item.platform===p?'selected':''}>${p}</option>`).join('');const div=document.createElement('div');div.className='item';div.innerHTML=`<div class="item-head"><h3>${esc(item.label||item.platform||'Social')}</h3><button class="btn btn-danger btn-small" onclick="deleteSocial(${index})">ลบ</button></div><div class="grid-3"><div><label>โลโก้/แพลตฟอร์ม</label><select id="social-platform-${index}">${options}</select></div><div><label>ชื่อที่แสดง</label><input id="social-label-${index}" value="${esc(item.label)}"></div><div><label>แสดงผล</label><select id="social-visible-${index}"><option value="true" ${item.visible!==false?'selected':''}>แสดง</option><option value="false" ${item.visible===false?'selected':''}>ซ่อน</option></select></div></div><label>ลิงก์</label><input id="social-url-${index}" value="${esc(item.url)}"><div class="move-row"><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.socialLinks,${index},-1)">ขึ้น</button><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.socialLinks,${index},1)">ลง</button><button class="btn btn-primary btn-small" onclick="saveSocial(${index})">บันทึกอันนี้</button></div>`;wrap.appendChild(div)})}
+    function saveSocial(i){siteData.socialLinks[i]={platform:$(`social-platform-${i}`).value,label:$(`social-label-${i}`).value,url:$(`social-url-${i}`).value,visible:$(`social-visible-${i}`).value==='true'};persist();renderSocialList()}
+    function addSocial(){siteData.socialLinks.push({platform:'website',label:'Website',url:'#',visible:true});persist();renderSocialList()}
+    function deleteSocial(i){if(!confirm('ลบ Social นี้?'))return;siteData.socialLinks.splice(i,1);persist();renderSocialList()}
+
+    function refreshJsonBox(){$('jsonBox').value=JSON.stringify(siteData,null,2)}
+    function importJson(){try{siteData=JSON.parse($('jsonBox').value);persist();renderAll();alert('Import สำเร็จ')}catch(e){alert('JSON ไม่ถูกต้อง')}}
+    function downloadJson(){try{saveSite()}catch(e){}try{saveSupport()}catch(e){}const blob=new Blob([JSON.stringify(siteData,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='data.json';a.click();URL.revokeObjectURL(url)}
+    function resetLocal(){if(!confirm('ล้างข้อมูล local ที่แก้ไว้?'))return;localStorage.removeItem(STORAGE_KEY);location.reload()}
+    fetchData().then(()=>{if(sessionStorage.getItem('pepslive_admin_logged_in')==='1')showAdmin()})
+  </script>
+</body>
+</html>

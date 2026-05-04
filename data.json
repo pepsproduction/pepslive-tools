@@ -1,0 +1,186 @@
+{
+  "site": {
+    "brand": "PEPS LIVE PRODUCTION",
+    "tagline": "Control Every Moment • Produce The Win",
+    "headline": "OBS Dock UI สำหรับงานไลฟ์กีฬา ที่คุมง่ายและดูโปรขึ้นทันที",
+    "subheadline": "รวม Sport Scoreboard, คู่มือ OBS, อุปกรณ์แนะนำ และเครื่องมือสำหรับทีมไลฟ์กีฬา ใช้งานฟรี พร้อมเปิดรับการสนับสนุนเพื่อพัฒนาต่อ",
+    "primaryButton": "เปิด Dock UI",
+    "secondaryButton": "ดูวิธีใช้งาน",
+    "logo": "assets/pepslive-logo.png",
+    "copyright": "© 2026 PEPS LIVE PRODUCTION. ALL RIGHTS RESERVED."
+  },
+  "quickSteps": [
+    {
+      "title": "เปิด OBS",
+      "description": "เตรียม Scene และ Source ที่ต้องใช้กับงานถ่ายทอดสด"
+    },
+    {
+      "title": "เพิ่ม Dock UI",
+      "description": "นำลิงก์ Dock ไปใส่ใน Custom Browser Docks"
+    },
+    {
+      "title": "คุมคะแนน",
+      "description": "ปรับชื่อทีม คะแนน เวลา และข้อมูลเกมผ่านหน้า Control"
+    }
+  ],
+  "dockTools": [
+    {
+      "title": "OBS Dock UI Sport Scoreboard",
+      "version": "V1.0",
+      "category": "Main Tool",
+      "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
+      "status": "ใช้ฟรี",
+      "featured": true,
+      "links": [
+        {
+          "label": "เปิด Dock UI",
+          "url": "https://pepsproduction.github.io/obs-dock-ui/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/pepsproduction/obs-dock-ui"
+        },
+        {
+          "label": "คู่มือใช้งาน",
+          "url": "#guide"
+        }
+      ]
+    },
+    {
+      "title": "Replay Control Dock",
+      "version": "Coming Soon",
+      "category": "Replay",
+      "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ",
+      "status": "Coming Soon...",
+      "featured": false,
+      "links": []
+    },
+    {
+      "title": "Graphic Trigger Dock",
+      "version": "Coming Soon",
+      "category": "Graphic",
+      "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
+      "status": "Coming Soon...",
+      "featured": false,
+      "links": []
+    },
+    {
+      "title": "Tournament Manager Dock",
+      "version": "Coming Soon",
+      "category": "Tournament",
+      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
+      "status": "Coming Soon...",
+      "featured": false,
+      "links": []
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Wireless HDMI",
+      "type": "Video Transmission",
+      "description": "ส่งสัญญาณภาพจากกล้องไปยังจุดควบคุม ลดสายยาวและทำให้สนามดูคล่องตัวขึ้น",
+      "image": "",
+      "url": "#",
+      "note": "เน้นระบายความร้อนดี เหมาะกับอากาศร้อน"
+    },
+    {
+      "name": "Capture Card",
+      "type": "Input Device",
+      "description": "แปลงสัญญาณ HDMI จากกล้องเข้าสู่ OBS สำหรับไลฟ์สดและบันทึกภาพ",
+      "image": "",
+      "url": "#",
+      "note": "แนะนำรุ่นที่รองรับ 1080p60"
+    },
+    {
+      "name": "V-Mount Battery",
+      "type": "Power System",
+      "description": "แบตหลักสำหรับกล้อง จอ มอนิเตอร์ หรืออุปกรณ์ส่งภาพ เหมาะกับงานภาคสนาม",
+      "image": "",
+      "url": "#",
+      "note": "เช็กแรงดันและหัวจ่ายไฟให้ตรง"
+    },
+    {
+      "name": "OBS WebSocket",
+      "type": "Software",
+      "description": "เชื่อม Dock UI เข้ากับ OBS เพื่อควบคุม Text, Image, Scene และ Source",
+      "image": "",
+      "url": "#",
+      "note": "ค่า Port ยอดนิยมคือ 4455"
+    }
+  ],
+  "support": {
+    "title": "ใช้ฟรี และร่วมสนับสนุนได้ตามความสะดวก",
+    "description": "PepsLive พัฒนาเครื่องมือเพื่อให้ทีมไลฟ์ ทีมกีฬา โรงเรียน สนามแข่งขัน และผู้จัดงาน สามารถยกระดับงานถ่ายทอดสดได้ง่ายขึ้น หากเครื่องมือนี้ช่วยให้งานของคุณดีขึ้น การสนับสนุนของคุณจะช่วยต่อยอดฟีเจอร์ใหม่ ดูแลไฟล์ คู่มือ และระบบให้พร้อมใช้งานต่อไป",
+    "note": "การสนับสนุนเป็นทางเลือก ไม่บังคับใช้งาน เครื่องมือหลักยังคงเปิดให้ใช้งานฟรี",
+    "details": [
+      {
+        "label": "ชื่อบัญชี",
+        "value": "PEPSPRODUCTION"
+      },
+      {
+        "label": "PromptPay",
+        "value": "096-419-9389"
+      },
+      {
+        "label": "สนับสนุนเพื่อ",
+        "value": "พัฒนา Dock UI / คู่มือ / ระบบใหม่"
+      }
+    ],
+    "links": [
+      {
+        "label": "สนับสนุนโปรเจกต์",
+        "url": "#"
+      },
+      {
+        "label": "ติดต่อร่วมพัฒนา",
+        "url": "mailto:bank_natade_88@hotmail.com"
+      }
+    ]
+  },
+  "socialLinks": [
+    {
+      "platform": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/pepsproduction",
+      "visible": true
+    },
+    {
+      "platform": "youtube",
+      "label": "YouTube",
+      "url": "#",
+      "visible": true
+    },
+    {
+      "platform": "tiktok",
+      "label": "TikTok",
+      "url": "#",
+      "visible": true
+    },
+    {
+      "platform": "line",
+      "label": "LINE",
+      "url": "#",
+      "visible": true
+    },
+    {
+      "platform": "github",
+      "label": "GitHub",
+      "url": "https://github.com/pepsproduction/obs-dock-ui",
+      "visible": true
+    }
+  ],
+  "guides": [
+    {
+      "title": "เพิ่ม Dock UI เข้า OBS",
+      "description": "เปิด OBS > Docks > Custom Browser Docks จากนั้นตั้งชื่อ Dock และใส่ลิงก์หน้า Dock UI ที่ต้องการใช้งาน"
+    },
+    {
+      "title": "เตรียม Source ให้ตรงกับระบบ",
+      "description": "ตั้งชื่อ Text/Image Source ใน OBS ให้ตรงกับ Tag ที่ Dock UI ใช้ เช่น TeamA, TeamB, ScoreA, ScoreB และ Time"
+    },
+    {
+      "title": "เชื่อม OBS WebSocket",
+      "description": "เปิด OBS > Tools > WebSocket Server Settings > Enable WebSocket Server แล้วใช้ Port ที่ระบบกำหนด เช่น 4455"
+    }
+  ]
+}
