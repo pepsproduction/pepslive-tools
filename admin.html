@@ -181,7 +181,13 @@
 
     function linkEditor(links,baseId){return `<div class="links-editor" id="${baseId}">${(links||[]).map((l,i)=>`<div class="link-row"><input placeholder="ชื่อปุ่ม" value="${esc(l.label)}" data-field="label"><input placeholder="URL" value="${esc(l.url)}" data-field="url"><button class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button></div>`).join('')}</div>`}
     function collectLinks(baseId){return [...$(baseId).querySelectorAll('.link-row')].map(row=>({label:row.querySelector('[data-field="label"]').value,url:row.querySelector('[data-field="url"]').value}))}
-    function addLink(baseId){const box=$(baseId);const div=document.createElement('div');div.className='link-row';div.innerHTML='<input placeholder="ชื่อปุ่ม" data-field="label"><input placeholder="URL" data-field="url"><button class="btn btn-danger btn-small" onclick="this.closest(\\'.link-row\\').remove()">ลบ</button>';box.appendChild(div)}
+    function addLink(baseId){
+      const box=$(baseId);
+      const div=document.createElement('div');
+      div.className='link-row';
+      div.innerHTML=`<input placeholder="ชื่อปุ่ม" data-field="label"><input placeholder="URL" data-field="url"><button type="button" class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button>`;
+      box.appendChild(div);
+    }
 
     function moveItem(arr,index,dir){const ni=index+dir;if(ni<0||ni>=arr.length)return;[arr[index],arr[ni]]=[arr[ni],arr[index]];persist();renderAll()}
     function renderDockList(){const wrap=$('dockList');wrap.innerHTML='';siteData.dockTools.forEach((item,index)=>{const div=document.createElement('div');div.className='item';div.innerHTML=`<div class="item-head"><h3>${esc(item.title||'Dock UI')}</h3><button class="btn btn-danger btn-small" onclick="deleteDock(${index})">ลบ</button></div><div class="grid-3"><div><label>ชื่อ Dock</label><input id="dock-title-${index}" value="${esc(item.title)}"></div><div><label>Version</label><input id="dock-version-${index}" value="${esc(item.version)}"></div><div><label>Status</label><input id="dock-status-${index}" value="${esc(item.status)}"></div></div><div class="grid-2"><div><label>หมวดหมู่</label><input id="dock-category-${index}" value="${esc(item.category)}"></div><div><label>Featured</label><select id="dock-featured-${index}"><option value="false">ไม่เด่น</option><option value="true" ${item.featured?'selected':''}>การ์ดเด่น</option></select></div></div><label>คำอธิบาย</label><textarea id="dock-description-${index}">${esc(item.description)}</textarea><label>ลิงก์</label>${linkEditor(item.links||[],`dock-links-${index}`)}<div class="move-row"><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.dockTools,${index},-1)">ขึ้น</button><button class="btn btn-ghost btn-small" onclick="moveItem(siteData.dockTools,${index},1)">ลง</button><button class="btn btn-ghost btn-small" onclick="addLink('dock-links-${index}')">เพิ่มลิงก์</button><button class="btn btn-primary btn-small" onclick="saveDock(${index})">บันทึกอันนี้</button></div>`;wrap.appendChild(div)})}
@@ -197,7 +203,13 @@
     function detailEditor(details,baseId){return `<div class="links-editor" id="${baseId}">${(details||[]).map(d=>`<div class="link-row"><input placeholder="หัวข้อ" value="${esc(d.label)}" data-field="label"><input placeholder="รายละเอียด" value="${esc(d.value)}" data-field="value"><button class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button></div>`).join('')}</div>`}
     function collectDetails(baseId){return [...$(baseId).querySelectorAll('.link-row')].map(row=>({label:row.querySelector('[data-field="label"]').value,value:row.querySelector('[data-field="value"]').value}))}
     function renderSupport(){const s=siteData.support||{};$('supportTitle').value=s.title||'';$('supportDescription').value=s.description||'';$('supportNote').value=s.note||'';$('supportDetails').innerHTML=detailEditor(s.details||[],'support-details-editor');$('supportLinks').innerHTML=linkEditor(s.links||[],'support-links-editor')}
-    function addSupportDetail(){const box=$('support-details-editor');const div=document.createElement('div');div.className='link-row';div.innerHTML='<input placeholder="หัวข้อ" data-field="label"><input placeholder="รายละเอียด" data-field="value"><button class="btn btn-danger btn-small" onclick="this.closest(\\'.link-row\\').remove()">ลบ</button>';box.appendChild(div)}
+    function addSupportDetail(){
+      const box=$('support-details-editor');
+      const div=document.createElement('div');
+      div.className='link-row';
+      div.innerHTML=`<input placeholder="หัวข้อ" data-field="label"><input placeholder="รายละเอียด" data-field="value"><button type="button" class="btn btn-danger btn-small" onclick="this.closest('.link-row').remove()">ลบ</button>`;
+      box.appendChild(div);
+    }
     function addSupportLink(){addLink('support-links-editor')}
     function saveSupport(){siteData.support={title:$('supportTitle').value,description:$('supportDescription').value,note:$('supportNote').value,details:collectDetails('support-details-editor'),links:collectLinks('support-links-editor')};persist();alert('บันทึกโดเนทแล้ว')}
 
@@ -208,7 +220,23 @@
 
     function refreshJsonBox(){$('jsonBox').value=JSON.stringify(siteData,null,2)}
     function importJson(){try{siteData=JSON.parse($('jsonBox').value);persist();renderAll();alert('Import สำเร็จ')}catch(e){alert('JSON ไม่ถูกต้อง')}}
-    function downloadJson(){try{saveSite()}catch(e){}try{saveSupport()}catch(e){}const blob=new Blob([JSON.stringify(siteData,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='data.json';a.click();URL.revokeObjectURL(url)}
+    function downloadJson(){
+      try{
+        if($('siteBrand')){
+          siteData.site={brand:$('siteBrand').value,tagline:$('siteTagline').value,headline:$('siteHeadline').value,subheadline:$('siteSubheadline').value,primaryButton:$('primaryButton').value,secondaryButton:$('secondaryButton').value,logo:$('siteLogo').value,copyright:$('copyright').value};
+        }
+        if($('supportTitle')){
+          siteData.support={title:$('supportTitle').value,description:$('supportDescription').value,note:$('supportNote').value,details:collectDetails('support-details-editor'),links:collectLinks('support-links-editor')};
+        }
+      }catch(e){}
+      const blob=new Blob([JSON.stringify(siteData,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
     function resetLocal(){if(!confirm('ล้างข้อมูล local ที่แก้ไว้?'))return;localStorage.removeItem(STORAGE_KEY);location.reload()}
     fetchData().then(()=>{if(sessionStorage.getItem('pepslive_admin_logged_in')==='1')showAdmin()})
   </script>

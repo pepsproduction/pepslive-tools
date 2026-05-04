@@ -182,5 +182,38 @@
       "title": "เชื่อม OBS WebSocket",
       "description": "เปิด OBS > Tools > WebSocket Server Settings > Enable WebSocket Server แล้วใช้ Port ที่ระบบกำหนด เช่น 4455"
     }
-  ]
+  ],
+  "preUseSettings": {
+    "title": "ตั้งค่าก่อนการใช้งาน",
+    "description": "ก่อนเชื่อม Dock UI เข้ากับ OBS ให้เปิดใช้งาน WebSocket Server ก่อน เพื่อให้ระบบสามารถส่งข้อมูลคะแนน ชื่อทีม และเวลาการแข่งขันเข้าสู่ OBS ได้อย่างถูกต้อง",
+    "summary": "Setting : เปิดการใช้งาน WebSocket ใน OBS (Tools > WebSocket Server Settings)",
+    "steps": [
+      {
+        "no": "1",
+        "title": "เข้าเมนู Tools",
+        "text": "ที่แถบเมนูด้านบนของ OBS ให้กด Tools แล้วเลือก WebSocket Server Settings"
+      },
+      {
+        "no": "2",
+        "title": "เปิด WebSocket Server",
+        "text": "ติ๊กถูกที่ Enable WebSocket Server เพื่อเปิดการใช้งานระบบเชื่อมต่อ"
+      },
+      {
+        "no": "3",
+        "title": "ตั้งค่า Server Port",
+        "text": "กำหนด Server Port เป็น 4455"
+      },
+      {
+        "no": "4",
+        "title": "ปิด Authentication",
+        "text": "เอาเครื่องหมายถูกออกจาก Enable Authentication เพื่อให้เชื่อมต่อได้ง่ายขึ้น"
+      }
+    ],
+    "checklist": [
+      "Enable WebSocket Server",
+      "Server Port : 4455",
+      "Enable Authentication : Uncheck"
+    ],
+    "image": "assets/obs-websocket-guide.png"
+  }
 }

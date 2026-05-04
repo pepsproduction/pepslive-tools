@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+
+  <title>PEPS LIVE PRODUCTION | Dock UI</title>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><img data-logo src="assets/pepslive-logo.png" alt="PEPS LIVE"></a>
+    <nav class="menu">
+      <a data-nav="home" href="index.html">หน้าแรก</a>
+      <a data-nav="start" href="start.html">เริ่มใช้งาน</a>
+      <a data-nav="dock" href="dock-ui.html">Dock UI</a>
+      <a data-nav="equipment" href="equipment.html">อุปกรณ์</a>
+      <a data-nav="support" href="support.html">ซัพพอร์ต</a>
+      <a data-nav="follow" href="follow.html">ติดตาม</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary" href="dock-ui.html">เปิด Dock UI</a>
+      <button class="hamburger" id="hamburger">≡</button>
+    </div>
+  </div>
+  <div class="container mobile-menu" id="mobileMenu">
+      <a data-nav="home" href="index.html">หน้าแรก</a>
+      <a data-nav="start" href="start.html">เริ่มใช้งาน</a>
+      <a data-nav="dock" href="dock-ui.html">Dock UI</a>
+      <a data-nav="equipment" href="equipment.html">อุปกรณ์</a>
+      <a data-nav="support" href="support.html">ซัพพอร์ต</a>
+      <a data-nav="follow" href="follow.html">ติดตาม</a>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-hero"><div class="container reveal"><div class="eyebrow"><span class="dot"></span><span>Dock UI</span></div><h1 class="page-title">เครื่องมือทั้งหมดแยกชัดเจน</h1><p class="lead">ดันเครื่องมือหลักขึ้นมาให้เด่น ส่วนระบบที่ยังไม่พร้อมแยกไปอยู่ใน Coming Soon เพื่อให้หน้าอ่านง่ายขึ้น</p></div></section>
+  <section>
+    <div class="container">
+      <div class="section-head reveal"><div><div class="kicker">Main Tool</div><h2 class="section-title">ตัวหลักที่ใช้งานจริง</h2></div><p class="section-desc">OBS Dock UI Sport Scoreboard รวม Football และ Basketball 3x3 ไว้ในระบบเดียว</p></div>
+      <div id="featuredDock" class="reveal"></div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="section-head reveal"><div><div class="kicker">Coming Soon</div><h2 class="section-title">ระบบที่จะเพิ่มต่อ</h2></div><p class="section-desc">แอดมินสามารถเพิ่มหรือจัดลำดับภายหลังได้ แต่หน้าเว็บจะยังคงอ่านง่ายเพราะแยกหน้าไว้แล้ว</p></div>
+      <div class="grid-3 reveal" id="dockList"></div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div data-copyright></div>
+    <div>PEPS LIVE • OBS Tools • Sport Production</div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+(async()=>{
+  const data = await loadSiteData();
+  initCommon(data, 'dock');
+  
+  const items=data.dockTools||[];
+  const featured=items.find(x=>x.featured)||items[0];
+  const rest=items.filter(x=>x!==featured);
+  if(featured){
+    const soon=String(featured.status||'').toLowerCase().includes('coming');
+    const wrap=document.getElementById('featuredDock');
+    wrap.innerHTML=`<div class="page-panel"><div class="grid-2" style="position:relative;z-index:1;align-items:start"><div><div class="meta"><span class="pill">${featured.category||'Main Tool'}</span><span class="pill">${featured.version||'V1.0'}</span><span class="pill ${soon?'soon':''}">${featured.status||''}</span></div><h3 class="title-xl" style="font-size:clamp(28px,4vw,42px)">${featured.title||''}</h3><p class="sub">${featured.description||''}</p><div class="link-row" id="featureLinks"></div></div><div class="screen"><div class="scoreboard"><div class="team">TEAM A</div><div class="score">2 : 1</div><div class="team right">TEAM B</div></div><div class="mini-grid"><div class="mini-box"><span>MODE</span><strong>SPORT</strong></div><div class="mini-box"><span>TIMER</span><strong>45:00</strong></div><div class="mini-box"><span>STATUS</span><strong>LIVE</strong></div></div><div class="strip">Ready For OBS Control</div></div></div></div>`;
+    const links=wrap.querySelector('#featureLinks'); (featured.links||[]).forEach((l,i)=>links.appendChild(linkEl(l,i===0?'btn btn-primary':'btn btn-ghost')));
+  }
+  const list=document.getElementById('dockList');
+  rest.forEach(item=>{ const soon=String(item.status||'').toLowerCase().includes('coming'); const el=document.createElement('article'); el.className='card'; el.innerHTML=`<div class="meta"><span class="pill">${item.category||''}</span><span class="pill ${soon?'soon':''}">${item.status||''}</span></div><h3>${item.title||''}</h3><p>${item.description||''}</p><div class="link-row"></div>`; const row=el.querySelector('.link-row'); if(item.links&&item.links.length){ item.links.forEach(l=>row.appendChild(linkEl(l))); } else { const s=document.createElement('span'); s.className='mini-link disabled'; s.textContent='Coming Soon...'; row.appendChild(s);} list.appendChild(el); });
+
+})();
+</script>
+</body>
+</html>
