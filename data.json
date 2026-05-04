@@ -27,18 +27,18 @@
     {
       "title": "OBS Dock UI Sport Scoreboard",
       "version": "V1.0",
-      "category": "Main Tool",
-      "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
       "status": "ใช้ฟรี",
+      "category": "Main Tool",
       "featured": true,
+      "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
       "links": [
         {
           "label": "เปิด Dock UI",
-          "url": "https://pepsproduction.github.io/obs-dock-ui/"
+          "url": "https://pepsproduction.github.io/pepslive-dock/PepsLive_Dock_V1.html"
         },
         {
           "label": "GitHub",
-          "url": "https://github.com/pepsproduction/obs-dock-ui"
+          "url": "https://github.com/pepsproduction/pepslive-dock"
         },
         {
           "label": "คู่มือใช้งาน",
