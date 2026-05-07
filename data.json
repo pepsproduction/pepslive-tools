@@ -13,9 +13,10 @@
     "counterEnabled": true,
     "provider": "goatcounter",
     "goatCounterCode": "",
-    "displayLabel": "VISITS",
-    "fallbackValue": "READY",
-    "note": "ใส่ GoatCounter Code หลังสมัคร เช่น pepslive"
+    "displayLabel": "ผู้เข้าชม",
+    "fallbackValue": "",
+    "note": "ถ้ายังไม่ใส่ GoatCounter Code ตัวนับจะถูกซ่อนจากหน้าเว็บ",
+    "hideWhenUnconfigured": true
   },
   "effects": {
     "animatedBackground": true,

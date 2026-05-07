@@ -5,5 +5,40 @@ const ext=url=>url&&(url.startsWith('http')||url.startsWith('mailto:')||url.star
 function linkEl(link,cls='mini-link'){const a=document.createElement('a');a.className=cls;a.href=link.url||'#';a.target=ext(link.url)&&!link.url.startsWith('mailto:')&&!link.url.startsWith('tel:')?'_blank':'_self';a.rel='noopener';a.textContent=link.label||'เปิดลิงก์';return a}
 function initCommon(data,active){document.querySelectorAll('[data-logo]').forEach(img=>img.src=data.site.logo||'assets/pepslive-logo.png');document.querySelectorAll('[data-copyright]').forEach(el=>el.textContent=data.site.copyright||'');document.querySelectorAll('.menu a,.mobile-menu a').forEach(a=>{if(a.dataset.nav===active)a.classList.add('active')});const ham=document.getElementById('hamburger'),mobile=document.getElementById('mobileMenu');if(ham&&mobile){ham.addEventListener('click',()=>mobile.classList.toggle('open'));mobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobile.classList.remove('open')))}const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));initRippleEffects();initVisitorCounter(data.analytics||{})}
 function initRippleEffects(){document.querySelectorAll('.btn,.mini-link,.social-icon').forEach(el=>{el.addEventListener('click',function(e){const rect=this.getBoundingClientRect();const size=Math.max(rect.width,rect.height);const ripple=document.createElement('span');ripple.className='ripple';ripple.style.width=ripple.style.height=size+'px';ripple.style.left=(e.clientX-rect.left-size/2)+'px';ripple.style.top=(e.clientY-rect.top-size/2)+'px';this.appendChild(ripple);setTimeout(()=>ripple.remove(),620)})})}
-function initVisitorCounter(analytics){const counter=document.querySelector('[data-visitor-counter]');if(!counter)return;const numberEl=counter.querySelector('[data-counter-number]'),labelEl=counter.querySelector('[data-counter-label]');labelEl.textContent=analytics.displayLabel||'VISITS';if(analytics.provider==='goatcounter'&&analytics.goatCounterCode){const path=location.pathname||'/';const url=`https://${analytics.goatCounterCode}.goatcounter.com/counter/${encodeURIComponent(path)}.json`;fetch(url,{cache:'no-store'}).then(res=>res.ok?res.json():Promise.reject()).then(json=>{const value=json.count||json.count_unique||json.total||analytics.fallbackValue||'READY';numberEl.textContent=String(value).replace(/\B(?=(\d{3})+(?!\d))/g,',')}).catch(()=>{numberEl.textContent=analytics.fallbackValue||'READY'})}else{numberEl.textContent=analytics.fallbackValue||'READY'}}
+function initVisitorCounter(analytics){
+  const counter=document.querySelector('[data-visitor-counter]');
+  if(!counter) return;
+
+  const label=counter.querySelector('[data-counter-label]');
+  const num=counter.querySelector('[data-counter-number]');
+
+  const hasGoatCode = analytics.provider === 'goatcounter' && !!analytics.goatCounterCode;
+  const shouldHide = analytics.hideWhenUnconfigured !== false && !hasGoatCode;
+
+  if(shouldHide){
+    counter.style.display='none';
+    return;
+  }
+
+  counter.style.display='inline-flex';
+  if(label) label.textContent = analytics.displayLabel || 'ผู้เข้าชม';
+  if(!num) return;
+
+  if(hasGoatCode){
+    const path=location.pathname || '/';
+    const url=`https://${analytics.goatCounterCode}.goatcounter.com/counter/${encodeURIComponent(path)}.json`;
+    fetch(url,{cache:'no-store'})
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(j=>{
+        const v=j.count || j.count_unique || j.total || '0';
+        num.textContent=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+      })
+      .catch(()=>{
+        counter.style.display='none';
+      });
+  }else{
+    counter.style.display='none';
+  }
+}
+
 function renderSocial(items){const grid=document.getElementById('socialGrid');if(!grid)return;grid.innerHTML='';(items||[]).filter(x=>x.visible!==false).forEach(item=>{const wrap=document.createElement('div');wrap.className='social-item';const a=document.createElement('a');a.className='social-icon';a.href=item.url||'#';a.innerHTML=iconSvg[item.platform]||iconSvg.website;a.target=ext(item.url)&&!item.url.startsWith('mailto:')&&!item.url.startsWith('tel:')?'_blank':'_self';a.rel='noopener';const label=document.createElement('div');label.className='social-label';label.textContent=item.label||item.platform;wrap.appendChild(a);wrap.appendChild(label);grid.appendChild(wrap)})}
