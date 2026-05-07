@@ -11,34 +11,64 @@ function initVisitorCounter(analytics){
 
   const label=counter.querySelector('[data-counter-label]');
   const num=counter.querySelector('[data-counter-number]');
+  const padDigits = Number(analytics.padDigits || 6);
+  const fallback = String(analytics.fallbackValue || '000000').padStart(padDigits,'0');
 
-  const hasGoatCode = analytics.provider === 'goatcounter' && !!analytics.goatCounterCode;
-  const shouldHide = analytics.hideWhenUnconfigured !== false && !hasGoatCode;
-
-  if(shouldHide){
-    counter.style.display='none';
-    return;
-  }
+  const formatCount = (value) => {
+    const n = Number(value || 0);
+    if(!Number.isFinite(n)) return fallback;
+    return String(Math.max(0, Math.floor(n))).padStart(padDigits,'0');
+  };
 
   counter.style.display='inline-flex';
   if(label) label.textContent = analytics.displayLabel || 'ผู้เข้าชม';
-  if(!num) return;
+  if(num) num.textContent = fallback;
+  if(!num || analytics.counterEnabled === false) return;
 
-  if(hasGoatCode){
+  if(analytics.provider === 'counterapi'){
+    const namespace = encodeURIComponent(analytics.namespace || 'pepsproduction-pepslive-tools');
+    const counterName = encodeURIComponent(analytics.counterName || 'site-visitors');
+    const base = `https://api.counterapi.dev/v1/${namespace}/${counterName}`;
+    const today = new Date().toISOString().slice(0,10);
+    const localKey = `pepslive-counter-${namespace}-${counterName}-${today}`;
+    const shouldCountOncePerDay = (analytics.countOncePer || 'day') === 'day';
+    const alreadyCounted = shouldCountOncePerDay && localStorage.getItem(localKey) === '1';
+    const endpoint = alreadyCounted ? base : `${base}/up`;
+
+    fetch(endpoint,{cache:'no-store'})
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(j=>{
+        const value = j.count ?? j.Count ?? j.value ?? j.data ?? j.total ?? 0;
+        num.textContent = formatCount(value);
+        if(!alreadyCounted && shouldCountOncePerDay) localStorage.setItem(localKey,'1');
+      })
+      .catch(()=>{
+        fetch(base,{cache:'no-store'})
+          .then(r=>r.ok?r.json():Promise.reject())
+          .then(j=>{
+            const value = j.count ?? j.Count ?? j.value ?? j.data ?? j.total ?? 0;
+            num.textContent = formatCount(value);
+          })
+          .catch(()=>{ num.textContent = fallback; });
+      });
+    return;
+  }
+
+  if(analytics.provider === 'goatcounter' && analytics.goatCounterCode){
     const path=location.pathname || '/';
     const url=`https://${analytics.goatCounterCode}.goatcounter.com/counter/${encodeURIComponent(path)}.json`;
     fetch(url,{cache:'no-store'})
       .then(r=>r.ok?r.json():Promise.reject())
       .then(j=>{
-        const v=j.count || j.count_unique || j.total || '0';
-        num.textContent=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+        const v=j.count || j.count_unique || j.total || 0;
+        num.textContent = formatCount(v);
       })
-      .catch(()=>{
-        counter.style.display='none';
-      });
-  }else{
-    counter.style.display='none';
+      .catch(()=>{ num.textContent = fallback; });
+    return;
   }
+
+  num.textContent = fallback;
 }
+
 
 function renderSocial(items){const grid=document.getElementById('socialGrid');if(!grid)return;grid.innerHTML='';(items||[]).filter(x=>x.visible!==false).forEach(item=>{const wrap=document.createElement('div');wrap.className='social-item';const a=document.createElement('a');a.className='social-icon';a.href=item.url||'#';a.innerHTML=iconSvg[item.platform]||iconSvg.website;a.target=ext(item.url)&&!item.url.startsWith('mailto:')&&!item.url.startsWith('tel:')?'_blank':'_self';a.rel='noopener';const label=document.createElement('div');label.className='social-label';label.textContent=item.label||item.platform;wrap.appendChild(a);wrap.appendChild(label);grid.appendChild(wrap)})}

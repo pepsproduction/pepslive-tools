@@ -11,12 +11,17 @@
   },
   "analytics": {
     "counterEnabled": true,
-    "provider": "goatcounter",
+    "provider": "counterapi",
     "goatCounterCode": "",
     "displayLabel": "ผู้เข้าชม",
-    "fallbackValue": "",
-    "note": "ถ้ายังไม่ใส่ GoatCounter Code ตัวนับจะถูกซ่อนจากหน้าเว็บ",
-    "hideWhenUnconfigured": true
+    "fallbackValue": "000000",
+    "note": "ใช้ CounterAPI v1 แบบ public counter เริ่มแสดง 000000 และนับจริงเมื่อเปิดผ่านเว็บไซต์",
+    "hideWhenUnconfigured": false,
+    "namespace": "pepsproduction-pepslive-tools",
+    "counterName": "site-visitors",
+    "startValue": 0,
+    "padDigits": 6,
+    "countOncePer": "day"
   },
   "effects": {
     "animatedBackground": true,

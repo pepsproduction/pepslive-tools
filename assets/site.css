@@ -12,6 +12,6 @@ section{padding:54px 0}.section-head{display:flex;align-items:end;justify-conten
 .data-error{border:1px solid rgba(255,90,0,.35);background:rgba(255,90,0,.08);border-radius:16px;padding:14px;color:#ffbf9b;margin:16px 0}
 
 /* V6.2 clean counter */
-.view-counter[style*="display: none"]{display:none!important}
+/* counter remains visible in V6.3 */
 .view-counter .counter-label{font-family:"IBM Plex Sans Thai",sans-serif;font-size:11px;letter-spacing:.2px}
-.view-counter .counter-number::after{content:" views";font-size:10px;color:var(--muted2);margin-left:4px}
+.view-counter .counter-number::after{content:" คน";font-size:10px;color:var(--muted2);margin-left:4px}
