@@ -1,27 +1,29 @@
-# PEPS LIVE Community Site V5
+# PEPS LIVE Tools V6.1 Repo-Base Fix
 
-เวอร์ชันนี้เปลี่ยนจากหน้าเดียวเป็นหลายหน้า เพื่อให้อ่านง่ายและเป็นระเบียบขึ้น
+ชุดนี้ใช้ข้อมูลจาก repo ปัจจุบันเป็นหลัก และแก้ปัญหาหน้าเว็บดูเหมือนบัค/พื้นหลังขาว/ไม่มี UI โดยเพิ่มความทนทานของ frontend
 
-## หน้าหลักในเว็บไซต์
-- index.html = หน้าแรก
-- start.html = เริ่มใช้งาน + ตั้งค่าก่อนการใช้งาน
-- dock-ui.html = Dock UI
-- equipment.html = อุปกรณ์
-- support.html = ซัพพอร์ต
-- follow.html = ช่องทางติดตาม
-- admin.html = หน้าแอดมินแบบซ่อนจากเมนู
+## สิ่งที่แก้ใน V6.1
 
-## เพิ่มใหม่
-- หัวข้อ “ตั้งค่าก่อนการใช้งาน” ในหน้า start.html
-- ใช้ภาพตัวอย่าง OBS WebSocket ที่ผู้ใช้อัปโหลดเป็นฐานประกอบคำอธิบาย
-- สรุป Setting ชัดเจน:
-  - Enable WebSocket Server
-  - Server Port : 4455
-  - Enable Authentication : Uncheck
+- คงข้อมูลปัจจุบันจาก `data.json` เช่น Dock UI, AutoCue Dock, ลิงก์ Shopee, Donate, Social
+- เพิ่ม/คง Visitor Counter ข้างโลโก้
+- เพิ่ม Animated Background
+- เพิ่ม Button Ripple / Hover / Active Menu / Card Glow
+- แก้ fallback: ถ้า JavaScript หรือ data.json โหลดมีปัญหา เนื้อหาจะไม่ถูกซ่อนจนเหลือหน้าว่าง
+- ใช้ `.peps-js .reveal` แทนการซ่อน `.reveal` โดยตรง เพื่อกันหน้าเปล่าหาก JS error
+- ยังใช้ GitHub Pages + data.json เหมือนเดิม
 
-## Admin
-เข้าได้ที่ /admin.html
-Username: admin
-Password: pepslive2026
+## วิธีอัปขึ้น GitHub
 
-หมายเหตุ: หน้าแอดมินยังใช้ข้อมูลจาก data.json แบบ static เช่นเดิม
+อัปโหลดไฟล์ทั้งหมดใน ZIP ทับของเดิมใน repo:
+
+- index.html
+- start.html
+- dock-ui.html
+- equipment.html
+- support.html
+- follow.html
+- admin.html
+- data.json
+- assets/
+
+สำคัญ: ต้องอัปโหลดทั้ง `assets/site.css` และ `assets/app.js` ด้วย ไม่งั้น UI/animation จะไม่ครบ

@@ -9,6 +9,21 @@
     "logo": "assets/pepslive-logo.png",
     "copyright": "© 2026 PEPS LIVE PRODUCTION. ALL RIGHTS RESERVED."
   },
+  "analytics": {
+    "counterEnabled": true,
+    "provider": "goatcounter",
+    "goatCounterCode": "",
+    "displayLabel": "VISITS",
+    "fallbackValue": "READY",
+    "note": "ใส่ GoatCounter Code หลังสมัคร เช่น pepslive"
+  },
+  "effects": {
+    "animatedBackground": true,
+    "buttonRipple": true,
+    "cardGlow": true,
+    "menuActiveGlow": true,
+    "scrollReveal": true
+  },
   "quickSteps": [
     {
       "title": "เปิด OBS",
