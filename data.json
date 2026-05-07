@@ -37,40 +37,50 @@
           "url": "https://pepsproduction.github.io/pepslive-dock/PepsLive_Dock_V1.html"
         },
         {
-          "label": "GitHub",
-          "url": "https://github.com/pepsproduction/pepslive-dock"
-        },
-        {
           "label": "คู่มือใช้งาน",
           "url": "#guide"
         }
       ]
     },
     {
+      "title": "PepsLive AutoCue Dock V1",
+      "version": "V1.0",
+      "status": "ใช้ฟรี",
+      "category": "OBS Dock UI",
+      "featured": false,
+      "description": "PepsLive AutoCue Dock คือเครื่องมือเสริมสำหรับ OBS ที่ช่วยตั้งเวลาเปิด–ปิด Source และสลับ Scene อัตโนมัติ เหมาะสำหรับงานไลฟ์สดกีฬา งานถ่ายทอดสด และงานโปรดักชันที่ต้องการความรวดเร็ว แม่นยำ และลดการกดควบคุมระหว่างไลฟ์\n- ตั้งเวลาเปิด Source แต่ละตัวแยกกันได้\n- ตั้งเวลาปิด Source แต่ละตัวแยกกันได้\n- เพิ่ม Source ได้หลายรายการผ่านปุ่ม Add Source\n- ย้ายออกจาก Scene หลักแล้ว Source ปิดตัวเองอัตโนมัติ\n- ระบบ Auto Scene Jump กดไป Scene พิเศษแล้วกลับ Scene หลักเอง\n- เปิด/ปิด Auto Scene Jump ได้ตามต้องการ\n- เชื่อมต่อ OBS ผ่าน OBS WebSocket\n- ใช้งานผ่าน OBS Custom Browser Dock\n- ออกแบบธีมให้เข้ากับ PepsLive Dock UI\n- เหมาะกับงานไลฟ์สดกีฬาและงานโปรดักชันจริง",
+      "links": [
+        {
+          "label": "PepsLive AutoCue Dock V1",
+          "url": "https://pepsproduction.github.io/PepsLive_AutoCue_Dock_V1/PepsLive_AutoCue_Dock_V1.html"
+        }
+      ]
+    },
+    {
       "title": "Replay Control Dock",
       "version": "Coming Soon",
-      "category": "Replay",
-      "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ",
       "status": "Coming Soon...",
+      "category": "Replay",
       "featured": false,
+      "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ",
       "links": []
     },
     {
       "title": "Graphic Trigger Dock",
       "version": "Coming Soon",
-      "category": "Graphic",
-      "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
       "status": "Coming Soon...",
+      "category": "Graphic",
       "featured": false,
+      "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
       "links": []
     },
     {
       "title": "Tournament Manager Dock",
       "version": "Coming Soon",
-      "category": "Tournament",
-      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
       "status": "Coming Soon...",
+      "category": "Tournament",
       "featured": false,
+      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
       "links": []
     }
   ],
