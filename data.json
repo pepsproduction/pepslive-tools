@@ -125,11 +125,11 @@
     "details": [
       {
         "label": "ชื่อบัญชี",
-        "value": "PEPSPRODUCTION"
+        "value": "คณาธิป เจริญทรัพย์"
       },
       {
-        "label": "PromptPay",
-        "value": "096-419-9389"
+        "label": "เลขบัญชี-กสิกร",
+        "value": "2042608907"
       },
       {
         "label": "สนับสนุนเพื่อ",
@@ -139,7 +139,7 @@
     "links": [
       {
         "label": "สนับสนุนโปรเจกต์",
-        "url": "#"
+        "url": "https://ezdn.app/bankclash88"
       },
       {
         "label": "ติดต่อร่วมพัฒนา",
@@ -169,13 +169,7 @@
     {
       "platform": "line",
       "label": "LINE",
-      "url": "#",
-      "visible": true
-    },
-    {
-      "platform": "github",
-      "label": "GitHub",
-      "url": "https://github.com/pepsproduction/obs-dock-ui",
+      "url": "https://linevoom.line.me/user/_dbkuupZUkoKYxdGPl58I7ttsjGbxKpMzanD1KJ4",
       "visible": true
     }
   ],
