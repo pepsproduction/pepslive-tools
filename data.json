@@ -101,11 +101,11 @@
     },
     {
       "title": "Tournament Manager Dock",
-      "version": "กำลังพัฒนา",
+      "version": "V1.0",
       "status": "เร็ว ๆ นี้",
-      "statusKey": "comingSoon",
+      "statusKey": "available",
       "category": "Tournament",
-      "featured": false,
+      "featured": true,
       "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
       "links": []
     }
