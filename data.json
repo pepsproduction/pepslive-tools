@@ -102,10 +102,10 @@
     {
       "title": "Tournament Manager Dock",
       "version": "V1.0",
-      "status": "เร็ว ๆ นี้",
+      "status": "ใช้ฟรี",
       "statusKey": "available",
       "category": "Tournament",
-      "featured": true,
+      "featured": false,
       "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
       "links": []
     }
