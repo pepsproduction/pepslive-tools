@@ -50,7 +50,7 @@
       "version": "V1.0",
       "status": "ใช้ฟรี",
       "category": "Main Tool",
-      "featured": true,
+      "featured": false,
       "statusKey": "available",
       "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
       "links": [
@@ -80,6 +80,21 @@
       ]
     },
     {
+      "title": "Tournament Manager Dock",
+      "version": "V1.0",
+      "status": "ใช้ฟรี",
+      "statusKey": "available",
+      "category": "Tournament",
+      "featured": false,
+      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
+      "links": [
+        {
+          "label": "Tournament Manager Dock V1",
+          "url": "https://pepsproduction.github.io/PepsLive_Tournament_Studio/"
+        }
+      ]
+    },
+    {
       "title": "Replay Control Dock",
       "version": "กำลังพัฒนา",
       "status": "เร็ว ๆ นี้",
@@ -97,16 +112,6 @@
       "category": "Graphic",
       "featured": false,
       "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
-      "links": []
-    },
-    {
-      "title": "Tournament Manager Dock",
-      "version": "V1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Tournament",
-      "featured": true,
-      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
       "links": []
     }
   ],
