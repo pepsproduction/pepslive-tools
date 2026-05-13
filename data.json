@@ -69,7 +69,7 @@
       "version": "V1.0",
       "status": "ใช้ฟรี",
       "category": "OBS Dock UI",
-      "featured": true,
+      "featured": false,
       "statusKey": "available",
       "description": "PepsLive AutoCue Dock คือเครื่องมือเสริมสำหรับ OBS ที่ช่วยตั้งเวลาเปิด–ปิด Source และสลับ Scene อัตโนมัติ เหมาะสำหรับงานไลฟ์สดกีฬา งานถ่ายทอดสด และงานโปรดักชันที่ต้องการความรวดเร็ว แม่นยำ และลดการกดควบคุมระหว่างไลฟ์\n",
       "links": [
