@@ -99,6 +99,21 @@
       ]
     },
     {
+      "title": "PepsLive Stinger Studio",
+      "version": "v1.0",
+      "status": "ใช้ฟรี",
+      "statusKey": "available",
+      "category": "Main Tool",
+      "featured": false,
+      "description": "PepsLive Stinger Studio คือเว็บแอปสำหรับสร้างทรานซิชันแบบ Stinger สำหรับงานไลฟ์สดและ OBS โดยออกแบบมาให้ใช้งานง่าย ปรับแต่งภาพเคลื่อนไหวได้หลายแบบ และ Export ออกเป็นไฟล์ .webm เพื่อนำไปใช้จริงใน OBS Browser Source หรือ Media Source ได้ทันที",
+      "links": [
+        {
+          "label": "PepsLive Stinger Studio",
+          "url": "https://pepsproduction.github.io/pepslive-stinger-studio/"
+        }
+      ]
+    },
+    {
       "title": "Replay Control Dock",
       "version": "กำลังพัฒนา",
       "status": "เร็ว ๆ นี้",
