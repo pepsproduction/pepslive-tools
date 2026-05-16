@@ -129,6 +129,21 @@
       ]
     },
     {
+      "title": "PepsLive Scoreboard Skin Studio",
+      "version": "v1.0",
+      "status": "เร็วๆนี้",
+      "statusKey": "comingSoon",
+      "category": "Main Tool",
+      "featured": false,
+      "description": "PepsLive Scoreboard Skin Studio คือเครื่องมือสำหรับเลือกและปรับแต่งหน้าตา Scoreboard สำหรับงานไลฟ์สดกีฬา โดยเน้นการใช้งานร่วมกับ OBS Browser Source แบบพื้นหลังโปร่งใส รองรับทั้งฟุตบอลและบาสเกตบอล มี Template สำเร็จรูปหลายสไตล์ให้เลือก พร้อมระบบ Preview, Theme Preset, Safe Area, Background Test และการเชื่อมข้อมูลจาก PepsLive Dock UI เดิมในอนาคต\n\nโปรแกรมนี้ไม่ได้ใช้สำหรับควบคุมคะแนนหรือจัดการทีม แต่ถูกออกแบบมาเพื่อเป็น “คลังหน้าตา Scoreboard” ให้เลือกใช้กับระบบถ่ายทอดสดได้ง่ายขึ้น สวยขึ้น และเป็นมาตรฐานเดียวกันทั้งงาน",
+      "links": [
+        {
+          "label": "PepsLive Scoreboard Skin Studio",
+          "url": ""
+        }
+      ]
+    },
+    {
       "title": "Replay Control Dock",
       "version": "กำลังพัฒนา",
       "status": "เร็ว ๆ นี้",
