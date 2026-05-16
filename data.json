@@ -114,6 +114,21 @@
       ]
     },
     {
+      "title": "PepsLogo Studio",
+      "version": "v1.0",
+      "status": "ทักมาขอซื้อได้ 500",
+      "statusKey": "available",
+      "category": "Main Tool",
+      "featured": false,
+      "description": "โปรแกรมสำหรับใส่โลโก้ลงบนรูปหลายภาพพร้อมกัน ปรับตำแหน่ง ขนาด ความโปร่งใส แยกตามรูปแนวนอน/แนวตั้งได้ มีพรีวิวก่อน export และบันทึกพรีเซ็ตไว้ใช้ซ้ำได้",
+      "links": [
+        {
+          "label": "ทักส่วนตัวมาขอซื้อ",
+          "url": "https://www.facebook.com/Bankcleanfoodbiker"
+        }
+      ]
+    },
+    {
       "title": "Replay Control Dock",
       "version": "กำลังพัฒนา",
       "status": "เร็ว ๆ นี้",
