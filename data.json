@@ -131,8 +131,8 @@
     {
       "title": "PepsLive Scoreboard Skin Studio",
       "version": "v1.0",
-      "status": "เร็วๆนี้",
-      "statusKey": "comingSoon",
+      "status": "ใช้ฟรี",
+      "statusKey": "available",
       "category": "Main Tool",
       "featured": false,
       "description": "PepsLive Scoreboard Skin Studio คือเครื่องมือสำหรับเลือกและปรับแต่งหน้าตา Scoreboard สำหรับงานไลฟ์สดกีฬา โดยเน้นการใช้งานร่วมกับ OBS Browser Source แบบพื้นหลังโปร่งใส รองรับทั้งฟุตบอลและบาสเกตบอล มี Template สำเร็จรูปหลายสไตล์ให้เลือก พร้อมระบบ Preview, Theme Preset, Safe Area, Background Test และการเชื่อมข้อมูลจาก PepsLive Dock UI เดิมในอนาคต\n\nโปรแกรมนี้ไม่ได้ใช้สำหรับควบคุมคะแนนหรือจัดการทีม แต่ถูกออกแบบมาเพื่อเป็น “คลังหน้าตา Scoreboard” ให้เลือกใช้กับระบบถ่ายทอดสดได้ง่ายขึ้น สวยขึ้น และเป็นมาตรฐานเดียวกันทั้งงาน",
@@ -162,6 +162,21 @@
       "featured": false,
       "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
       "links": []
+    },
+    {
+      "title": "PepsLive Sponsor Dock",
+      "version": "v1.0",
+      "status": "พร้อมใช้งาน",
+      "statusKey": "available",
+      "category": "OBS Tools / Sponsor Overlay / Live Production",
+      "featured": false,
+      "description": "PepsLive Sponsor Dock คือเครื่องมือสำหรับจัดการโลโก้สปอนเซอร์บน OBS แบบใช้งานง่าย รองรับการลากรูปโลโก้เข้าระบบ แยกกลุ่มสปอนเซอร์ตามการใช้งาน และเลือกโหมดแสดงผลได้หลายแบบ เช่น 3D Cover Flow, Ticker, Spotlight, Float, Orbit, Rain และ Grid\n\nเหมาะสำหรับทีมไลฟ์สดกีฬา รายการอีเวนต์ หรือโปรดักชันที่ต้องการโชว์โลโก้ผู้สนับสนุนในจังหวะต่าง ๆ เช่น ก่อนเริ่มแข่ง ระหว่างแข่งขัน พักครึ่ง ยิงประตู หรือช่วงสรุปผลการแข่งขัน โดยสามารถสร้าง URL สำหรับ OBS Browser Source และเพิ่ม Source ผ่าน OBS WebSocket ได้โดยตรง",
+      "links": [
+        {
+          "label": "เปิดใช้งาน Sponsor Dock",
+          "url": "https://pepsproduction.github.io/pepslive-sponsor-dock/sponsor.html?mode=control"
+        }
+      ]
     }
   ],
   "equipment": [
