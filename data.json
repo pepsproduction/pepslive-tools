@@ -96,7 +96,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepslive-autocue-dock-v1-1780248913744-qxrrt.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
@@ -116,7 +122,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/tournament-manager-dock-1780249121796-j95h0.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
@@ -136,7 +148,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepslive-stinger-studio-1780249219842-kcfmv.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
