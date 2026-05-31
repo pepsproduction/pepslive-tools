@@ -50,7 +50,7 @@
       "version": "V1.0",
       "status": "ใช้ฟรี",
       "category": "Main Tool",
-      "featured": false,
+      "featured": true,
       "statusKey": "available",
       "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
       "links": [
@@ -164,24 +164,29 @@
       "status": "ใช้ฟรี",
       "statusKey": "available",
       "category": "Live Streaming Tools / OBS Tools",
-      "featured": true,
+      "featured": false,
       "description": "PEPSCam OBS Cam Monitor คือเว็บสำหรับส่งภาพจากมือถือเข้า OBS แบบง่าย ๆ ผ่าน QR Code และ WebRTC เหมาะสำหรับงานไลฟ์สดที่ต้องการเพิ่มกล้องมือถือหลายมุม โดยไม่ต้องใช้อุปกรณ์ซับซ้อน",
       "links": [
         {
           "label": "เปิดใช้งาน PEPSCam",
-          "url": ""
+          "url": "https://pepsproduction.github.io/peps-obs-cam-monitor/OBSCam/OBSCamMonitor.html"
         }
       ]
     },
     {
-      "title": "Replay Control Dock",
-      "version": "กำลังพัฒนา",
-      "status": "เร็ว ๆ นี้",
-      "statusKey": "comingSoon",
-      "category": "Replay",
+      "title": "Peps VAR Replay Studio",
+      "version": "V1.0",
+      "status": "ใช้ฟรี",
+      "statusKey": "available",
+      "category": "Live Streaming Tools / VAR Replay Tools / OBS Tools",
       "featured": false,
-      "description": "ระบบควบคุมจังหวะรีเพลย์สำหรับงานกีฬา ใช้จัดการช็อตสำคัญ ลูกสวย จังหวะฟาวล์ และโมเมนต์ที่คนดูอยากเห็นซ้ำ",
-      "links": []
+      "description": "Peps VAR Replay Studio คือเว็บคอนโทรลรีเพลย์สำหรับงานไลฟ์สด ใช้เปิดคลิปวิดีโอ ย้อนจังหวะสำคัญ ตั้ง Loop A-B ปรับสปีด ซูมภาพ และส่งภาพเข้า OBS ผ่าน Browser Source ได้ง่าย ๆ",
+      "links": [
+        {
+          "label": "เปิดใช้งาน Peps VAR Replay",
+          "url": "https://pepsproduction.github.io/peps-var-replay-studio/"
+        }
+      ]
     },
     {
       "title": "Graphic Trigger Dock",
