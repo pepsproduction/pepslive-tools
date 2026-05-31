@@ -66,7 +66,18 @@
           "label": "คลิปสอนติดตั้ง",
           "url": "https://www.youtube.com/playlist?list=PLf1uIf2bezwUgAAs03qspsll5lytIqion"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": [
+          {
+            "src": "https://chatgpt.com/backend-api/estuary/content?id=file_00000000d92872068c34213111ad2401&ts=494513&p=fsns&cid=1&sig=507952c9d05055c58d1ae2e205d2d30b596b1fcf0eba62c77e9f27aca68c2450&v=0",
+            "alt": "",
+            "caption": ""
+          }
+        ]
+      }
     },
     {
       "title": "PepsLive AutoCue Dock V1",
@@ -81,7 +92,12 @@
           "label": "PepsLive AutoCue Dock V1",
           "url": "https://pepsproduction.github.io/PepsLive_AutoCue_Dock_V1/PepsLive_AutoCue_Dock_V1.html"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "Tournament Manager Dock",
@@ -96,7 +112,12 @@
           "label": "Tournament Manager Dock V1",
           "url": "https://pepsproduction.github.io/PepsLive_Tournament_Studio/"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "PepsLive Stinger Studio",
@@ -111,7 +132,12 @@
           "label": "PepsLive Stinger Studio",
           "url": "https://pepsproduction.github.io/pepslive-stinger-studio/"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "PepsLogo Studio",
@@ -126,7 +152,12 @@
           "label": "ทักส่วนตัวมาขอซื้อ",
           "url": "https://www.facebook.com/Bankcleanfoodbiker"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "PepsLive Scoreboard Skin Studio",
@@ -141,7 +172,12 @@
           "label": "Scoreboard Skin Studio",
           "url": "https://pepsproduction.github.io/pepslive-scoreboard-skin-studio/dock.html"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "PepsLive Sponsor Dock",
@@ -156,7 +192,12 @@
           "label": "เปิดใช้งาน Sponsor Dock",
           "url": "https://pepsproduction.github.io/pepslive-sponsor-dock/sponsor.html?mode=control"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "PEPSCam OBS Cam Monitor",
@@ -171,7 +212,12 @@
           "label": "เปิดใช้งาน PEPSCam",
           "url": "https://pepsproduction.github.io/peps-obs-cam-monitor/OBSCam/OBSCamMonitor.html"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "Peps VAR Replay Studio",
@@ -186,7 +232,12 @@
           "label": "เปิดใช้งาน Peps VAR Replay",
           "url": "https://pepsproduction.github.io/peps-var-replay-studio/"
         }
-      ]
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     },
     {
       "title": "Graphic Trigger Dock",
@@ -196,7 +247,12 @@
       "category": "Graphic",
       "featured": false,
       "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
-      "links": []
+      "links": [],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": []
+      }
     }
   ],
   "equipment": [
