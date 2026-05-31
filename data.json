@@ -174,7 +174,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepslogo-studio-1780249650709-jsz8o.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
@@ -194,7 +200,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepslive-scoreboard-skin-studio-1780249820966-qu1di.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
@@ -214,7 +226,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepslive-sponsor-dock-1780250213933-liemg.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
@@ -234,7 +252,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/pepscam-obs-cam-monitor-1780250350103-fv0hc.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
