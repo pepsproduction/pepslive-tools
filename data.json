@@ -278,7 +278,13 @@
       "gallery": {
         "mode": "manual",
         "intervalMs": 4500,
-        "images": []
+        "images": [
+          {
+            "src": "assets/dock-media/peps-var-replay-studio-1780250849086-95b5t.png",
+            "alt": "",
+            "caption": ""
+          }
+        ]
       }
     },
     {
