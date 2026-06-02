@@ -36,6 +36,14 @@
 - เลือกโหมดได้เป็น Manual ให้ผู้ใช้กดเอง หรือ Auto ให้เลื่อนอัตโนมัติ
 - ถ้าเครื่องมือยังไม่มีรูป หน้าเว็บจะใช้ mockup เดิมเป็น fallback เพื่อไม่ให้ layout พัง
 
+## Click Analytics / Dashboard
+
+- Google Sheet หลังบ้าน: https://docs.google.com/spreadsheets/d/1QiONjsc7hc_9BjXBOF8QJW8LsbHC9uIwzq8FmhiUaJc
+- หน้า Dashboard บนเว็บ: `dashboard.html#admin`
+- Apps Script backend อยู่ที่ `apps-script/pepslive-click-analytics.gs`
+- วิธี deploy และเชื่อม endpoint อยู่ที่ `docs/click-analytics-setup.md`
+- ระบบไม่เก็บ secret ใน repo และใช้ GitHub Pages ได้เหมือนเดิม
+
 ## Changelog
 
 รายละเอียดการแก้ไขย้อนหลังแยกไว้ใน CHANGELOG.md เพื่อให้หน้า README อ่านง่ายขึ้น

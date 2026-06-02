@@ -21,7 +21,17 @@
     "counterName": "site-visitors",
     "startValue": 0,
     "padDigits": 6,
-    "countOncePer": "day"
+    "countOncePer": "day",
+    "clickTracking": {
+      "enabled": true,
+      "provider": "appsScript",
+      "siteId": "pepslive-tools",
+      "endpoint": "",
+      "dashboardEndpoint": "",
+      "spreadsheetId": "1QiONjsc7hc_9BjXBOF8QJW8LsbHC9uIwzq8FmhiUaJc",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1QiONjsc7hc_9BjXBOF8QJW8LsbHC9uIwzq8FmhiUaJc",
+      "periods": [1, 7, 30, 60, 90]
+    }
   },
   "effects": {
     "animatedBackground": true,

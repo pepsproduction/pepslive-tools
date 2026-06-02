@@ -18,3 +18,11 @@
   - padDigits: `6`
 - นับ 1 ครั้งต่อ browser ต่อวัน เพื่อลดการนับซ้ำเวลาเปิดหลายหน้า
 - ถ้า API โหลดไม่ได้ จะแสดง `000000` ไว้ก่อน ไม่ปล่อยให้เป็นคำว่า READY
+
+## V6.4 Dock Click Analytics
+
+- เพิ่มระบบนับคลิกปุ่มเครื่องมือในหน้า Dock UI
+- เพิ่มหน้า `dashboard.html#admin` สำหรับดูสรุป 1 / 7 / 30 / 60 / 90 วัน
+- สร้าง Google Sheet หลังบ้านพร้อมแท็บ Dashboard, Clicks, Daily Summary, Tool Summary, Event Mix, Config และ Setup Guide พร้อมกราฟ 3 ตัว
+- เพิ่ม Apps Script backend ที่รับ click event และส่ง summary กลับให้หน้า dashboard
+- ตั้งค่า analytics ใน `data.json` พร้อม `spreadsheetId` และ URL ของ Google Sheet

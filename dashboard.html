@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+<title>PEPS LIVE PRODUCTION | Analytics Dashboard</title>
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"><div class="grid-scan"></div><div class="speed-lines"></div><span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span></div>
+<header class="nav"><div class="container nav-inner"><div class="brand-wrap"><a class="brand" href="index.html"><img data-logo src="assets/pepslive-logo.png" alt="PEPS LIVE"></a><div class="view-counter" data-visitor-counter><span class="signal"></span><span class="counter-copy"><span class="counter-label" data-counter-label>ผู้เข้าชม</span><span class="counter-number" data-counter-number>000000</span></span></div></div><nav class="menu"><a data-nav="home" href="index.html">หน้าแรก</a><a data-nav="start" href="start.html">เริ่มใช้งาน</a><a data-nav="dock" href="dock-ui.html">Dock UI</a><a data-nav="equipment" href="equipment.html">อุปกรณ์</a><a data-nav="support" href="support.html">ซัพพอร์ต</a><a data-nav="follow" href="follow.html">ติดตาม</a></nav><div class="nav-actions"><a class="btn btn-primary" href="dock-ui.html">เปิด Dock UI</a><button class="hamburger" id="hamburger">≡</button></div></div><div class="container mobile-menu" id="mobileMenu"><a data-nav="home" href="index.html">หน้าแรก</a><a data-nav="start" href="start.html">เริ่มใช้งาน</a><a data-nav="dock" href="dock-ui.html">Dock UI</a><a data-nav="equipment" href="equipment.html">อุปกรณ์</a><a data-nav="support" href="support.html">ซัพพอร์ต</a><a data-nav="follow" href="follow.html">ติดตาม</a></div></header>
+<main>
+<section class="page-hero analytics-hero"><div class="container reveal"><div class="eyebrow"><span class="dot"></span><span>Click Analytics</span></div><h1 class="page-title">หลังบ้านสถิติ Dock UI</h1><p class="lead">ดูจำนวนคลิกเข้าใช้เครื่องมือ แยกช่วงเวลา 1 / 7 / 30 / 60 / 90 วัน</p></div></section>
+<section><div class="container"><div id="dashboardRoot" class="analytics-dashboard reveal"></div></div></section>
+</main>
+<footer class="footer"><div class="container footer-inner"><div data-copyright></div><div>PEPS LIVE • OBS Tools • Sport Production</div></div></footer>
+<script src="assets/app.js"></script>
+<script>
+(async()=>{
+  const data=await loadSiteData();
+  initCommon(data,'');
+  const root=document.getElementById('dashboardRoot');
+  const cfg=(data.analytics&&data.analytics.clickTracking)||{};
+  const state={period:'7',summary:null};
+  const periodLabels={'1':'1 วัน','7':'7 วัน','30':'30 วัน','60':'60 วัน','90':'90 วัน'};
+
+  function clear(){root.textContent=''}
+  function num(value){const n=Number(value||0);return Number.isFinite(n)?n.toLocaleString('th-TH'):'0'}
+  function dateText(value){if(!value)return '-';const date=new Date(value);return Number.isNaN(date.getTime())?String(value):date.toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'short'})}
+  function endpoint(){return safeUrl(cfg.dashboardEndpoint||cfg.endpoint,{allowRelative:false})}
+  function loadJsonp(url){return new Promise((resolve,reject)=>{const callback=`pepsClickAnalytics_${Date.now()}_${Math.random().toString(16).slice(2)}`;const script=document.createElement('script');const sep=url.includes('?')?'&':'?';window[callback]=(payload)=>{resolve(payload);cleanup()};function cleanup(){delete window[callback];script.remove()}script.onerror=()=>{cleanup();reject(new Error('โหลดข้อมูล analytics ไม่สำเร็จ'))};script.src=`${url}${sep}mode=summary&siteId=${encodeURIComponent(cfg.siteId||'pepslive-tools')}&callback=${callback}`;document.body.appendChild(script)})}
+  function button(label,cls,onClick){const btn=document.createElement('button');btn.type='button';btn.className=cls;btn.textContent=label;btn.addEventListener('click',onClick);return btn}
+  function panel(title){const box=document.createElement('section');box.className='analytics-panel';box.appendChild(textEl('h2',title));return box}
+  function renderLocked(){clear();const box=panel('Admin Dashboard');box.appendChild(textEl('p','เปิดหน้านี้ด้วย URL dashboard.html#admin เพื่อดูหลังบ้านสถิติ Dock UI','analytics-muted'));const row=document.createElement('div');row.className='link-row';row.appendChild(linkEl({label:'เปิดโหมดหลังบ้าน',url:'dashboard.html#admin'},'btn btn-primary'));row.appendChild(linkEl({label:'กลับหน้าแรก',url:'index.html'},'btn btn-ghost'));box.appendChild(row);root.appendChild(box)}
+  function renderSetup(){clear();const box=panel('รอเชื่อมต่อ Apps Script');box.appendChild(textEl('p','Google Sheet สร้างแล้ว แต่ยังต้อง deploy Apps Script Web App แล้วนำ URL มาใส่ใน Admin > ตั้งค่า > Click tracking endpoint','analytics-muted'));const grid=document.createElement('div');grid.className='analytics-kpis';grid.appendChild(kpi('Google Sheet',cfg.spreadsheetId?'พร้อม':'ยังไม่มี',cfg.spreadsheetId||'-'));grid.appendChild(kpi('Endpoint',endpoint()?'พร้อม':'ยังไม่ใส่',endpoint()||'-'));grid.appendChild(kpi('Tracking',cfg.enabled?'เปิดอยู่':'ปิดอยู่','ต้องมี endpoint จึงจะเริ่มนับคลิก'));box.appendChild(grid);const row=document.createElement('div');row.className='link-row';if(cfg.sheetUrl)row.appendChild(linkEl({label:'เปิด Google Sheet',url:cfg.sheetUrl},'btn btn-primary'));row.appendChild(linkEl({label:'เปิด Admin',url:'index.html#admin'},'btn btn-ghost'));box.appendChild(row);root.appendChild(box)}
+  function kpi(label,value,sub){const card=document.createElement('article');card.className='analytics-kpi';card.appendChild(textEl('span',label));card.appendChild(textEl('strong',value));card.appendChild(textEl('small',sub||''));return card}
+  function renderControls(){const wrap=document.createElement('div');wrap.className='analytics-toolbar';const periods=document.createElement('div');periods.className='analytics-periods';['1','7','30','60','90'].forEach((period)=>{periods.appendChild(button(periodLabels[period],`analytics-period${state.period===period?' active':''}`,()=>{state.period=period;renderSummary()}))});wrap.appendChild(periods);wrap.appendChild(button('Export CSV','analytics-export',downloadCsv));return wrap}
+  function renderSummary(){clear();const summary=state.summary;if(!summary||summary.ok===false){renderSetup();return}root.appendChild(renderControls());const tools=summary.tools||[];const selected=String(state.period);const total=(summary.periods&&summary.periods[selected]&&summary.periods[selected].total)||0;const top=tools[0];const kpis=document.createElement('div');kpis.className='analytics-kpis';kpis.appendChild(kpi(`รวม ${periodLabels[selected]}`,num(total),'จำนวนคลิกทั้งหมด'));kpis.appendChild(kpi('วันนี้',num(summary.periods?.['1']?.total),'คลิกวันนี้'));kpis.appendChild(kpi('Top Tool',top?top.toolTitle:'-',top?`${num(top.counts?.[selected])} คลิก`:'ยังไม่มีข้อมูล'));kpis.appendChild(kpi('อัปเดตล่าสุด',dateText(summary.updatedAt),'จาก Apps Script'));root.appendChild(kpis);const layout=document.createElement('div');layout.className='analytics-grid';layout.appendChild(renderDaily(summary.daily||[]));layout.appendChild(renderEvents(summary.events||[]));root.appendChild(layout);root.appendChild(renderTools(tools));root.appendChild(renderRecent(summary.recent||[]))}
+  function renderDaily(daily){const box=panel('กราฟรายวัน 90 วัน');const max=Math.max(1,...daily.map((d)=>Number(d.total||0)));const chart=document.createElement('div');chart.className='analytics-bars';daily.forEach((day)=>{const bar=document.createElement('span');bar.style.height=`${Math.max(3,(Number(day.total||0)/max)*100)}%`;bar.title=`${day.date}: ${num(day.total)} คลิก`;chart.appendChild(bar)});box.appendChild(chart);return box}
+  function renderEvents(events){const box=panel('ประเภทคลิก');const list=document.createElement('div');list.className='analytics-event-list';events.forEach((event)=>{const row=document.createElement('div');row.className='analytics-event-row';row.appendChild(textEl('span',event.eventType));row.appendChild(textEl('strong',num(event.counts?.[state.period])));list.appendChild(row)});box.appendChild(list);return box}
+  function renderTools(tools){const box=panel(`อันดับเครื่องมือ ${periodLabels[state.period]}`);const max=Math.max(1,...tools.map((tool)=>Number(tool.counts?.[state.period]||0)));const list=document.createElement('div');list.className='analytics-tool-list';tools.forEach((tool)=>{const count=Number(tool.counts?.[state.period]||0);const row=document.createElement('div');row.className='analytics-tool-row';const head=document.createElement('div');head.className='analytics-tool-head';head.appendChild(textEl('strong',tool.toolTitle));head.appendChild(textEl('span',`${num(count)} คลิก`));const bar=document.createElement('div');bar.className='analytics-tool-bar';const fill=document.createElement('span');fill.style.width=`${Math.max(4,(count/max)*100)}%`;bar.appendChild(fill);row.appendChild(head);row.appendChild(bar);box.appendChild(row)});return box}
+  function renderRecent(recent){const box=panel('คลิกล่าสุด');const table=document.createElement('div');table.className='analytics-table';[['เวลา','เครื่องมือ','ประเภท','ปุ่ม']].forEach((head)=>{const row=document.createElement('div');row.className='analytics-table-row head';head.forEach((cell)=>row.appendChild(textEl('strong',cell)));table.appendChild(row)});recent.slice(0,12).forEach((item)=>{const row=document.createElement('div');row.className='analytics-table-row';[dateText(item.timestamp),item.toolTitle||item.toolId,item.eventType,item.linkLabel].forEach((cell)=>row.appendChild(textEl('span',cell)));table.appendChild(row)});box.appendChild(table);return box}
+  function downloadCsv(){const summary=state.summary;if(!summary)return;const rows=[['tool_id','tool_title','period','clicks']];(summary.tools||[]).forEach((tool)=>rows.push([tool.toolId,tool.toolTitle,state.period,tool.counts?.[state.period]||0]));const csv=rows.map((row)=>row.map((cell)=>`"${String(cell??'').replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`pepslive-clicks-${state.period}d.csv`;a.click();URL.revokeObjectURL(url)}
+
+  if(location.hash!=='#admin'){renderLocked();return}
+  if(!endpoint()){renderSetup();return}
+  const loading=panel('กำลังโหลดข้อมูล');loading.appendChild(textEl('p','กำลังอ่าน summary จาก Apps Script...','analytics-muted'));root.appendChild(loading);
+  try{state.summary=await loadJsonp(endpoint());renderSummary()}catch(error){clear();const box=panel('โหลดข้อมูลไม่สำเร็จ');box.appendChild(textEl('p',error.message,'analytics-muted'));root.appendChild(box)}
+})();
+</script>
+</body>
+</html>
