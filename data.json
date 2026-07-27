@@ -66,7 +66,7 @@
       "version": "V1.0",
       "status": "ใช้ฟรี",
       "category": "Main Tool",
-      "featured": true,
+      "featured": false,
       "statusKey": "available",
       "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
       "links": [
@@ -298,6 +298,32 @@
           {
             "src": "assets/dock-media/peps-var-replay-studio-1780250849086-95b5t.png",
             "alt": "",
+            "caption": ""
+          }
+        ]
+      }
+    },
+    {
+      "title": "Football Scoreboard Builder",
+      "version": "v1.0",
+      "status": "พร้อมใช้งาน",
+      "statusKey": "available",
+      "category": "Main Tool",
+      "featured": true,
+      "description": "เครื่องมือออกแบบสกอร์บอร์ดฟุตบอลสำหรับงานถ่ายทอดสด อัปโหลดโลโก้รายการเพื่อวิเคราะห์สีและสร้างธีมอัตโนมัติ เลือกเทมเพลต ปรับโครงสร้าง ตำแหน่งคะแนน โมดูล สไตล์ 2D/3D สีและ Gradient พร้อมส่งออกเป็นไฟล์ PNG พื้นหลังโปร่งใสสำหรับใช้งานใน OBS โดยไฟล์ที่ Export จะไม่มีชื่อทีม คะแนน ตัวเลข หรือข้อความตัวอย่าง",
+      "links": [
+        {
+          "label": "Football Scoreboard Builder",
+          "url": "https://pepsproduction.github.io/Football-Scoreboard-Builder/"
+        }
+      ],
+      "gallery": {
+        "mode": "manual",
+        "intervalMs": 4500,
+        "images": [
+          {
+            "src": "assets/dock-media/football-scoreboard-builder-1785156805170-y8ngh.png",
+            "alt": "ChatGPT_Image_27_ก.ค._2569_19_53_07.png",
             "caption": ""
           }
         ]
