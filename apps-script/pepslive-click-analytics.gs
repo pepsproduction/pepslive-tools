@@ -3,7 +3,7 @@ const SITE_ID = 'pepslive-tools';
 const CLICK_SHEET = 'Clicks';
 const CONFIG_SHEET = 'Config';
 const VISITOR_SHEET = 'Visitors';
-const VISITOR_START_VALUE = 436;
+const VISITOR_START_VALUE = 605;
 const VISITOR_SEED_PROPERTY = 'PEPSLIVE_VISITOR_START_VALUE';
 const CLICK_HEADERS = [
   'timestamp',
