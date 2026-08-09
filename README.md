@@ -11,6 +11,7 @@
 - แก้ fallback: ถ้า JavaScript หรือ data.json โหลดมีปัญหา เนื้อหาจะไม่ถูกซ่อนจนเหลือหน้าว่าง
 - ใช้ `.peps-js .reveal` แทนการซ่อน `.reveal` โดยตรง เพื่อกันหน้าเปล่าหาก JS error
 - ยังใช้ GitHub Pages + data.json เหมือนเดิม
+- Visitor Counter รุ่นปัจจุบันใช้ Google Apps Script + แท็บ `Visitors` แยกจาก Clicks เพื่อเก็บยอดต่อเนื่องและกันนับซ้ำ
 
 ## วิธีอัปขึ้น GitHub
 

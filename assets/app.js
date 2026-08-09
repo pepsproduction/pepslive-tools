@@ -31,69 +31,119 @@ function initVisitorCounter(analytics){
 
   const label=counter.querySelector('[data-counter-label]');
   const num=counter.querySelector('[data-counter-number]');
-  const padDigits = Number(analytics.padDigits || 6);
-  const fallback = String(analytics.fallbackValue || '000000').padStart(padDigits,'0');
-
-  const formatCount = (value) => {
-    const n = Number(value || 0);
-    if(!Number.isFinite(n)) return fallback;
-    return String(Math.max(0, Math.floor(n))).padStart(padDigits,'0');
+  const clickTracking=analytics.clickTracking||{};
+  const padDigits=Math.max(1,Math.min(12,Number(analytics.padDigits)||6));
+  const toCount=(value)=>{
+    if(typeof value==='number'&&Number.isFinite(value))return Number.isSafeInteger(value)?Math.max(0,value):null;
+    const raw=String(value==null?'':value).replace(/,/g,'').trim();
+    if(!/^\d+$/.test(raw))return null;
+    const n=Number(raw);
+    return Number.isSafeInteger(n)?n:null;
   };
+  const extractCount=(payload)=>{
+    const data=payload&&payload.data;
+    const candidates=[payload&&payload.count,payload&&payload.Count,payload&&payload.value,payload&&payload.total,payload&&payload.count_unique,payload&&payload.data,data&&data.count,data&&data.Count,data&&data.value,data&&data.total,data&&data.count_unique];
+    for(const candidate of candidates){const value=toCount(candidate);if(value!==null)return value}
+    return null;
+  };
+  const configuredSeed=toCount(analytics.visitorStartValue??analytics.startValue??analytics.fallbackValue)??0;
+  const configuredFallback=toCount(analytics.fallbackValue)??configuredSeed;
+  const siteId=String(analytics.siteId||clickTracking.siteId||'pepslive-tools').trim()||'pepslive-tools';
+  const cacheKey=`pepslive-counter-last-${siteId}`;
+  let storage=null;
+  try{storage=window.localStorage}catch(e){storage=null}
+  let lastKnown=configuredSeed;
+  try{const cached=toCount(storage&&storage.getItem(cacheKey));if(cached!==null)lastKnown=Math.max(lastKnown,cached)}catch(e){}
+  const formatCount=(value)=>String(Math.max(0,Math.floor(value))).padStart(padDigits,'0');
+  const renderCount=(value)=>{
+    const parsed=toCount(value);
+    if(parsed!==null)lastKnown=Math.max(lastKnown,parsed);
+    const shown=Math.max(configuredFallback,lastKnown);
+    if(num)num.textContent=formatCount(shown);
+    if(parsed!==null&&storage){try{storage.setItem(cacheKey,String(lastKnown))}catch(e){}}
+  };
+  const fetchJson=(url,timeoutMs=8000)=>{
+    const controller=typeof AbortController==='function'?new AbortController():null;
+    let timer=0;
+    const request=fetch(url,{cache:'no-store',...(controller?{signal:controller.signal}:{})}).then(response=>{
+      if(!response.ok)throw new Error(`counter_http_${response.status}`);
+      return response.json();
+    });
+    const timeout=new Promise((resolve,reject)=>{timer=setTimeout(()=>reject(new Error('counter_timeout')),timeoutMs)});
+    return Promise.race([request,timeout]).finally(()=>{clearTimeout(timer);if(controller)controller.abort()});
+  };
+  const getStorage=(name)=>{try{return window[name]}catch(e){return null}};
+  const createId=()=>window.crypto&&window.crypto.randomUUID?window.crypto.randomUUID():`${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const getOrCreate=(store,key)=>{try{if(!store)return '';let value=store.getItem(key);if(!value){value=createId();store.setItem(key,value)}return value}catch(e){return ''}};
+  const sessionStorage=getStorage('sessionStorage');
+  const visitorKey=getOrCreate(storage,'pepslive-visitor-id')||getOrCreate(sessionStorage,'pepslive-visitor-session-id');
+  const countMode=['day','session','always'].includes(String(analytics.countOncePer||'day'))?String(analytics.countOncePer||'day'):'day';
+  const sessionKey=getOrCreate(sessionStorage,'pepslive-visitor-session');
+  const visitKey=countMode==='day'?(visitorKey?`${visitorKey}:${new Date().toISOString().slice(0,10)}`:''):countMode==='session'?(sessionKey||visitorKey):'';
 
   counter.style.display='inline-flex';
   if(label) label.textContent = analytics.displayLabel || 'ผู้เข้าชม';
-  if(num) num.textContent = fallback;
+  renderCount(lastKnown);
   if(!num || analytics.counterEnabled === false) return;
 
-  if(analytics.provider === 'counterapi'){
+  const provider=String(analytics.provider||'').toLowerCase();
+  const visitorEndpoint=safeUrl(analytics.visitorEndpoint||clickTracking.endpoint,{allowRelative:false});
+  const loadAppsScript=()=>{
+    if(!visitorEndpoint) return Promise.reject(new Error('counter_endpoint_missing'));
+    const url=new URL(visitorEndpoint,location.href);
+    url.searchParams.set('mode','visitor');
+    url.searchParams.set('siteId',siteId);
+    url.searchParams.set('countMode',countMode);
+    url.searchParams.set('page',location.pathname||'/');
+    if(visitorKey)url.searchParams.set('visitorKey',visitorKey);
+    if(visitKey)url.searchParams.set('visitKey',visitKey);
+    return fetchJson(url.toString()).then(payload=>{
+      const value=extractCount(payload);
+      if(value===null)throw new Error('counter_value_missing');
+      renderCount(value);
+    });
+  };
+  const loadCounterApi=()=>{
     const namespace = encodeURIComponent(analytics.namespace || 'pepsproduction-pepslive-tools');
     const counterName = encodeURIComponent(analytics.counterName || 'site-visitors');
     const base = `https://api.counterapi.dev/v1/${namespace}/${counterName}`;
     const getEndpoint = `${base}/`;
     const today = new Date().toISOString().slice(0,10);
-    const countMode = analytics.countOncePer || 'day';
     const localKey = `pepslive-counter-${namespace}-${counterName}-${countMode === 'day' ? today : 'session'}`;
     const shouldCountOnce = countMode === 'day' || countMode === 'session';
-    let storage = null;
-    try{storage = countMode === 'session' ? window.sessionStorage : window.localStorage}catch(e){storage = null}
+    const markerStorage=countMode==='session'?sessionStorage:storage;
     let alreadyCounted = false;
-    try{alreadyCounted = shouldCountOnce && storage && storage.getItem(localKey) === '1'}catch(e){alreadyCounted = false}
+    try{alreadyCounted=shouldCountOnce&&markerStorage&&markerStorage.getItem(localKey)==='1'}catch(e){alreadyCounted=false}
     const endpoint = alreadyCounted ? getEndpoint : `${base}/up`;
+    return fetchJson(endpoint).then(payload=>{
+      const value=extractCount(payload);
+      if(value===null)throw new Error('counter_value_missing');
+      renderCount(value);
+      if(!alreadyCounted&&shouldCountOnce&&markerStorage){try{markerStorage.setItem(localKey,'1')}catch(e){}}
+    }).catch(()=>fetchJson(getEndpoint).then(payload=>{
+      const value=extractCount(payload);
+      if(value===null)throw new Error('counter_value_missing');
+      renderCount(value);
+    }));
+  };
 
-    fetch(endpoint,{cache:'no-store'})
-      .then(r=>r.ok?r.json():Promise.reject())
-      .then(j=>{
-        const value = j.count ?? j.Count ?? j.value ?? j.data ?? j.total ?? 0;
-        num.textContent = formatCount(value);
-        if(!alreadyCounted && shouldCountOnce && storage){try{storage.setItem(localKey,'1')}catch(e){}}
-      })
-      .catch(()=>{
-        fetch(getEndpoint,{cache:'no-store'})
-          .then(r=>r.ok?r.json():Promise.reject())
-          .then(j=>{
-            const value = j.count ?? j.Count ?? j.value ?? j.data ?? j.total ?? 0;
-            num.textContent = formatCount(value);
-          })
-          .catch(()=>{ num.textContent = fallback; });
-      });
+  if(visitorEndpoint&&(provider==='appsscript'||provider==='apps-script'||provider==='counterapi')){
+    loadAppsScript().catch(()=>{if(provider==='counterapi')return loadCounterApi()}).catch(()=>{});
     return;
   }
 
-  if(analytics.provider === 'goatcounter' && /^[a-z0-9-]+$/i.test(String(analytics.goatCounterCode||''))){
+  if(provider==='counterapi'){
+    loadCounterApi().catch(()=>{});
+    return;
+  }
+
+  if(provider === 'goatcounter' && /^[a-z0-9-]+$/i.test(String(analytics.goatCounterCode||''))){
     const path=location.pathname || '/';
     const code=String(analytics.goatCounterCode).toLowerCase();
     const url=`https://${code}.goatcounter.com/counter/${encodeURIComponent(path)}.json`;
-    fetch(url,{cache:'no-store'})
-      .then(r=>r.ok?r.json():Promise.reject())
-      .then(j=>{
-        const v=j.count || j.count_unique || j.total || 0;
-        num.textContent = formatCount(v);
-      })
-      .catch(()=>{ num.textContent = fallback; });
+    fetchJson(url).then(payload=>{const value=extractCount(payload);if(value===null)throw new Error('counter_value_missing');renderCount(value)}).catch(()=>{});
     return;
   }
-
-  num.textContent = fallback;
 }
 
 
@@ -125,7 +175,7 @@ function adminRenderDock(container){const list=adminEnsureArray(adminState.data,
 function adminRenderEquipment(container){const list=adminEnsureArray(adminState.data,"equipment");const section=adminSection(container,"รายการอุปกรณ์",(box)=>box.appendChild(adminMakeButton("เพิ่มอุปกรณ์","admin-primary small",()=>{list.push({name:"อุปกรณ์ใหม่",type:"",description:"",image:"",url:"",note:""});adminRender()})));const cards=document.createElement("div");cards.className="admin-list";section.appendChild(cards);list.forEach((item,index)=>{const card=document.createElement("article");card.className="admin-item";const row=document.createElement("div");row.className="admin-item-head";const title=document.createElement("strong");title.textContent=item.name||`Item ${index+1}`;row.appendChild(title);row.appendChild(adminMakeButton("ลบ","admin-danger",()=>{list.splice(index,1);adminRender()}));card.appendChild(row);const grid=document.createElement("div");grid.className="admin-grid";card.appendChild(grid);adminField(grid,"Name",item.name,(v)=>item.name=v);adminField(grid,"Type",item.type,(v)=>item.type=v);adminField(grid,"Image URL",item.image,(v)=>item.image=v);adminField(grid,"Link URL",item.url,(v)=>item.url=v);adminField(grid,"Description",item.description,(v)=>item.description=v,{type:"textarea",rows:3});adminField(grid,"Note",item.note,(v)=>item.note=v,{type:"textarea",rows:2});cards.appendChild(card)})}
 function adminRenderSupport(container){const support=adminState.data.support=adminState.data.support||{};adminSection(container,"Support Page",(section)=>{const grid=document.createElement("div");grid.className="admin-grid";section.appendChild(grid);adminField(grid,"Title",support.title,(v)=>support.title=v);adminField(grid,"Description",support.description,(v)=>support.description=v,{type:"textarea",rows:3});adminField(grid,"Note",support.note,(v)=>support.note=v,{type:"textarea",rows:2});adminJsonField(grid,"Details JSON",support.details,(v)=>support.details=v);adminRenderLinkEditor(section,"ปุ่มลิงก์ Support",support.links,(v)=>support.links=v,{defaultLabel:"ลิงก์ใหม่"})})}
 function adminRenderSocialEditor(container){const list=adminEnsureArray(adminState.data,"socialLinks");const section=adminSection(container,"Social Links",(box)=>box.appendChild(adminMakeButton("เพิ่มช่องทาง","admin-primary small",()=>{list.push({platform:"link",label:"ช่องทางใหม่",url:"",visible:true});adminRender()})));const cards=document.createElement("div");cards.className="admin-list";section.appendChild(cards);list.forEach((item,index)=>{const card=document.createElement("article");card.className="admin-item";const row=document.createElement("div");row.className="admin-item-head";const title=document.createElement("strong");title.textContent=item.label||item.platform||`Social ${index+1}`;row.appendChild(title);row.appendChild(adminMakeButton("ลบ","admin-danger",()=>{list.splice(index,1);adminRender()}));card.appendChild(row);const grid=document.createElement("div");grid.className="admin-grid";card.appendChild(grid);adminField(grid,"Platform",item.platform,(v)=>item.platform=v);adminField(grid,"Label",item.label,(v)=>item.label=v);adminField(grid,"URL",item.url,(v)=>item.url=v);adminField(grid,"Visible",item.visible!==false,(v)=>item.visible=v,{type:"checkbox"});cards.appendChild(card)})}
-function adminRenderSettings(container){const data=adminState.data;adminSection(container,"Guide / Pre-use / Analytics",(section)=>{const grid=document.createElement("div");grid.className="admin-grid";section.appendChild(grid);adminJsonField(grid,"Guides JSON",data.guides,(v)=>data.guides=v);adminJsonField(grid,"Quick steps JSON",data.quickSteps,(v)=>data.quickSteps=v);adminJsonField(grid,"Pre-use settings JSON",data.preUseSettings,(v)=>data.preUseSettings=v);data.analytics=data.analytics||{};data.analytics.clickTracking=data.analytics.clickTracking||{};adminField(grid,"Counter enabled",data.analytics.counterEnabled!==false,(v)=>data.analytics.counterEnabled=v,{type:"checkbox"});adminField(grid,"Analytics provider",data.analytics.provider,(v)=>data.analytics.provider=v,{type:"select",choices:[{value:"counterapi",label:"CounterAPI"},{value:"goatcounter",label:"GoatCounter"}]});adminField(grid,"Counter mode",data.analytics.countOncePer||"day",(v)=>data.analytics.countOncePer=v,{type:"select",choices:[{value:"day",label:"นับ 1 ครั้งต่อ browser ต่อวัน"},{value:"session",label:"นับ 1 ครั้งต่อ session"},{value:"always",label:"นับทุกครั้งที่โหลดหน้า"}]});adminField(grid,"Counter label",data.analytics.displayLabel,(v)=>data.analytics.displayLabel=v);adminField(grid,"Counter namespace",data.analytics.namespace,(v)=>data.analytics.namespace=v);adminField(grid,"Counter name",data.analytics.counterName,(v)=>data.analytics.counterName=v);adminField(grid,"Fallback value",data.analytics.fallbackValue,(v)=>data.analytics.fallbackValue=Number(v)||0,{type:"number"});adminField(grid,"Pad digits",data.analytics.padDigits,(v)=>data.analytics.padDigits=Number(v)||0,{type:"number"});adminField(grid,"Click tracking enabled",data.analytics.clickTracking.enabled===true,(v)=>data.analytics.clickTracking.enabled=v,{type:"checkbox"});adminField(grid,"Click tracking endpoint",data.analytics.clickTracking.endpoint,(v)=>data.analytics.clickTracking.endpoint=v,{type:"url"});adminField(grid,"Dashboard endpoint",data.analytics.clickTracking.dashboardEndpoint,(v)=>data.analytics.clickTracking.dashboardEndpoint=v,{type:"url"});adminField(grid,"Analytics site id",data.analytics.clickTracking.siteId||"pepslive-tools",(v)=>data.analytics.clickTracking.siteId=v);adminField(grid,"Google Sheet URL",data.analytics.clickTracking.sheetUrl,(v)=>data.analytics.clickTracking.sheetUrl=v,{type:"url"})})}
+function adminRenderSettings(container){const data=adminState.data;adminSection(container,"Guide / Pre-use / Analytics",(section)=>{const grid=document.createElement("div");grid.className="admin-grid";section.appendChild(grid);adminJsonField(grid,"Guides JSON",data.guides,(v)=>data.guides=v);adminJsonField(grid,"Quick steps JSON",data.quickSteps,(v)=>data.quickSteps=v);adminJsonField(grid,"Pre-use settings JSON",data.preUseSettings,(v)=>data.preUseSettings=v);data.analytics=data.analytics||{};data.analytics.clickTracking=data.analytics.clickTracking||{};data.analytics.visitorEndpoint=data.analytics.visitorEndpoint||data.analytics.clickTracking.endpoint||"";adminField(grid,"Counter enabled",data.analytics.counterEnabled!==false,(v)=>data.analytics.counterEnabled=v,{type:"checkbox"});adminField(grid,"Analytics provider",data.analytics.provider,(v)=>data.analytics.provider=v,{type:"select",choices:[{value:"appsScript",label:"Google Apps Script"},{value:"counterapi",label:"CounterAPI (legacy)"},{value:"goatcounter",label:"GoatCounter"}]});adminField(grid,"Counter mode",data.analytics.countOncePer||"day",(v)=>data.analytics.countOncePer=v,{type:"select",choices:[{value:"day",label:"นับ 1 ครั้งต่อ browser ต่อวัน"},{value:"session",label:"นับ 1 ครั้งต่อ session"},{value:"always",label:"นับทุกครั้งที่โหลดหน้า"}]});adminField(grid,"Counter label",data.analytics.displayLabel,(v)=>data.analytics.displayLabel=v);adminField(grid,"Visitor endpoint (Apps Script)",data.analytics.visitorEndpoint,(v)=>data.analytics.visitorEndpoint=v,{type:"url"});adminField(grid,"Visitor start / seed value",data.analytics.visitorStartValue??data.analytics.startValue??0,(v)=>data.analytics.visitorStartValue=Number(v)||0,{type:"number"});adminField(grid,"Counter namespace (legacy)",data.analytics.namespace,(v)=>data.analytics.namespace=v);adminField(grid,"Counter name (legacy)",data.analytics.counterName,(v)=>data.analytics.counterName=v);adminField(grid,"Fallback value",data.analytics.fallbackValue,(v)=>data.analytics.fallbackValue=Number(v)||0,{type:"number"});adminField(grid,"Pad digits",data.analytics.padDigits,(v)=>data.analytics.padDigits=Number(v)||0,{type:"number"});adminField(grid,"Click tracking enabled",data.analytics.clickTracking.enabled===true,(v)=>data.analytics.clickTracking.enabled=v,{type:"checkbox"});adminField(grid,"Click tracking endpoint",data.analytics.clickTracking.endpoint,(v)=>data.analytics.clickTracking.endpoint=v,{type:"url"});adminField(grid,"Dashboard endpoint",data.analytics.clickTracking.dashboardEndpoint,(v)=>data.analytics.clickTracking.dashboardEndpoint=v,{type:"url"});adminField(grid,"Analytics site id",data.analytics.clickTracking.siteId||"pepslive-tools",(v)=>data.analytics.clickTracking.siteId=v);adminField(grid,"Google Sheet URL",data.analytics.clickTracking.sheetUrl,(v)=>data.analytics.clickTracking.sheetUrl=v,{type:"url"})})}
 function adminRenderRaw(container){adminSection(container,"แก้ JSON ตรง",(section)=>{const note=document.createElement("p");note.className="admin-note";note.textContent="ใช้ส่วนนี้เมื่อฟอร์มด้านบนยังไม่ครอบคลุมข้อมูลบางช่อง ระบบจะตรวจ JSON ก่อนบันทึกเข้า GitHub";section.appendChild(note);const textarea=adminField(section,"data.json",JSON.stringify(adminState.data,null,2),(text)=>{try{adminState.data=JSON.parse(text);textarea.classList.remove("admin-invalid");adminSetStatus("JSON พร้อมใช้งาน", "success")}catch(error){textarea.classList.add("admin-invalid");adminSetStatus("JSON ยังไม่ถูกต้อง จะแก้ไขก่อนบันทึก", "error")}}, {type:"textarea",rows:20});textarea.classList.add("admin-raw-json");section.appendChild(adminMakeButton("จัดรูปแบบ JSON","admin-secondary",()=>{try{adminState.data=JSON.parse(textarea.value);textarea.value=JSON.stringify(adminState.data,null,2);textarea.classList.remove("admin-invalid");adminSetStatus("จัดรูปแบบ JSON แล้ว", "success")}catch(error){textarea.classList.add("admin-invalid");adminSetStatus(error.message, "error")}}))})}
 function adminRefreshJsonPreview(){const textarea=document.querySelector(".admin-raw-json");if(textarea)textarea.value=JSON.stringify(adminState.data,null,2)}
 function adminEncodeBase64(text){const bytes=new TextEncoder().encode(text);let binary="";bytes.forEach((byte)=>binary+=String.fromCharCode(byte));return btoa(binary)}

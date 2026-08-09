@@ -2,6 +2,9 @@ const SPREADSHEET_ID = '1QiONjsc7hc_9BjXBOF8QJW8LsbHC9uIwzq8FmhiUaJc';
 const SITE_ID = 'pepslive-tools';
 const CLICK_SHEET = 'Clicks';
 const CONFIG_SHEET = 'Config';
+const VISITOR_SHEET = 'Visitors';
+const VISITOR_START_VALUE = 436;
+const VISITOR_SEED_PROPERTY = 'PEPSLIVE_VISITOR_START_VALUE';
 const CLICK_HEADERS = [
   'timestamp',
   'event_date',
@@ -18,6 +21,15 @@ const CLICK_HEADERS = [
   'visitor_key',
   'device_hint',
   'notes'
+];
+const VISITOR_HEADERS = [
+  'timestamp',
+  'event_date',
+  'site_id',
+  'visitor_key',
+  'visit_key',
+  'count_mode',
+  'page'
 ];
 const EVENT_TYPES = ['open_tool', 'manual_link', 'video_link', 'dock_card', 'other'];
 const PERIODS = [1, 7, 30, 60, 90];
@@ -42,6 +54,14 @@ function doGet(e) {
   if (mode === 'health') {
     return respond_({ ok: true, siteId: SITE_ID, updatedAt: new Date().toISOString() }, callback);
   }
+  if (mode === 'visitor' || mode === 'visitor-read') {
+    try {
+      const result = mode === 'visitor' ? countVisitor_(params) : readVisitorCount_();
+      return respond_(result, callback);
+    } catch (error) {
+      return respond_({ ok: false, siteId: SITE_ID, error: String(error && error.message || error) }, callback);
+    }
+  }
   return respond_(buildSummary_(), callback);
 }
 
@@ -53,7 +73,18 @@ function setupSheets() {
   clicks.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm:ss');
   clicks.getRange('B:B').setNumberFormat('yyyy-mm-dd');
   clicks.autoResizeColumns(1, CLICK_HEADERS.length);
-  return { ok: true, spreadsheetUrl: ss.getUrl() };
+  const visitors = getOrCreateSheet_(ss, VISITOR_SHEET);
+  ensureHeader_(visitors, VISITOR_HEADERS);
+  visitors.setFrozenRows(1);
+  visitors.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm:ss');
+  visitors.getRange('B:B').setNumberFormat('yyyy-mm-dd');
+  visitors.autoResizeColumns(1, VISITOR_HEADERS.length);
+  return {
+    ok: true,
+    spreadsheetUrl: ss.getUrl(),
+    visitorStartValue: getVisitorSeed_(),
+    visitorCount: readVisitorCount_().count
+  };
 }
 
 function appendClick_(payload) {
@@ -88,6 +119,108 @@ function appendClick_(payload) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function countVisitor_(params) {
+  const requestedSite = clean_(params.siteId || SITE_ID, 80);
+  if (requestedSite !== SITE_ID) return { ok: false, siteId: SITE_ID, error: 'site_not_allowed' };
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(8000);
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = getOrCreateSheet_(ss, VISITOR_SHEET);
+    ensureHeader_(sheet, VISITOR_HEADERS);
+    const now = new Date();
+    const mode = normalizeCountMode_(params.countMode);
+    const visitorKey = clean_(params.visitorKey, 180);
+    const visitKey = buildVisitorVisitKey_(params, now, mode, visitorKey);
+
+    if (visitKey && hasVisitorVisitKey_(sheet, visitKey)) {
+      return visitorResult_(sheet, false, true);
+    }
+
+    sheet.appendRow([
+      now,
+      startOfDay_(now),
+      SITE_ID,
+      visitorKey,
+      visitKey || `always|${Utilities.getUuid()}`,
+      mode,
+      clean_(params.page, 240)
+    ]);
+    SpreadsheetApp.flush();
+    return visitorResult_(sheet, true, false);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function readVisitorCount_() {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(8000);
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(VISITOR_SHEET);
+    return visitorResult_(sheet, false, false);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function visitorResult_(sheet, counted, deduped) {
+  const rows = sheet ? Math.max(0, sheet.getLastRow() - 1) : 0;
+  const count = getVisitorSeed_() + rows;
+  return {
+    ok: true,
+    siteId: SITE_ID,
+    count,
+    visitorCount: count,
+    counted: Boolean(counted),
+    deduped: Boolean(deduped),
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function getVisitorSeed_() {
+  const configured = nonNegativeInteger_(VISITOR_START_VALUE);
+  const properties = PropertiesService.getScriptProperties();
+  const saved = nonNegativeInteger_(properties.getProperty(VISITOR_SEED_PROPERTY));
+  const seed = Math.max(configured, saved);
+  if (seed !== saved) properties.setProperty(VISITOR_SEED_PROPERTY, String(seed));
+  return seed;
+}
+
+function normalizeCountMode_(value) {
+  const mode = clean_(value, 20).toLowerCase();
+  return ['day', 'session', 'always'].indexOf(mode) >= 0 ? mode : 'day';
+}
+
+function buildVisitorVisitKey_(params, now, mode, visitorKey) {
+  if (mode === 'always') return '';
+  const requestedKey = clean_(params.visitKey, 180);
+  if (mode === 'day') {
+    const key = requestedKey || visitorKey;
+    return key ? `${SITE_ID}|day|${formatDate_(startOfDay_(now))}|${key}` : '';
+  }
+  const key = requestedKey || visitorKey;
+  return key ? `${SITE_ID}|session|${key}` : '';
+}
+
+function hasVisitorVisitKey_(sheet, visitKey) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return false;
+  return sheet
+    .getRange(2, 5, lastRow - 1, 1)
+    .createTextFinder(visitKey)
+    .matchEntireCell(true)
+    .useRegularExpression(false)
+    .findNext() !== null;
+}
+
+function nonNegativeInteger_(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.max(0, Math.floor(number)) : 0;
 }
 
 function buildSummary_() {
