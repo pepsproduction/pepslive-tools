@@ -64,25 +64,17 @@
   ],
   "dockTools": [
     {
-      "title": "OBS Dock UI Sport Scoreboard",
-      "version": "V1.0",
+      "title": "PEPSLIVE TOOL LAUNCHER",
+      "version": "V2.3.2",
       "status": "ใช้ฟรี",
       "category": "Main Tool",
       "featured": true,
       "statusKey": "available",
-      "description": "แผงควบคุมสกอร์บอร์ดกีฬาสำหรับ OBS รวมระบบควบคุมคะแนน ชื่อทีม เวลา และข้อมูลการแข่งขันไว้ในชุดเดียว เหมาะสำหรับฟุตบอล บาสเกตบอล และรายการกีฬาที่ต้องการภาพลักษณ์แบบมืออาชีพ",
+      "description": "พร้อมลุยทุกแมตช์\nในจังหวะของคุณ\nศูนย์รวมโปรแกรมสำหรับงานถ่ายทอดสด เข้าสู่ระบบเพื่อดูสิทธิ์ ดาวน์โหลดเครื่องมือ และเปิดคู่มือการใช้งานจากจุดเดียว",
       "links": [
         {
-          "label": "เปิด Dock UI",
-          "url": "https://pepsproduction.github.io/pepslive-dock/PepsLive_Dock_V1.html"
-        },
-        {
-          "label": "คู่มือใช้งาน",
-          "url": "start.html"
-        },
-        {
-          "label": "คลิปสอนติดตั้ง",
-          "url": "https://www.youtube.com/playlist?list=PLf1uIf2bezwUgAAs03qspsll5lytIqion"
+          "label": "Download PEPSLIVE TOOL LAUNCHER",
+          "url": "https://drive.google.com/file/d/1uzk60NHOeHuYr2_9gdUxxdIg_KyN-DlM/view?usp=sharing"
         }
       ],
       "gallery": {
@@ -90,260 +82,11 @@
         "intervalMs": 4500,
         "images": [
           {
-            "src": "assets/dock-media/obs-dock-ui-sport-scoreboard-1780248700599-5rh3o.png",
+            "src": "https://chatgpt.com/backend-api/estuary/content?id=file_00000000b5ec820bb8acf1492bc3c91b&cp=pri&ma=90000&ts=20690&p=igh&cid=1&sig=ea7791ee76a11406a74fd7b7bd36b07dc594707ba225be3eee08e08dcc8db369&v=0",
             "alt": "",
             "caption": ""
           }
         ]
-      }
-    },
-    {
-      "title": "PepsLive AutoCue Dock V1",
-      "version": "V1.0",
-      "status": "ใช้ฟรี",
-      "category": "OBS Dock UI",
-      "featured": false,
-      "statusKey": "available",
-      "description": "PepsLive AutoCue Dock คือเครื่องมือเสริมสำหรับ OBS ที่ช่วยตั้งเวลาเปิด–ปิด Source และสลับ Scene อัตโนมัติ เหมาะสำหรับงานไลฟ์สดกีฬา งานถ่ายทอดสด และงานโปรดักชันที่ต้องการความรวดเร็ว แม่นยำ และลดการกดควบคุมระหว่างไลฟ์\n",
-      "links": [
-        {
-          "label": "PepsLive AutoCue Dock V1",
-          "url": "https://pepsproduction.github.io/PepsLive_AutoCue_Dock_V1/PepsLive_AutoCue_Dock_V1.html"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepslive-autocue-dock-v1-1780248913744-qxrrt.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "Tournament Manager Dock",
-      "version": "V1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Tournament",
-      "featured": false,
-      "description": "ระบบจัดการชื่อทีม โปรแกรมแข่ง ตารางคะแนน และข้อมูลทัวร์นาเมนต์สำหรับแสดงผลในงานไลฟ์",
-      "links": [
-        {
-          "label": "Tournament Manager Dock V1",
-          "url": "https://pepsproduction.github.io/PepsLive_Tournament_Studio/"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/tournament-manager-dock-1780249121796-j95h0.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "PepsLive Stinger Studio",
-      "version": "v1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Main Tool",
-      "featured": false,
-      "description": "PepsLive Stinger Studio คือเว็บแอปสำหรับสร้างทรานซิชันแบบ Stinger สำหรับงานไลฟ์สดและ OBS โดยออกแบบมาให้ใช้งานง่าย ปรับแต่งภาพเคลื่อนไหวได้หลายแบบ และ Export ออกเป็นไฟล์ .webm เพื่อนำไปใช้จริงใน OBS Browser Source หรือ Media Source ได้ทันที",
-      "links": [
-        {
-          "label": "PepsLive Stinger Studio",
-          "url": "https://pepsproduction.github.io/pepslive-stinger-studio/"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepslive-stinger-studio-1780249219842-kcfmv.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "PepsLogo Studio",
-      "version": "v1.0",
-      "status": "ทักมาขอซื้อได้ 500",
-      "statusKey": "available",
-      "category": "Main Tool",
-      "featured": false,
-      "description": "โปรแกรมสำหรับใส่โลโก้ลงบนรูปหลายภาพพร้อมกัน ปรับตำแหน่ง ขนาด ความโปร่งใส แยกตามรูปแนวนอน/แนวตั้งได้ มีพรีวิวก่อน export และบันทึกพรีเซ็ตไว้ใช้ซ้ำได้",
-      "links": [
-        {
-          "label": "ทักส่วนตัวมาขอซื้อ",
-          "url": "https://www.facebook.com/Bankcleanfoodbiker"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepslogo-studio-1780249650709-jsz8o.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "PepsLive Scoreboard Skin Studio",
-      "version": "v1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Main Tool",
-      "featured": false,
-      "description": "PepsLive Scoreboard Skin Studio คือเครื่องมือสำหรับเลือกและปรับแต่งหน้าตา Scoreboard สำหรับงานไลฟ์สดกีฬา โดยเน้นการใช้งานร่วมกับ OBS Browser Source แบบพื้นหลังโปร่งใส รองรับทั้งฟุตบอลและบาสเกตบอล มี Template สำเร็จรูปหลายสไตล์ให้เลือก พร้อมระบบ Preview, Theme Preset, Safe Area, Background Test และการเชื่อมข้อมูลจาก PepsLive Dock UI เดิมในอนาคต\n\nโปรแกรมนี้ไม่ได้ใช้สำหรับควบคุมคะแนนหรือจัดการทีม แต่ถูกออกแบบมาเพื่อเป็น “คลังหน้าตา Scoreboard” ให้เลือกใช้กับระบบถ่ายทอดสดได้ง่ายขึ้น สวยขึ้น และเป็นมาตรฐานเดียวกันทั้งงาน",
-      "links": [
-        {
-          "label": "Scoreboard Skin Studio",
-          "url": "https://pepsproduction.github.io/pepslive-scoreboard-skin-studio/dock.html"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepslive-scoreboard-skin-studio-1780249820966-qu1di.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "PepsLive Sponsor Dock",
-      "version": "v1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "OBS Tools / Sponsor Overlay / Live Production",
-      "featured": false,
-      "description": "PepsLive Sponsor Dock คือเครื่องมือสำหรับจัดการโลโก้สปอนเซอร์บน OBS แบบใช้งานง่าย รองรับการลากรูปโลโก้เข้าระบบ แยกกลุ่มสปอนเซอร์ตามการใช้งาน และเลือกโหมดแสดงผลได้หลายแบบ เช่น 3D Cover Flow, Ticker, Spotlight, Float, Orbit, Rain และ Grid\n\nเหมาะสำหรับทีมไลฟ์สดกีฬา รายการอีเวนต์ หรือโปรดักชันที่ต้องการโชว์โลโก้ผู้สนับสนุนในจังหวะต่าง ๆ เช่น ก่อนเริ่มแข่ง ระหว่างแข่งขัน พักครึ่ง ยิงประตู หรือช่วงสรุปผลการแข่งขัน โดยสามารถสร้าง URL สำหรับ OBS Browser Source และเพิ่ม Source ผ่าน OBS WebSocket ได้โดยตรง",
-      "links": [
-        {
-          "label": "เปิดใช้งาน Sponsor Dock",
-          "url": "https://pepsproduction.github.io/pepslive-sponsor-dock/sponsor.html?mode=control"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepslive-sponsor-dock-1780250213933-liemg.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "PEPSCam OBS Cam Monitor",
-      "version": "v1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Live Streaming Tools / OBS Tools",
-      "featured": false,
-      "description": "PEPSCam OBS Cam Monitor คือเว็บสำหรับส่งภาพจากมือถือเข้า OBS แบบง่าย ๆ ผ่าน QR Code และ WebRTC เหมาะสำหรับงานไลฟ์สดที่ต้องการเพิ่มกล้องมือถือหลายมุม โดยไม่ต้องใช้อุปกรณ์ซับซ้อน",
-      "links": [
-        {
-          "label": "เปิดใช้งาน PEPSCam",
-          "url": "https://pepsproduction.github.io/peps-obs-cam-monitor/OBSCam/OBSCamMonitor.html"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/pepscam-obs-cam-monitor-1780250350103-fv0hc.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "Peps VAR Replay Studio",
-      "version": "V1.0",
-      "status": "ใช้ฟรี",
-      "statusKey": "available",
-      "category": "Live Streaming Tools / VAR Replay Tools / OBS Tools",
-      "featured": false,
-      "description": "Peps VAR Replay Studio คือเว็บคอนโทรลรีเพลย์สำหรับงานไลฟ์สด ใช้เปิดคลิปวิดีโอ ย้อนจังหวะสำคัญ ตั้ง Loop A-B ปรับสปีด ซูมภาพ และส่งภาพเข้า OBS ผ่าน Browser Source ได้ง่าย ๆ",
-      "links": [
-        {
-          "label": "เปิดใช้งาน Peps VAR Replay",
-          "url": "https://pepsproduction.github.io/peps-var-replay-studio/"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/peps-var-replay-studio-1780250849086-95b5t.png",
-            "alt": "",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "Football Scoreboard Builder",
-      "version": "v1.0",
-      "status": "พร้อมใช้งาน",
-      "statusKey": "available",
-      "category": "Main Tool",
-      "featured": false,
-      "description": "เครื่องมือออกแบบสกอร์บอร์ดฟุตบอลสำหรับงานถ่ายทอดสด อัปโหลดโลโก้รายการเพื่อวิเคราะห์สีและสร้างธีมอัตโนมัติ เลือกเทมเพลต ปรับโครงสร้าง ตำแหน่งคะแนน โมดูล สไตล์ 2D/3D สีและ Gradient พร้อมส่งออกเป็นไฟล์ PNG พื้นหลังโปร่งใสสำหรับใช้งานใน OBS โดยไฟล์ที่ Export จะไม่มีชื่อทีม คะแนน ตัวเลข หรือข้อความตัวอย่าง",
-      "links": [
-        {
-          "label": "Football Scoreboard Builder",
-          "url": "https://pepsproduction.github.io/Football-Scoreboard-Builder/"
-        }
-      ],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": [
-          {
-            "src": "assets/dock-media/football-scoreboard-builder-1785162465966-63291.png",
-            "alt": "Football Scoreboard Builder.png",
-            "caption": ""
-          }
-        ]
-      }
-    },
-    {
-      "title": "Graphic Trigger Dock",
-      "version": "กำลังพัฒนา",
-      "status": "เร็ว ๆ นี้",
-      "statusKey": "comingSoon",
-      "category": "Graphic",
-      "featured": false,
-      "description": "ชุดควบคุมกราฟิก เช่น Goal Animation, Opening Title, Lower Third และเอฟเฟกต์ประกอบรายการ",
-      "links": [],
-      "gallery": {
-        "mode": "manual",
-        "intervalMs": 4500,
-        "images": []
       }
     }
   ],
