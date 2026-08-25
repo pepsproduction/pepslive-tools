@@ -82,8 +82,8 @@
         "intervalMs": 4500,
         "images": [
           {
-            "src": "https://chatgpt.com/backend-api/estuary/content?id=file_00000000b5ec820bb8acf1492bc3c91b&cp=pri&ma=90000&ts=20690&p=igh&cid=1&sig=ea7791ee76a11406a74fd7b7bd36b07dc594707ba225be3eee08e08dcc8db369&v=0",
-            "alt": "",
+            "src": "assets/dock-media/pepslive-tool-launcher-1787673323796-y98mh.png",
+            "alt": "PepsLiveTool",
             "caption": ""
           }
         ]
