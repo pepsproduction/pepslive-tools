@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Analytics | PepsProduction</title>
+  <link rel="stylesheet" href="../../assets/analytics-dashboard.css">
+</head>
+<body>
+  <div class="admin-fx" aria-hidden="true"><i></i><b></b><span></span></div>
+  <main class="dashboard-shell">
+    <header class="topbar">
+      <a class="brand" href="../../" aria-label="กลับไปเว็บไซต์ PepsProduction"><span class="brand-mark">P</span><span>PEPS<span>PRODUCTION</span><small>PRIVATE ANALYTICS</small></span></a>
+      <div class="topbar-actions"><span class="privacy-pill"><i></i> PRIVATE DASHBOARD</span><button class="refresh-button" type="button" data-refresh>↻ <span>รีเฟรชข้อมูล</span></button></div>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow"><span></span> WEBSITE PERFORMANCE</p><h1 id="page-title">หลังบ้าน<span>สถิติเข้าชม</span></h1><p class="intro-copy">ดูจำนวนผู้เข้าชม การคลิก และส่วนที่คนสนใจบนเว็บไซต์ PepsProduction</p></div>
+      <div class="updated-card"><span class="status-light"></span><span><small>อัปเดตข้อมูลล่าสุด</small><strong data-updated>กำลังเชื่อมต่อ…</strong></span></div>
+    </section>
+
+    <section class="period-panel" aria-label="เลือกระยะเวลารายงาน">
+      <div><small>ช่วงเวลาที่ต้องการดู</small><strong data-period-caption>ย้อนหลัง 30 วัน</strong></div>
+      <div class="period-buttons" role="group" aria-label="ช่วงเวลาย้อนหลัง">
+        <button type="button" data-period="1">1 วัน</button><button type="button" data-period="7">7 วัน</button><button type="button" data-period="15">15 วัน</button><button type="button" data-period="30" aria-pressed="true">30 วัน</button><button type="button" data-period="60">60 วัน</button><button type="button" data-period="90">90 วัน</button><button type="button" data-period="120">120 วัน</button><button type="button" data-period="365">365 วัน</button>
+      </div>
+    </section>
+
+    <section class="stat-grid" aria-label="สรุปยอดรวม">
+      <article class="stat-card stat-card--orange"><div class="stat-top"><span>ผู้เข้าชมไม่ซ้ำ</span><span class="stat-icon">◉</span></div><strong data-stat="uniqueVisitors">—</strong><small>นับจากเบราว์เซอร์ที่เข้าชม</small></article>
+      <article class="stat-card stat-card--blue"><div class="stat-top"><span>การเปิดหน้าเว็บ</span><span class="stat-icon">▣</span></div><strong data-stat="pageViews">—</strong><small>จำนวนครั้งที่โหลดหน้าแรก</small></article>
+      <article class="stat-card stat-card--gold"><div class="stat-top"><span>คลิกทั้งหมด</span><span class="stat-icon">⌁</span></div><strong data-stat="clicks">—</strong><small>ปุ่ม เมนู และลิงก์ที่กด</small></article>
+      <article class="stat-card stat-card--white"><div class="stat-top"><span>ส่วนที่ถูกเปิดดู</span><span class="stat-icon">◌</span></div><strong data-stat="sectionViews">—</strong><small>นับเมื่อเลื่อนมาถึงแต่ละส่วน</small></article>
+    </section>
+
+    <section class="panel chart-panel" aria-labelledby="chart-title">
+      <div class="panel-heading"><div><p class="eyebrow">ACTIVITY OVER TIME</p><h2 id="chart-title">แนวโน้มเว็บไซต์</h2></div><label class="metric-select">แสดงกราฟ<select data-metric><option value="uniqueVisitors">ผู้เข้าชมไม่ซ้ำ</option><option value="pageViews">การเปิดหน้าเว็บ</option><option value="clicks">จำนวนคลิก</option><option value="sectionViews">ส่วนที่ถูกเปิดดู</option></select></label></div>
+      <div class="chart-legend"><span><i></i><b data-chart-label>ผู้เข้าชมไม่ซ้ำ</b></span><small data-chart-range>—</small></div>
+      <div class="chart-wrap" data-chart aria-label="กราฟสถิติตามวัน"><p class="loading-message">กำลังโหลดรายงาน…</p></div>
+    </section>
+
+    <section class="category-section" aria-labelledby="category-title">
+      <div class="panel-heading"><div><p class="eyebrow">WHAT VISITORS USE</p><h2 id="category-title">คลิกแยกตามหมวด</h2></div><button class="csv-button" type="button" data-export>↓ <span>ดาวน์โหลด CSV</span></button></div>
+      <div class="category-grid" data-categories><p class="loading-message">กำลังจัดหมวดหมู่…</p></div>
+    </section>
+
+    <section class="panel details-panel" aria-labelledby="details-title">
+      <div class="panel-heading"><div><p class="eyebrow">BUTTON & LINK DETAILS</p><h2 id="details-title">รายการที่ถูกคลิก</h2></div><span class="details-period" data-details-period>30 วัน</span></div>
+      <div class="table-scroll"><table><thead><tr><th>หมวด</th><th>ปุ่ม / รายการ</th><th>คลิก</th><th>เปิดดู</th></tr></thead><tbody data-items><tr><td colspan="4" class="empty-cell">กำลังโหลดรายงาน…</td></tr></tbody></table></div>
+      <p class="privacy-note"><span>🔒</span> รายงานนี้ไม่เก็บ IP, ชื่อ, อีเมล, URL ที่เปิดดู หรือข้อความที่พิมพ์ · รหัสผู้เข้าชมเป็นรหัสสุ่มในเบราว์เซอร์และหมดอายุจากรายงานหลัง 400 วัน</p>
+    </section>
+    <footer><span>PEPSPRODUCTION · ANALYTICS</span><span data-footer-date></span></footer>
+    <div class="notice" data-notice role="status" aria-live="polite" hidden></div>
+  </main>
+  <script src="../../assets/analytics-dashboard.js" defer></script>
+</body>
+</html>

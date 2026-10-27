@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pepsproduction-home",
+  "main": "src/worker.mjs",
+  "compatibility_date": "2026-10-15",
+  "routes": [
+    { "pattern": "pepsproduction.com", "custom_domain": true },
+    { "pattern": "www.pepsproduction.com", "custom_domain": true }
+  ],
+  "d1_databases": [
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "pepsproduction-analytics",
+      "database_id": "8ddc228d-1c68-4d09-a945-5a81ad64dad2",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": ["0 18 * * *"]
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/admin/analytics*"],
+    "not_found_handling": "404-page"
+  }
+}

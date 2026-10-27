@@ -1,0 +1,202 @@
+{
+  "launcher": {
+    "version": "2.6.0",
+    "size": "ประมาณ 126 MiB",
+    "downloadUrl": "https://drive.google.com/file/d/1eRx1E5fca-rfY5OcVK6ghc7aKmtAQbNa/view?usp=drivesdk"
+  },
+  "youtubePlaylist": "https://www.youtube.com/playlist?list=PLf1uIf2bezwUgAAs03qspsll5lytIqion",
+  "lineAddFriendUrl": "https://line.me/ti/p/~bank450",
+  "contactLinks": [
+    {
+      "platform": "facebook",
+      "label": "FACEBOOK FANPAGE",
+      "name": "PepsProduction",
+      "icon": "f",
+      "url": "https://www.facebook.com/Pepsproduction"
+    },
+    {
+      "platform": "facebook",
+      "label": "FACEBOOK ส่วนตัว",
+      "name": "คณาธิป เจริญทรัพย์",
+      "icon": "f",
+      "url": "https://www.facebook.com/Bankcleanfoodbiker"
+    },
+    {
+      "platform": "tiktok",
+      "label": "TIKTOK",
+      "name": "@pepsproduction",
+      "icon": "♪",
+      "url": "https://www.tiktok.com/@pepsproduction"
+    },
+    {
+      "platform": "line",
+      "label": "LINE · แตะเพื่อเพิ่มเพื่อน",
+      "name": "bank450",
+      "icon": "LINE",
+      "url": "https://line.me/ti/p/~bank450"
+    },
+    {
+      "platform": "youtube",
+      "label": "YOUTUBE",
+      "name": "@pepsproduction",
+      "icon": "▶",
+      "url": "https://www.youtube.com/@pepsproduction"
+    },
+    {
+      "platform": "phone",
+      "label": "โทรศัพท์",
+      "name": "083-372-0406",
+      "icon": "☎",
+      "url": "tel:+66833720406"
+    },
+    {
+      "platform": "phone",
+      "label": "โทรศัพท์",
+      "name": "096-419-9389",
+      "icon": "☎",
+      "url": "tel:+66964199389"
+    }
+  ],
+  "portfolio": [
+    {
+      "category": "ถ่ายทอดสดฟุตบอลเยาวชน U10 / U12",
+      "title": "สนาม 1 — THAILAND JUNIOR × MUKDAHAN 2026",
+      "description": "บันทึกการแข่งขันฟุตบอลเยาวชน U10 / U12 · เปิดคลิปจากช่วง 4:11:23 ตามลิงก์ที่ส่งมา",
+      "image": "https://i.ytimg.com/vi/7Hvxtlahky8/hqdefault.jpg",
+      "imageAlt": "ภาพปกการแข่งขัน THAILAND JUNIOR × MUKDAHAN 2026 สนาม 1",
+      "url": "https://www.youtube.com/watch?v=7Hvxtlahky8&t=15083s",
+      "linkLabel": "รับชมจากช่วงที่เลือก"
+    },
+    {
+      "category": "ถ่ายทอดสดฟุตบอลเยาวชน U10 / U12",
+      "title": "สนาม 2 — THAILAND JUNIOR × MUKDAHAN 2026",
+      "description": "บันทึกการแข่งขันฟุตบอลเยาวชน U10 / U12 · เปิดคลิปจากช่วง 6:43:58 ตามลิงก์ที่ส่งมา",
+      "image": "https://i.ytimg.com/vi/RBiZ_PNfekI/hqdefault.jpg",
+      "imageAlt": "ภาพปกการแข่งขัน THAILAND JUNIOR × MUKDAHAN 2026 สนาม 2",
+      "url": "https://www.youtube.com/watch?v=RBiZ_PNfekI&t=24238s",
+      "linkLabel": "รับชมจากช่วงที่เลือก"
+    },
+    {
+      "category": "ถ่ายทอดสดงานประเพณี",
+      "date": "2026-10-08",
+      "title": "งานประเพณีแซนโฎนตาเมืองขุขันธ์ 2569",
+      "description": "บันทึกผลงานถ่ายทอดสดงานประเพณีแซนโฎนตาเมืองขุขันธ์ รับชมย้อนหลังจากช่อง PepsProduction",
+      "image": "https://i.ytimg.com/vi/DN1QckRx0ZQ/hqdefault.jpg",
+      "imageAlt": "ภาพตัวอย่างงานประเพณีแซนโฎนตาเมืองขุขันธ์ 2569",
+      "url": "https://www.youtube.com/watch?v=DN1QckRx0ZQ",
+      "linkLabel": "รับชมบันทึกถ่ายทอดสด"
+    },
+    {
+      "category": "ถ่ายทอดสดฟุตบอลเยาวชน",
+      "date": "2026-10-03",
+      "title": "DT U17 CUP ครั้งที่ 1",
+      "description": "ตัวอย่างผลงานถ่ายทอดสดฟุตบอล 6 คน รุ่นอายุไม่เกิน 17 ปี ชมการแข่งขันย้อนหลังได้บน YouTube",
+      "image": "https://i.ytimg.com/vi/AxYaec2CO2Y/hqdefault.jpg",
+      "imageAlt": "ภาพตัวอย่างการแข่งขัน DT U17 CUP ครั้งที่ 1",
+      "url": "https://www.youtube.com/watch?v=AxYaec2CO2Y",
+      "linkLabel": "รับชมบันทึกถ่ายทอดสด"
+    },
+    {
+      "category": "ถ่ายทอดสดฟุตบอลเยาวชน",
+      "date": "2026-09-06",
+      "title": "DT U14 CUP ครั้งที่ 1",
+      "description": "บันทึกการแข่งขันฟุตบอลเยาวชน U14 จากช่อง PepsProduction",
+      "image": "https://i.ytimg.com/vi/n9teiQGxv5E/hqdefault.jpg",
+      "imageAlt": "ภาพตัวอย่างการแข่งขัน DT U14 CUP ครั้งที่ 1",
+      "url": "https://www.youtube.com/watch?v=n9teiQGxv5E",
+      "linkLabel": "รับชมบันทึกถ่ายทอดสด"
+    },
+    {
+      "category": "วิดีโอโปรโมตการแข่งขัน",
+      "title": "TON TANN SENIOR CUP #1 — ฟุตบอล VIP 50+",
+      "description": "คลิปแนะนำการแข่งขันฟุตบอล VIP 50+ รวม 8 ทีม จากช่อง PepsProduction",
+      "image": "https://i.ytimg.com/vi/LG3p_BIlR6s/hqdefault.jpg",
+      "imageAlt": "ภาพปกคลิปแนะนำการแข่งขัน TON TANN SENIOR CUP #1",
+      "url": "https://www.youtube.com/watch?v=LG3p_BIlR6s",
+      "linkLabel": "ชมวิดีโอโปรโมต"
+    }
+  ],
+  "broadcasts": [],
+  "videos": [
+    {
+      "category": "แนะนำ PepsTool Launcher",
+      "title": "EP.5 เปิดตัว PepsLiveTool Launcher + DockUI V2",
+      "description": "แนะนำ Launcher และ DockUI V2 ที่รวมเครื่องมือสำหรับงานไลฟ์ไว้ในที่เดียว",
+      "image": "https://i.ytimg.com/vi/a8X_G0wjTmU/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=a8X_G0wjTmU&t=281s"
+    },
+    {
+      "category": "สอนใช้งาน PepsLive",
+      "title": "วิธีส่งรายละเอียดทีมและข้อมูลนักเตะขึ้นแสดงใน Live",
+      "description": "วิธีส่งชื่อทีมและข้อมูลนักเตะเพื่อใช้แสดงระหว่างถ่ายทอดสด",
+      "image": "https://i.ytimg.com/vi/m-nba14UONo/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=m-nba14UONo"
+    },
+    {
+      "category": "สอน OBS และ Scoreboard",
+      "title": "สอนสร้าง Scoreboard ฟุตบอลสำหรับ OBS แบบง่าย ๆ",
+      "description": "สอนทำสกอร์บอร์ดฟุตบอลสำหรับ OBS โดยช่องระบุว่าเหมาะกับมือใหม่",
+      "image": "https://i.ytimg.com/vi/Cb0k_nDBY1Y/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=Cb0k_nDBY1Y&t=18s"
+    },
+    {
+      "category": "ไฮไลต์ฟุตบอล",
+      "title": "ไฮไลต์ DT Footballclub อ่างลำพอกคัพ U14",
+      "description": "รวมจังหวะสนุกจากการแข่งขันฟุตบอลเยาวชน U14",
+      "image": "https://i.ytimg.com/vi/Y2_uBc650S8/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/Y2_uBc650S8"
+    },
+    {
+      "category": "เบื้องหลังงานผลิต",
+      "title": "PEPS LIVE — Behind The Game",
+      "description": "อีกมุมหนึ่งของการทำงานและบรรยากาศในงานผลิตของ PepsLive",
+      "image": "https://i.ytimg.com/vi/OsLg2FUaBvE/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/OsLg2FUaBvE"
+    },
+    {
+      "category": "กราฟิกถ่ายทอดสด",
+      "title": "ตัวอย่าง Score Animation | PepsLive",
+      "description": "ตัวอย่างแอนิเมชันแสดงผลสกอร์สำหรับงานถ่ายทอดสดกีฬา",
+      "image": "https://i.ytimg.com/vi/sQMYVnzgVSM/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/sQMYVnzgVSM"
+    }
+  ],
+  "schedule": [
+    {
+      "start": "2026-10-18",
+      "end": "2026-10-19",
+      "allDay": true,
+      "title": "ถ่ายภาพ POWER PLAY ARENA YOUTH CUP รุ่น 10+9 ปี"
+    },
+    {
+      "start": "2026-10-25",
+      "end": "2026-10-26",
+      "allDay": true,
+      "title": "ถ่ายทอดสดวอลเลย์บอล 2 สนาม (กทม.)"
+    },
+    {
+      "start": "2026-11-01",
+      "end": "2026-11-06",
+      "allDay": true,
+      "title": "Virtus 2026 — ถ่ายทอดสดบาสเกตบอล (กทม.)"
+    },
+    {
+      "start": "2026-11-07T21:30:00+07:00",
+      "end": "2026-11-08T22:30:00+07:00",
+      "allDay": false,
+      "title": "ไลฟ์บอล ที่อำเภอเขาวง กาฬสินธุ์ครับ"
+    },
+    {
+      "start": "2026-11-14",
+      "end": "2026-11-15",
+      "allDay": true,
+      "title": "ถ่ายทอดสดงานเดิน วิ่ง ปั่น เพื่อสุขภาพ เทศบาลตำบลสามแยก ประจำปี 2569"
+    },
+    {
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "allDay": true,
+      "title": "ถ่ายทอดสดฟุตบอล — จ.หนองคาย"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+/* Layout connecting the Three.js experience to the existing homepage. */
+#home {
+  min-height: max(820px, calc(100svh - 78px));
+  height: min(980px, max(820px, calc(100svh - 78px)));
+  isolation: isolate;
+  background: radial-gradient(ellipse at 75% 74%, rgba(112,201,255,.12), transparent 37%), radial-gradient(ellipse at 66% 12%, rgba(255,107,53,.14), transparent 39%), linear-gradient(120deg, #090a0f 7%, #10121a 64%, #171316);
+}
+#home::before { top: -240px; right: 12%; border-color: rgba(244,200,75,.08); box-shadow: 0 0 0 70px rgba(112,201,255,.018), 0 0 0 145px rgba(255,107,53,.02); }
+#home .hero-gridlines { z-index: 1; opacity: .22; }
+#home .hero-inner { min-height: inherit; margin-block: 0; padding-block: 52px 126px; grid-template-columns: minmax(0,.92fr) minmax(0,1.08fr); gap: clamp(30px,5vw,78px); }
+#home .hero-copy { position: relative; z-index: 3; padding-block: 22px; }
+#home .hero h1 { font-size: clamp(57px,6vw,82px); }
+#home .hero-description { max-width: 475px; font-size: 14px; }
+#home .hero-art { position: relative; z-index: 2; width: 100%; max-width: none; height: min(68vh,620px); min-height: 505px; margin: 0; padding: 0; transform: none; }
+#hero-studio-mount .studio-scene { inset: 0; width: 100%; height: 100%; }
+#hero-studio-mount .scene-tag { z-index: 2; right: 5%; bottom: 12%; }
+#hero-atmosphere-mount { position: absolute; z-index: 0; inset: 0; pointer-events: none; }
+#hero-atmosphere-mount .atmosphere { z-index: 0; opacity: .84; }
+#hero-atmosphere-mount .hero-shade { z-index: 1; background: linear-gradient(90deg,#101117 3%,#101117e8 24%,#1011176b 47%,transparent 77%),linear-gradient(180deg,#101117a8,transparent 46%,transparent 77%,#101117b0); }
+#hero-controls-mount { position: absolute; z-index: 8; inset: 0; pointer-events: none; }
+#hero-atmosphere-mount,
+#hero-studio-mount,
+#hero-controls-mount,
+#motion-control-mount { background: transparent; }
+#hero-controls-mount > .mood-container { position: absolute; right: max(32px,calc((100% - 1240px)/2)); bottom: 28px; width: max-content; max-width: calc(100% - 64px); pointer-events: auto; }
+#home .scroll-cue { z-index: 6; bottom: 31px; }
+#motion-control-mount { width: 38px; height: 38px; flex: 0 0 auto; display: grid; place-items: center; }
+#motion-control-mount .motion-control { width: 33px; height: 33px; border: 1px solid rgba(255,255,255,.23); color: #d4d9df; }
+
+@media (max-width: 850px) {
+  #home { min-height: 900px; height: auto; }
+  #home .hero-inner { min-height: 900px; width: calc(100% - 48px); margin: 0 auto; padding: 123px 0 146px; display: grid; grid-template-columns: minmax(0,1fr); grid-template-rows: auto 1fr; align-items: start; gap: 4px; }
+  #home .hero-copy { padding: 0; }
+  #home .hero h1 { font-size: clamp(60px,10vw,76px); }
+  #home .hero-description { font-size: 12px; }
+  #home .hero-art { width: min(110%,530px); height: 400px; min-height: 0; margin: -2px auto 0; }
+  #hero-studio-mount .scene-tag { display: none; }
+  #hero-atmosphere-mount .hero-shade { background: linear-gradient(180deg,#101117ec,#101117a8 28%,#10111708 68%,transparent),linear-gradient(90deg,#10111790,transparent 94%); }
+  #hero-controls-mount > .mood-container { right: 16px; bottom: 25px; max-width: calc(100% - 32px); }
+  #home .scroll-cue { display: none; }
+}
+
+@media (min-width: 851px) and (max-width: 1150px) {
+  #home #hero-studio-mount {
+    position: absolute;
+    top: 20%;
+    right: -11%;
+    width: 79%;
+    height: 58%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  #home { min-height: 880px; }
+  #home .hero-inner { width: calc(100% - 40px); min-height: 880px; padding-top: 122px; padding-bottom: 138px; }
+  #home .hero h1 { font-size: 64px; }
+  #home .hero-description { font-size: 11px; }
+  #home .hero-art { width: 116%; height: 355px; margin-left: -8%; }
+  #hero-controls-mount > .mood-container { right: 12px; bottom: 23px; left: 12px; width: auto; max-width: none; }
+  #hero-controls-mount .mood-bar { padding: 5px; }
+  #hero-controls-mount .mood-buttons button { padding-inline: 7px; font-size: 8px; gap: 4px; }
+  #hero-controls-mount .mood-buttons button svg { width: 14px; height: 14px; }
+  #hero-controls-mount .mood-settings { width: 31px; }
+}
+
+@media (max-width: 360px) {
+  #home .hero-inner { min-height: 860px; padding-top: 117px; }
+  #home .hero h1 { font-size: 59px; }
+  #home .hero-art { height: 328px; }
+  #hero-controls-mount .mood-buttons button { padding-inline: 5px; font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) { #home .launcher-hero-logo { animation: none; } }

@@ -1,0 +1,28 @@
+{
+  "name": "pepsproduction-studio-prototype",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4186 --strictPort",
+    "build": "vite build",
+    "build:production": "vite build --config vite.production.config.js",
+    "preview": "vite preview --host 127.0.0.1 --port 4186 --strictPort"
+  },
+  "dependencies": {
+    "@fontsource/barlow-condensed": "^5.2.0",
+    "@fontsource/prompt": "^5.2.0",
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
+    "@shadergradient/react": "2.4.20",
+    "camera-controls": "^3.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "three": "^0.180.0",
+    "three-stdlib": "^2.36.0"
+  },
+  "devDependencies": {
+    "postcss-prefix-selector": "^2.1.1",
+    "vite": "8.3.5"
+  }
+}

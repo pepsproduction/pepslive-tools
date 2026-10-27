@@ -45,6 +45,44 @@
 - วิธี deploy และเชื่อม endpoint อยู่ที่ `docs/click-analytics-setup.md`
 - ระบบไม่เก็บ secret ใน repo และใช้ GitHub Pages ได้เหมือนเดิม
 
+## PepsProduction Home + Cloudflare
+
+- `index.html` เป็นหน้าแนะนำ PepsProduction แยกหมวดผลงาน ถ่ายทอดสด วิดีโอ คิวงาน และช่องทางติดต่อ พร้อมปุ่มดาวน์โหลด PepsTool Launcher
+- แก้ข้อมูลเปิดเผยได้ใน `site-content.json` โดยเพิ่มรายการใน `portfolio`, `broadcasts`, `videos` และ `schedule`
+- หน้าเดิม เช่น คู่มือ Dock UI อุปกรณ์ Admin และ Dashboard ยังถูกคัดลอกไปเผยแพร่ด้วย
+- `src/worker.mjs` ให้ API สำหรับคิว Google Calendar ไลฟ์ YouTube ที่กำหนดเวลาไว้ และตัวนับผู้เข้าชมจริง; ไม่ต้องเพิ่ม D1, KV หรือ R2
+- ส่วนประสบการณ์ 3D ใหม่อยู่ใน `prototypes/studio-v2`; หน้าแรกใช้ชุด component เดียวกันสำหรับฉาก R3F, Shader Gradient, Liquid Glass JS และเดโมผู้กำกับภาพ โดยยังคงส่วนข้อมูลสดเดิม
+- รายการติดต่อถูก render จาก `site-content.json` ครบ 7 รายการ รวม LINE, Facebook ทั้งสองบัญชี, TikTok, YouTube และโทรศัพท์ทั้งสองเบอร์
+- Google Calendar ซิงก์ชื่องานถ่ายทอดสด/โปรดักชันอัตโนมัติ และเลือกเผยแพร่รายการอื่นด้วย `[เว็บ] ` ตาม `docs/GOOGLE-CALENDAR-WEB-SYNC.md`
+- ตัวนับผู้เข้าชมใช้ Google Apps Script/Sheet เดิม นับไม่ซ้ำต่อ browser ต่อวัน และเก็บยอดเดิมไว้
+- LINE QR กับโลโก้ Facebook, TikTok, LINE, YouTube และโทรศัพท์เก็บไว้ใน assets ของเว็บ ไม่เรียกภาพจากบริการภายนอก
+- ไลฟ์สาธารณะของ YouTube ซิงก์อัตโนมัติเมื่อมี `YOUTUBE_API_KEY` ใน Cloudflare Secret; ดู `docs/YOUTUBE-LIVE-AUTO-SYNC.md`
+- Worker `pepsproduction-home` ที่ใช้งานอยู่มี API routes แล้ว; ตรวจ production วันที่ 27 ต.ค. 2026 พบ Calendar, YouTube และ visitor read routes ตอบได้ และ secret ที่ต้องใช้ตั้งอยู่ใน Cloudflare โดยไม่เก็บค่าใน repo
+- Launcher v2.6.0 ใช้ไฟล์ที่เผยแพร่อยู่บน Google Drive เดิม เพราะไฟล์ติดตั้งใหญ่กว่าขีดจำกัด asset ต่อไฟล์ของ Cloudflare
+
+### Build / deploy
+
+```powershell
+npm ci --prefix prototypes/studio-v2
+node scripts/build-cloudflare-site.mjs
+npx wrangler deploy
+```
+
+คำสั่ง build จะสร้างไฟล์ฉากลง `assets/studio-v2/` ก่อนคัดลอกเว็บไป `dist/` ตัว build output ของฉากเป็นไฟล์ generated และไม่แก้ข้อมูลติดต่อ
+
+ก่อนเผยแพร่ตรวจด้วยคำสั่ง:
+
+```powershell
+node scripts/test-public-calendar.mjs
+node scripts/test-portfolio.mjs
+node scripts/test-worker-visitor.mjs
+node scripts/test-worker-analytics.mjs
+node scripts/test-worker-schedule.mjs
+node scripts/test-worker-youtube.mjs
+```
+
+Wrangler อ่านค่าจาก `wrangler.jsonc`; build script จะคัดลอกเฉพาะไฟล์เว็บที่กำหนดไว้ในรายการ ส่วน API key และ Secret ของ Calendar ต้องเพิ่มในหน้า Cloudflare เท่านั้น ห้ามใส่ใน source code หรือ `site-content.json`
+
 ## Changelog
 
 รายละเอียดการแก้ไขย้อนหลังแยกไว้ใน CHANGELOG.md เพื่อให้หน้า README อ่านง่ายขึ้น

@@ -14,7 +14,7 @@
     "provider": "appsScript",
     "goatCounterCode": "",
     "displayLabel": "ผู้เข้าชม",
-    "fallbackValue": "000605",
+    "fallbackValue": "001309",
     "note": "ใช้ Google Apps Script + Google Sheet เป็นตัวนับถาวรและกันนับซ้ำด้วย visit key",
     "hideWhenUnconfigured": false,
     "namespace": "pepsproduction-pepslive-tools",
