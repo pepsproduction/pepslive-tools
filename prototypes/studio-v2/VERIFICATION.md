@@ -29,7 +29,7 @@ Screenshots in ignored artifacts/: desktop-final.jpg and mobile-final.jpg. All s
 ### VERIFIED
 
 - Cloudflare Worker production deployment `2c337650-8408-4354-8829-991433df6350` serves CSS cache key `20261027-5`.
-- Current Worker version `849931c4-7875-4ffa-a396-20333dc980e8` deployed at 2026-10-27 05:07 UTC; live homepage and JS both serve the updated visitor-count fallback, and the read-only visitor endpoint responded successfully.
+- Current Worker version `b20fa9aa-cfd7-4e6b-a149-005f8c4cb2b5` deployed at 2026-10-27 05:10 UTC; live homepage and JS serve the updated visitor-count fallback, production `data.json` matches the latest Admin UI data, and the read-only visitor endpoint responded successfully.
 - At the actual browser viewport 2560×889, the Experience section, 1280×613 desk, 1002×501 3D viewport, side controls, and camera buttons fit without horizontal overflow; the complete demo card fits below the fixed header.
 - Production camera switching, score increment/reset, and initial score state worked. Browser console reported no errors.
 - Production `/api/schedule` returned connected; `/api/youtube-upcoming` returned connected with no currently scheduled public streams; `/api/youtube-portfolio` returned eight items; `/api/visitor` read-only returned a valid count.
@@ -40,6 +40,6 @@ Screenshots in ignored artifacts/: desktop-final.jpg and mobile-final.jpg. All s
 
 ### Still not verified
 
-- Production Cron after the current Worker deployment is not yet verified. The latest deployment was at 05:07 UTC on 2026-10-27, after the previous daily trigger; the next run is due at 18:00 UTC that day (01:00 Bangkok on 2026-10-28). Check the D1 snapshot timestamp or scheduled logs after that run.
+- Production Cron after the current Worker deployment is not yet verified. The latest deployment was at 05:10 UTC on 2026-10-27, after the previous daily trigger; the next run is due at 18:00 UTC that day (01:00 Bangkok on 2026-10-28). Check the D1 snapshot timestamp or scheduled logs after that run.
 - Sustained GPU performance on a physical phone, the OBS Browser Source runtime, forced WebGL context loss/recovery, and OS-level reduced-motion emulation require their respective runtime environments.
 - Completing an external Launcher download, sending a contact message/call, or logging into the private analytics dashboard was outside this verification.

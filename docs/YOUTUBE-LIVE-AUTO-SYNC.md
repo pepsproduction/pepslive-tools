@@ -48,4 +48,4 @@ npx wrangler deploy
 
 Cloudflare ยืนยันว่า trigger `0 18 * * *` ผูกกับ `pepsproduction-home` และไม่มี D1 migration ค้าง การเรียก `scheduled()` ใน Wrangler แบบ local สำเร็จเมื่อ 27 ต.ค. เวลา 05:03 UTC และได้ snapshot 8 รายการ ซึ่งยืนยันโค้ดกับ D1 local เท่านั้น ไม่ใช่ Cron production
 
-snapshot ใน D1 production ล่าสุดที่อ่านได้ยังเป็น `2026-10-27T03:59:59.788Z`; Worker รุ่นปัจจุบัน deploy เวลา 05:07 UTC หลัง snapshot นี้ รอบ Cron production ถัดไปคือ 27 ต.ค. เวลา 18:00 UTC (28 ต.ค. เวลา 01:00 ประเทศไทย) จึงยังต้องอ่าน timestamp ใน D1 หรือ scheduled log หลังรอบดังกล่าวเพื่อยืนยันการรันจริง
+snapshot ใน D1 production ล่าสุดที่อ่านได้ยังเป็น `2026-10-27T03:59:59.788Z`; Worker รุ่นปัจจุบัน deploy เวลา 05:10 UTC หลัง snapshot นี้ รอบ Cron production ถัดไปคือ 27 ต.ค. เวลา 18:00 UTC (28 ต.ค. เวลา 01:00 ประเทศไทย) จึงยังต้องอ่าน timestamp ใน D1 หรือ scheduled log หลังรอบดังกล่าวเพื่อยืนยันการรันจริง
