@@ -1,0 +1,8 @@
+/dist/
+/.peps-cloudflare-build
+/.pepsproduction-experience-build
+/.wrangler/
+/assets/studio-v2/
+/.dev.vars
+/.env
+/.env.*
